@@ -1,4 +1,4 @@
 class_name PlayerUiResource
 extends Resource
 
-@export_node_path("SubViewport") var viewports
+@export_node_path("SubViewport") var viewport

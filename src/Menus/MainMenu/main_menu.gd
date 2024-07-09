@@ -21,10 +21,12 @@ func _input(event: InputEvent) -> void:
 		var index: int = InputManager.get_device_index(event)
 		if index != main_device and not index in other_devices:
 			other_devices.append(index)
+			_update_devices_label()
 	if event.is_action("device_disconnect"):
 		var index: int = InputManager.get_device_index(event)
 		if index in other_devices:
 			other_devices.erase(index)
+			_update_devices_label()
 
 
 func _on_start_button_pressed() -> void:

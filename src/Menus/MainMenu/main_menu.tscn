@@ -10,6 +10,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_e5w8r")
+main_game_path_1p = "res://src/Game/MainGame/main_game_1p.tscn"
+main_game_path_2p = "res://src/Game/MainGame/main_game_2p.tscn"
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1

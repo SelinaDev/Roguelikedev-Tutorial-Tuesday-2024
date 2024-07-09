@@ -1,15 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://bqt3hjr2wmn58"]
+[gd_scene load_steps=7 format=3 uid="uid://bqt3hjr2wmn58"]
 
 [ext_resource type="Script" path="res://src/Game/MainGame/main_game.gd" id="1_o5ko0"]
 [ext_resource type="Script" path="res://src/Game/MainGame/player_ui_resource.gd" id="2_6elw4"]
+[ext_resource type="Script" path="res://src/Game/MainGame/scheduler.gd" id="3_tr50j"]
 
 [sub_resource type="Resource" id="Resource_l2irm"]
 script = ExtResource("2_6elw4")
-viewports = NodePath("HBoxContainer/SubViewportContainer/SubViewport_P1")
+viewport = NodePath("HBoxContainer/SubViewportContainer/SubViewport_P1")
 
 [sub_resource type="Resource" id="Resource_pdg5y"]
 script = ExtResource("2_6elw4")
-viewports = NodePath("HBoxContainer/SubViewportContainer2/SubViewport_P2")
+viewport = NodePath("HBoxContainer/SubViewportContainer2/SubViewport_P2")
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_deoid"]
 color = Color(1, 1, 1, 1)
@@ -25,6 +26,9 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_o5ko0")
 player_ui = Array[ExtResource("2_6elw4")]([SubResource("Resource_l2irm"), SubResource("Resource_pdg5y")])
+
+[node name="Scheduler" type="Node" parent="."]
+script = ExtResource("3_tr50j")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1

@@ -10,6 +10,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_1vlk1")
+main_menu_path = "res://src/Menus/MainMenu/main_menu.tscn"
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1

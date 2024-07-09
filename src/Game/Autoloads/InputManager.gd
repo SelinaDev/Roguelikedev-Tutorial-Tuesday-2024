@@ -5,7 +5,7 @@ var _input_handles: Dictionary = {}
 
 # Normally, Keyboard events are coded as device 0, but gamepads also start from 0.
 # This function transforms the device to a distinguishable index.
-static func get_device_index(event: InputEvent) -> int:
+func get_device_index(event: InputEvent) -> int:
 	if event is InputEventKey:
 		return -1
 	return event.device
