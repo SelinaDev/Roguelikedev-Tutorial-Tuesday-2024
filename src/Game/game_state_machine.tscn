@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dae05u6ibur8d"]
+
+[ext_resource type="Script" path="res://src/Game/GameStateMachine.gd" id="1_1am7m"]
+
+[node name="GameStateMachine" type="Node"]
+script = ExtResource("1_1am7m")
+initial_state = "res://src/Menus/DeviceSelectionMenu/device_selection_menu.tscn"
