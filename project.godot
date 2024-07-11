@@ -20,6 +20,10 @@ config/icon="res://icon.svg"
 InputManager="*res://src/Game/Autoloads/InputManager.gd"
 WorldManager="*res://src/Game/Autoloads/WorldManager.gd"
 
+[global]
+
+cell_size=Vector2i(12, 12)
+
 [input]
 
 device_join={
