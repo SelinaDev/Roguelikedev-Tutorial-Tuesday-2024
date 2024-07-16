@@ -33,7 +33,7 @@ func enter_entity(entity: Entity) -> void:
 	_enter_entity(entity)
 
 
-func _enter_entity(entity: Entity) -> void:
+func _enter_entity(_entity: Entity) -> void:
 	pass
 
 

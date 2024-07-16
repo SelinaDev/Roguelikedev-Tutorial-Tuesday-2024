@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Tile" load_steps=4 format=3 uid="uid://bgb3vhglbrqmx"]
+
+[ext_resource type="Script" path="res://src/Map/tile.gd" id="1_238no"]
+[ext_resource type="Texture2D" uid="uid://cl5u3naxm2fy" path="res://assets/urizen_onebit_tileset__v1d0.png" id="2_1f0ha"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iqiid"]
+atlas = ExtResource("2_1f0ha")
+region = Rect2(14, 27, 12, 12)
+
+[resource]
+script = ExtResource("1_238no")
+texture = SubResource("AtlasTexture_iqiid")
+blocks_movement = true
+blocks_sight = true

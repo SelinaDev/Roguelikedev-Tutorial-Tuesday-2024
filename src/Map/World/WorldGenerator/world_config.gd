@@ -1,0 +1,2 @@
+class_name WorldConfig
+extends Resource

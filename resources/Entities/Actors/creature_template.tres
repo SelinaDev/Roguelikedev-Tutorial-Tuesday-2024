@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="EntityTemplate" load_steps=2 format=3 uid="uid://cr15gc6rayc4v"]
+
+[ext_resource type="Script" path="res://src/Entity/entity_template.gd" id="1_qcbkr"]
+
+[resource]
+script = ExtResource("1_qcbkr")
+templates = Array[ExtResource("1_qcbkr")]([])
+template_components = Array[Resource("res://src/Entity/Component/component.gd")]([])

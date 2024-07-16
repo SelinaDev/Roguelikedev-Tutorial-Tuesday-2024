@@ -11,7 +11,7 @@ extends Component
 			_parent_entity.process_message(message)
 
 
-func _enter_entity(entity: Entity) -> void:
+func _enter_entity(_entity: Entity) -> void:
 	position = position
 	var message := Message.new("render")
 	_parent_entity.process_message(message)
@@ -20,6 +20,14 @@ func _enter_entity(entity: Entity) -> void:
 func process_message_precalculate(message: Message) -> void:
 	match message.type:
 		"render", "init_camera":
+			message.data["position"] = position
+		"move":
+			var destination: Vector2i = position + message.data.get("offset", Vector2i.ZERO)
+			var destination_tile: Tile = _parent_entity.map_data.tiles.get(destination)
+			if destination_tile == null or destination_tile.blocks_movement:
+				destination = position
+			message.data["destination"] = destination
+		"set_camera_state":
 			message.data["position"] = position
 
 

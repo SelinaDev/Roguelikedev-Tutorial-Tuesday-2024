@@ -1,7 +1,7 @@
 class_name PlayerComponent
 extends Component
 
-@export var device: int
+var player_info: PlayerInfo
 
 
 func get_component_type() -> Type:
