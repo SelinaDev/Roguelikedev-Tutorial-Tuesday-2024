@@ -6,7 +6,7 @@ extends GameState
 
 var entities: Array[Entity] = []
 var _player_info: Array[PlayerInfo] = []
-# TODO: Enter function that assigns players to their viewports
+
 
 func enter(data: Dictionary = {}) -> void:
 	_new_game(data)

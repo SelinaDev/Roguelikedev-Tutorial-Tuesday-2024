@@ -117,10 +117,12 @@ func _generate_dungeon(map_config: MapConfig) -> Room:
 		if not found_direction:
 			continue
 		
-		var room_offsets: Array[Vector2i] = new_room_prototype.get_outer_tiles(direction * -1, FLOOR)
+		var new_room_prototype_rotated := new_room_prototype.duplicate()
+		new_room_prototype_rotated.rotate(_rng.randi())
+		var room_offsets: Array[Vector2i] = new_room_prototype_rotated.get_outer_tiles(direction * -1, FLOOR)
 		var room_offset: Vector2i = room_offsets[_rng.randi() % room_offsets.size()]
 		var room_position := candidate + direction - room_offset
-		var new_room := _duplicate_room_at(new_room_prototype, room_position)
+		var new_room := _duplicate_room_at(new_room_prototype_rotated, room_position)
 		
 		if not _does_room_fit(new_room):
 			continue
@@ -136,6 +138,11 @@ func _generate_dungeon(map_config: MapConfig) -> Room:
 			var position := Vector2i(x, y)
 			if _dungeon.get_tile(position) == UNUSED:
 				_dungeon.set_tile(position, WALL)
+	
+	_add_extra_doors()
+	
+	while _remove_dead_ends():
+		pass
 	
 	return _dungeon
 
@@ -173,6 +180,7 @@ func _make_border(room: Room) -> void:
 					continue
 				if _dungeon.get_tile(neighbor_position) == UNUSED:
 					_dungeon.set_tile(neighbor_position, WALL)
+
 
 func _check_room(room: Room) -> bool:
 	for x: int in room.size.x:
@@ -219,7 +227,7 @@ func _load_room(path: String) -> Room:
 			proto_size.x = line.length()
 		for i: int in line.length():
 			var tile: int = -1
-			match line[i]:
+			match line.substr(i, 1):
 				".": tile = FLOOR
 				"#": tile = WALL
 				"+": tile = DOOR
@@ -248,3 +256,33 @@ func _duplicate_room_at(room: Room, position: Vector2i) -> Room:
 	var new_room = room.duplicate()
 	new_room.position = position
 	return new_room
+
+
+func _remove_dead_ends() -> bool:
+	var removed_corridors := false
+	for x: int in _dungeon.size.x:
+		for y: int in _dungeon.size.y:
+			var tile_position := Vector2i(x, y)
+			if _dungeon.get_tile(tile_position) != FLOOR:
+				continue
+			var neighbors := _dungeon.get_neighbors(tile_position, WALL)
+			if neighbors.reduce(func(accum: int, tile: int) -> int: return accum + int(tile == WALL), 0) == 3:
+				_dungeon.set_tile(tile_position, WALL)
+				removed_corridors = true
+	return removed_corridors
+
+
+func _add_extra_doors() -> void:
+	for x: int in _dungeon.size.x:
+		for y: int in _dungeon.size.y:
+			var tile_position := Vector2i(x, y)
+			if _dungeon.get_tile(tile_position) != WALL:
+				continue
+			var neighbors := _dungeon.get_neighbors(tile_position, WALL, false)
+			var num_walls: int = neighbors.reduce(func(accum: int, tile: int) -> int: return accum + int(tile == WALL), 0)
+			if num_walls != 2:
+				continue
+			var opposing_horizontally := neighbors[0] == WALL and neighbors[4] == WALL
+			var opposing_vertically := neighbors[2] == WALL and neighbors[6] == WALL
+			if opposing_horizontally or opposing_vertically:
+				_dungeon.set_tile(tile_position, FLOOR)

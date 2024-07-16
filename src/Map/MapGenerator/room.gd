@@ -1,6 +1,18 @@
 class_name Room
 extends Resource
 
+const CARDINAL_OFFSETS: Array[Vector2i] = [Vector2i.RIGHT, Vector2i.UP, Vector2i.LEFT, Vector2i.DOWN]
+const ALL_OFFSETS: Array[Vector2i] = [
+	Vector2i.RIGHT, 
+	Vector2i.RIGHT + Vector2i.UP,
+	Vector2i.UP,
+	Vector2i.UP * Vector2i.LEFT,
+	Vector2i.LEFT,
+	Vector2i.LEFT + Vector2i.DOWN,
+	Vector2i.DOWN,
+	Vector2i.DOWN + Vector2i.RIGHT
+]
+
 @export var position: Vector2i
 @export var size: Vector2i
 @export var data: Array[int]
@@ -30,10 +42,11 @@ func is_in_bounds(room_position: Vector2i) -> bool:
 	return room_position.x >= 0 and room_position.x < size.x and room_position.y >= 0 and room_position.y < size.y
 
 
-func get_neighbors(room_position: Vector2i, default: int) -> Array[int]:
+func get_neighbors(room_position: Vector2i, default: int, cardinal_only: bool = true) -> Array[int]:
 	var neighbors: Array[int] = []
 	
-	for offset: Vector2i in [Vector2i.RIGHT, Vector2i.UP, Vector2i.LEFT, Vector2i.DOWN]:
+	var offsets: Array[Vector2i] = CARDINAL_OFFSETS if cardinal_only else ALL_OFFSETS
+	for offset: Vector2i in offsets:
 		var neighbor_position := room_position + offset
 		if is_in_bounds(neighbor_position):
 			neighbors.append(get_tile(neighbor_position))
@@ -72,3 +85,47 @@ func get_outer_tiles(direction: Vector2i, tile_type: int) -> Array[Vector2i]:
 				outer_tiles.append(tile_pos)
 				
 	return outer_tiles
+
+
+func rotate(cw_rotations: int) -> void:
+	cw_rotations %= 4
+	match cw_rotations:
+		1: 
+			_transpose()
+			_reverse_columns()
+		2:
+			_reverse_columns()
+			_reverse_rows()
+		3:
+			_transpose()
+			_reverse_rows()
+
+
+func _transpose() -> void:
+	var data_transposed := {}
+	for x: int in size.x:
+		for y: int in size.y:
+			data_transposed[Vector2i(y, x)] = get_tile(Vector2i(x, y))
+	size = Vector2i(size.y, size.x)
+	for x: int in size.x:
+		for y: int in size.y:
+			var p := Vector2i(x, y)
+			set_tile(p, data_transposed[p])
+
+
+func _reverse_columns() -> void:
+	for x: int in size.x:
+		var new_column: Array[int] = []
+		for y: int in size.y:
+			new_column.append(get_tile(Vector2i(x, size.y - 1 - y)))
+		for y: int in size.y:
+			set_tile(Vector2i(x, y), new_column[y])
+
+
+func _reverse_rows() -> void:
+	for y: int in size.y:
+		var new_row: Array[int] = []
+		for x: int in size.x:
+			new_row.append(get_tile(Vector2i(size.x - 1 - x, y)))
+		for x: int in size.x:
+			set_tile(Vector2i(x, y), new_row[x])
