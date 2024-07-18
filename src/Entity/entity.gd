@@ -44,6 +44,12 @@ func get_component(component_type: Component.Type) -> Component:
 	return _components.get(component_type, null)
 
 
+func place_at(position: Vector2i) -> void:
+	var position_component := PositionComponent.new()
+	enter_component(position_component)
+	position_component.position = position
+
+
 func process_message(message: Message) -> void:
 	_message_queue.append(message)
 	if _message_queue.size() > 1:

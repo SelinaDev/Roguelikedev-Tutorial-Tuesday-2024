@@ -12,14 +12,12 @@ extends Component
 
 
 func _enter_entity(_entity: Entity) -> void:
-	position = position
-	var message := Message.new("render")
-	_parent_entity.process_message(message)
+	pass
 
 
 func process_message_precalculate(message: Message) -> void:
 	match message.type:
-		"render", "init_camera":
+		"render", "fov_update":
 			message.data["position"] = position
 		"move":
 			var destination: Vector2i = position + message.data.get("offset", Vector2i.ZERO)

@@ -6,8 +6,11 @@ enum Type {
 	Actor,
 	Camera,
 	Drawable,
+	Fov,
+	MovementBlocker,
 	Player,
-	Position
+	Position,
+	VisibilityBlocker
 }
 
 var _parent_entity: Entity:

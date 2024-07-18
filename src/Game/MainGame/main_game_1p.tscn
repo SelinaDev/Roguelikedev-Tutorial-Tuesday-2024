@@ -32,5 +32,6 @@ stretch = true
 
 [node name="SubViewport_P1" type="SubViewport" parent="SubViewportContainer"]
 handle_input_locally = false
+canvas_item_default_texture_filter = 0
 size = Vector2i(1152, 648)
 render_target_update_mode = 4

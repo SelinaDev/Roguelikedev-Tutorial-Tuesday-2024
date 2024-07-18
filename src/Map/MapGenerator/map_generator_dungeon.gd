@@ -39,9 +39,7 @@ func _generate_map(map_config: MapConfig, id: int, player_info: Array[PlayerInfo
 		map_data.entities.append(player_entity)
 		player_entity.map_data = map_data
 		var start_position := player_start_pos + Vector2i(player.player_index, 0)
-		var position_component := PositionComponent.new()
-		player_entity.enter_component(position_component)
-		position_component.position = start_position
+		player_entity.place_at(start_position)
 		var actor_component: PlayerActorComponent = player_entity.get_component(Component.Type.Actor)
 		actor_component.set_device(player.device)
 		var player_camera := PlayerCamera.new(player)
@@ -51,6 +49,7 @@ func _generate_map(map_config: MapConfig, id: int, player_info: Array[PlayerInfo
 				{"camera_state": player_camera.obtain_state()}
 			)
 		)
+		player_entity.process_message(Message.new("fov_update"))
 		
 	return map_data
 
@@ -149,8 +148,8 @@ func _generate_dungeon(map_config: MapConfig) -> Room:
 
 func _place_first_room(prototype: Room) -> void:
 	var first_room_pos := Vector2i(
-		_rng.randi_range(0, _dungeon.size.x - prototype.size.x),
-		_rng.randi_range(0, _dungeon.size.y - prototype.size.y)
+		_rng.randi_range(1, _dungeon.size.x - prototype.size.x - 1),
+		_rng.randi_range(1, _dungeon.size.y - prototype.size.y - 1)
 	)
 	var first_room := _duplicate_room_at(prototype, first_room_pos)
 	_place_room(first_room, true)
@@ -174,7 +173,7 @@ func _make_border(room: Room) -> void:
 			var target_position := room.position + room_position
 			if room.get_tile(room_position) == UNUSED:
 				continue
-			for offset: Vector2i in [Vector2i.RIGHT, Vector2i.UP, Vector2i.LEFT, Vector2i.DOWN]:
+			for offset: Vector2i in Globals.ALL_OFFSETS:
 				var neighbor_position := target_position + offset
 				if not _dungeon.is_in_bounds(neighbor_position):
 					continue
@@ -193,10 +192,10 @@ func _check_room(room: Room) -> bool:
 
 
 func _does_room_fit(room: Room) -> bool:
-	if room.position.x < 0 or room.position.y < 0:
+	if room.position.x < 1 or room.position.y < 1:
 		return false
 	var room_end := room.position + room.size
-	if room_end.x >= _dungeon.size.x or room_end.y >= _dungeon.size.y:
+	if room_end.x + 1 >= _dungeon.size.x or room_end.y + 1>= _dungeon.size.y:
 		return false
 	return true
 

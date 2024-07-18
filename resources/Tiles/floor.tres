@@ -12,3 +12,5 @@ script = ExtResource("1_einqy")
 texture = SubResource("AtlasTexture_i0ov6")
 blocks_movement = false
 blocks_sight = false
+is_explored = false
+is_in_view = false

@@ -8,6 +8,40 @@ extends Resource
 @export var size: Vector2i
 @export var region_name: String = ""
 
+var total_fov: Dictionary = {}
+var fovs: Dictionary = {}
+
+
+func set_fov(index: int, new_fov: Dictionary) -> void:
+	fovs[index] = new_fov
+	_recompute_total_fov()
+
+
+func clear_fov(index: int) -> void:
+	fovs.erase(index)
+	_recompute_total_fov()
+
+
+func _recompute_total_fov() -> void:
+	var old_total_fov: Dictionary = total_fov
+	total_fov = {}
+	for fov: Dictionary in fovs.values():
+		total_fov.merge(fov)
+	var disabled_tiles: Array = old_total_fov.keys().filter(
+		func(position: Vector2i) -> bool: return not position in total_fov
+	)
+	var enabled_tiles: Array = total_fov.keys().filter(
+		func(position: Vector2i) -> bool: return not position in old_total_fov
+	)
+	for disabled_tile: Vector2i in disabled_tiles:
+		var tile: Tile = tiles.get(disabled_tile)
+		if tile:
+			tile.is_in_view = false
+	for enabled_tile: Vector2i in enabled_tiles:
+		var tile: Tile = tiles.get(enabled_tile)
+		if tile:
+			tile.is_in_view = true
+
 
 func _render_tiles() -> void:
 	assert(canvas.is_valid())

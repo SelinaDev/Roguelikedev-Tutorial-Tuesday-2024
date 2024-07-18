@@ -1,18 +1,6 @@
 class_name Room
 extends Resource
 
-const CARDINAL_OFFSETS: Array[Vector2i] = [Vector2i.RIGHT, Vector2i.UP, Vector2i.LEFT, Vector2i.DOWN]
-const ALL_OFFSETS: Array[Vector2i] = [
-	Vector2i.RIGHT, 
-	Vector2i.RIGHT + Vector2i.UP,
-	Vector2i.UP,
-	Vector2i.UP * Vector2i.LEFT,
-	Vector2i.LEFT,
-	Vector2i.LEFT + Vector2i.DOWN,
-	Vector2i.DOWN,
-	Vector2i.DOWN + Vector2i.RIGHT
-]
-
 @export var position: Vector2i
 @export var size: Vector2i
 @export var data: Array[int]
@@ -45,7 +33,7 @@ func is_in_bounds(room_position: Vector2i) -> bool:
 func get_neighbors(room_position: Vector2i, default: int, cardinal_only: bool = true) -> Array[int]:
 	var neighbors: Array[int] = []
 	
-	var offsets: Array[Vector2i] = CARDINAL_OFFSETS if cardinal_only else ALL_OFFSETS
+	var offsets: Array[Vector2i] = Globals.CARDINAL_OFFSETS if cardinal_only else Globals.ALL_OFFSETS
 	for offset: Vector2i in offsets:
 		var neighbor_position := room_position + offset
 		if is_in_bounds(neighbor_position):

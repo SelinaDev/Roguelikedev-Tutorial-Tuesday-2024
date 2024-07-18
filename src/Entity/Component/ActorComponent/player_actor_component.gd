@@ -13,6 +13,11 @@ func _on_event(event: InputEvent) -> void:
 	if event.is_echo():
 		return
 	
+	if event.is_action_pressed("zoom_in"):
+		_parent_entity.process_message(Message.new("zoom_in"))
+	elif event.is_action_pressed("zoom_out"):
+		_parent_entity.process_message(Message.new("zoom_out"))
+	
 	if event.is_action_pressed("move_left"):
 		_queued_action = MovementAction.new(_parent_entity, Vector2i.LEFT)
 	elif event.is_action_pressed("move_right"):

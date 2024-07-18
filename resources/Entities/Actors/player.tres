@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Entity" load_steps=13 format=3 uid="uid://08un78dx64fi"]
+[gd_resource type="Resource" script_class="Entity" load_steps=15 format=3 uid="uid://08un78dx64fi"]
 
 [ext_resource type="Script" path="res://src/Entity/entity.gd" id="1_ge48h"]
 [ext_resource type="Script" path="res://src/Entity/Component/player_component.gd" id="1_paibh"]
@@ -7,6 +7,7 @@
 [ext_resource type="Resource" uid="uid://cr15gc6rayc4v" path="res://resources/Entities/Actors/creature_template.tres" id="3_kx7dw"]
 [ext_resource type="Script" path="res://src/Entity/Component/ActorComponent/player_actor_component.gd" id="4_8ra2p"]
 [ext_resource type="Script" path="res://src/Entity/Component/camera_component.gd" id="5_1sppd"]
+[ext_resource type="Script" path="res://src/Entity/Component/fov_component.gd" id="6_mutce"]
 
 [sub_resource type="Resource" id="Resource_yntj7"]
 script = ExtResource("1_paibh")
@@ -26,7 +27,11 @@ script = ExtResource("4_8ra2p")
 [sub_resource type="Resource" id="Resource_bihn8"]
 script = ExtResource("5_1sppd")
 
+[sub_resource type="Resource" id="Resource_n76u1"]
+script = ExtResource("6_mutce")
+base_radius = 8
+
 [resource]
 script = ExtResource("1_ge48h")
 templates = Array[Resource("res://src/Entity/entity_template.gd")]([ExtResource("3_kx7dw")])
-initial_components = Array[Resource("res://src/Entity/Component/component.gd")]([SubResource("Resource_yntj7"), SubResource("Resource_qlvlf"), SubResource("Resource_merbi"), SubResource("Resource_bihn8")])
+initial_components = Array[Resource("res://src/Entity/Component/component.gd")]([SubResource("Resource_yntj7"), SubResource("Resource_qlvlf"), SubResource("Resource_merbi"), SubResource("Resource_bihn8"), SubResource("Resource_n76u1")])
