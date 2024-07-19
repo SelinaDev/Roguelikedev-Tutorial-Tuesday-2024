@@ -54,6 +54,10 @@ func get_tiles(tile_type: int) -> Array[Vector2i]:
 	return out
 
 
+func get_tiles_global(tile_type: int) -> Array[Vector2i]:
+	return Array(get_tiles(tile_type).map(func(p: Vector2i) -> Vector2i: return p + position), TYPE_VECTOR2I, "", null)
+
+
 func get_outer_tiles(direction: Vector2i, tile_type: int) -> Array[Vector2i]:
 	var outer_tiles: Array[Vector2i] = []
 	

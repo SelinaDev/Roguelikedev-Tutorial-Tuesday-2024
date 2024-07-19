@@ -1,0 +1,45 @@
+[gd_resource type="Resource" script_class="Entity" load_steps=15 format=3 uid="uid://t85rri7mf6hh"]
+
+[ext_resource type="Script" path="res://src/Entity/Component/door_component.gd" id="1_5hitb"]
+[ext_resource type="Script" path="res://src/Entity/entity.gd" id="1_ouvr3"]
+[ext_resource type="Texture2D" uid="uid://cl5u3naxm2fy" path="res://assets/urizen_onebit_tileset__v1d0.png" id="2_eht5y"]
+[ext_resource type="Script" path="res://src/Entity/Component/movement_blocker_component.gd" id="3_k4se1"]
+[ext_resource type="Script" path="res://src/Entity/Component/drawable_component.gd" id="4_02wwb"]
+[ext_resource type="Script" path="res://src/Entity/Component/rememberable_component.gd" id="5_vlfww"]
+[ext_resource type="Script" path="res://src/Entity/Component/visibility_blocker_component.gd" id="6_bos4u"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7btkw"]
+atlas = ExtResource("2_eht5y")
+region = Rect2(53, 14, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vtg0e"]
+atlas = ExtResource("2_eht5y")
+region = Rect2(14, 14, 12, 12)
+
+[sub_resource type="Resource" id="Resource_ku177"]
+script = ExtResource("1_5hitb")
+texture_open = SubResource("AtlasTexture_vtg0e")
+texture_closed = SubResource("AtlasTexture_7btkw")
+transparent = false
+open = false
+
+[sub_resource type="Resource" id="Resource_45j3k"]
+script = ExtResource("3_k4se1")
+
+[sub_resource type="Resource" id="Resource_bf7hl"]
+script = ExtResource("4_02wwb")
+texture = SubResource("AtlasTexture_7btkw")
+render_order = 0
+
+[sub_resource type="Resource" id="Resource_oiumw"]
+script = ExtResource("5_vlfww")
+not_in_view_color = Color(0, 0, 0.501961, 1)
+
+[sub_resource type="Resource" id="Resource_0yx4u"]
+script = ExtResource("6_bos4u")
+
+[resource]
+script = ExtResource("1_ouvr3")
+name = "Door"
+templates = Array[Resource("res://src/Entity/entity_template.gd")]([])
+initial_components = Array[Resource("res://src/Entity/Component/component.gd")]([SubResource("Resource_ku177"), SubResource("Resource_45j3k"), SubResource("Resource_bf7hl"), SubResource("Resource_oiumw"), SubResource("Resource_0yx4u")])

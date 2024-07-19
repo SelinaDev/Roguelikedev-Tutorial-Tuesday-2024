@@ -33,5 +33,6 @@ base_radius = 8
 
 [resource]
 script = ExtResource("1_ge48h")
+name = "Player"
 templates = Array[Resource("res://src/Entity/entity_template.gd")]([ExtResource("3_kx7dw")])
 initial_components = Array[Resource("res://src/Entity/Component/component.gd")]([SubResource("Resource_yntj7"), SubResource("Resource_qlvlf"), SubResource("Resource_merbi"), SubResource("Resource_bihn8"), SubResource("Resource_n76u1")])

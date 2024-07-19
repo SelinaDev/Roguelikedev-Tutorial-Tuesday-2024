@@ -14,12 +14,21 @@ var fovs: Dictionary = {}
 
 func set_fov(index: int, new_fov: Dictionary) -> void:
 	fovs[index] = new_fov
-	_recompute_total_fov()
+	_update_total_fov()
 
 
 func clear_fov(index: int) -> void:
 	fovs.erase(index)
+	_update_total_fov()
+
+
+func _update_total_fov() -> void:
 	_recompute_total_fov()
+	for drawable_entity: Entity in get_entities([Component.Type.Drawable, Component.Type.Position]):
+		drawable_entity.process_message(Message.new(
+			"fov_updated",
+			{"fov": total_fov}
+		))
 
 
 func _recompute_total_fov() -> void:
@@ -73,6 +82,21 @@ func get_entities(types: Array[Component.Type]) -> Array[Entity]:
 			func(type: Component.Type) -> bool: return  entity.has_component(type)
 		)
 	)
+
+
+func get_blocking_entity_at(position: Vector2i) -> Entity:
+	var entities := get_entities([Component.Type.Position, Component.Type.MovementBlocker]).filter(
+		func(entity: Entity) -> bool:
+			return (entity.get_component(Component.Type.Position) as PositionComponent).position == position
+	)
+	if entities.is_empty():
+		return null
+	return entities.front()
+
+
+func enter_entity(entity: Entity) -> void:
+	entities.append(entity)
+	entity.map_data = self
 
 
 func activate() -> void:

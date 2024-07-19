@@ -1,12 +1,5 @@
 class_name MovementAction
-extends Action
-
-var offset: Vector2i
-
-
-func _init(performing_entity: Entity, offset: Vector2i) -> void:
-	super(performing_entity)
-	self.offset = offset
+extends ActionWithDirection
 
 
 func perform() -> Result:

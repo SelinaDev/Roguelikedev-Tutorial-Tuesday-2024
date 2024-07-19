@@ -1,6 +1,7 @@
 class_name Entity
 extends Resource
 
+@export var name: String
 @export var templates: Array[EntityTemplate]
 @export var initial_components: Array[Component]
 
@@ -44,10 +45,17 @@ func get_component(component_type: Component.Type) -> Component:
 	return _components.get(component_type, null)
 
 
-func place_at(position: Vector2i) -> void:
+func remove_component(component_type: Component.Type) -> Component:
+	var component := get_component(component_type)
+	_components.erase(component_type)
+	return component
+
+
+func place_at(position: Vector2i) -> Entity:
 	var position_component := PositionComponent.new()
 	enter_component(position_component)
 	position_component.position = position
+	return self
 
 
 func process_message(message: Message) -> void:

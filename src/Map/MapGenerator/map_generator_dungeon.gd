@@ -25,6 +25,8 @@ func _generate_map(map_config: MapConfig, id: int, player_info: Array[PlayerInfo
 	_generate_dungeon(map_config)
 	_dungeon_to_map(map_data)
 	
+	_place_entities(map_data, map_config)
+	
 	var player_start_pos: Vector2i
 	var first_room: Room = _rooms.front()
 	var first_room_floor := first_room.get_tiles(FLOOR)
@@ -35,8 +37,7 @@ func _generate_map(map_config: MapConfig, id: int, player_info: Array[PlayerInfo
 		var player_component: PlayerComponent = player_entity.get_component(Component.Type.Player)
 		player_component.player_info = player
 		player.player_entity = player_entity
-		map_data.entities.append(player_entity)
-		player_entity.map_data = map_data
+		map_data.enter_entity(player_entity)
 		var start_position := player_start_pos + Vector2i(player.player_index, 0)
 		player_entity.place_at(start_position)
 		var actor_component: PlayerActorComponent = player_entity.get_component(Component.Type.Actor)
@@ -58,10 +59,15 @@ func _dungeon_to_map(map_data: MapData) -> void:
 		for y: int in _dungeon.size.y:
 			var tile_position := Vector2i(x, y)
 			var tile: Tile
-			if _dungeon.get_tile(tile_position) == FLOOR:
-				tile = TILE_DB.entries.get("floor").duplicate()
-			else:
-				tile = TILE_DB.entries.get("wall").duplicate()
+			match _dungeon.get_tile(tile_position):
+				DOOR:
+					tile = TILE_DB.entries.get("floor").duplicate()
+					map_data.enter_entity(ENTITY_DB.entries.get("door").reify().place_at(tile_position))
+				WALL:
+					tile = TILE_DB.entries.get("wall").duplicate()
+				_:
+					tile = TILE_DB.entries.get("floor").duplicate()
+			
 			map_data.tiles[tile_position] = tile
 
 
@@ -80,6 +86,7 @@ func _generate_dungeon(map_config: MapConfig) -> Room:
 	var tries := 0
 	
 	while _rooms.size() <= map_config.max_rooms and tries <= map_config.max_tries:
+		tries += 1
 		var use_corridor := _rng.randf() <= CORRIDOR_CHANCE
 		
 		candidates = []
@@ -123,7 +130,7 @@ func _generate_dungeon(map_config: MapConfig) -> Room:
 			continue
 		
 		_place_room(new_room, not use_corridor)
-		_dungeon.set_tile(candidate, FLOOR)
+		_dungeon.set_tile(candidate, DOOR)
 	
 	for x: int in _dungeon.size.x:
 		for y: int in _dungeon.size.y:
@@ -131,10 +138,7 @@ func _generate_dungeon(map_config: MapConfig) -> Room:
 			if _dungeon.get_tile(position) == UNUSED:
 				_dungeon.set_tile(position, WALL)
 	
-	_add_extra_doors()
-	
-	while _remove_dead_ends():
-		pass
+	_remove_dead_ends()
 	
 	return _dungeon
 
@@ -250,19 +254,27 @@ func _duplicate_room_at(room: Room, position: Vector2i) -> Room:
 	return new_room
 
 
-func _remove_dead_ends() -> bool:
-	var removed_corridors := false
+func _is_dead_end(tile_position: Vector2i) -> bool:
+	if not _dungeon.get_tile(tile_position) in [FLOOR, DOOR]:
+		return false
+	var neighbors := _dungeon.get_neighbors(tile_position, WALL)
+	return neighbors.reduce(func(accum: int, tile: int) -> int: return accum + int(tile == WALL), 0) == 3
+
+
+func _remove_dead_end(tile_position: Vector2i) -> void:
+	_dungeon.set_tile(tile_position, WALL)
+	for offset: Vector2i in Globals.CARDINAL_OFFSETS:
+		var neighbor := tile_position + offset
+		if _is_dead_end(neighbor):
+			_remove_dead_end(neighbor)
+
+
+func _remove_dead_ends() -> void:
 	for x: int in _dungeon.size.x:
 		for y: int in _dungeon.size.y:
 			var tile_position := Vector2i(x, y)
-			if _dungeon.get_tile(tile_position) != FLOOR:
-				continue
-			var neighbors := _dungeon.get_neighbors(tile_position, WALL)
-			if neighbors.reduce(func(accum: int, tile: int) -> int: return accum + int(tile == WALL), 0) == 3:
-				_dungeon.set_tile(tile_position, WALL)
-				removed_corridors = true
-	return removed_corridors
-
+			if _is_dead_end(tile_position):
+				_remove_dead_end(tile_position)
 
 func _add_extra_doors() -> void:
 	for x: int in _dungeon.size.x:
@@ -278,3 +290,20 @@ func _add_extra_doors() -> void:
 			var opposing_vertically := neighbors[2] == WALL and neighbors[6] == WALL
 			if opposing_horizontally or opposing_vertically:
 				_dungeon.set_tile(tile_position, FLOOR)
+
+
+func _place_entities(map_data: MapData, map_config: MapConfig) -> void:
+	for room: Room in _rooms.slice(1):
+		_place_entities_in_room(map_data, map_config, room)
+
+
+func _place_entities_in_room(map_data: MapData, map_config: MapConfig, room: Room) -> void:
+	var num_enemies: int = _rng.randi() % map_config.max_enemies_per_room + 1
+	var room_tiles := room.get_tiles_global(FLOOR)
+	
+	for _i in num_enemies:
+		var enemy_position: Vector2i = room_tiles.pop_at(_rng.randi() % room_tiles.size())
+		var enemy_type = "orc" if _rng.randf() < 0.5 else "goblin"
+		var enemy: Entity = ENTITY_DB.entries.get(enemy_type).reify()
+		enemy.place_at(enemy_position)
+		map_data.enter_entity(enemy)

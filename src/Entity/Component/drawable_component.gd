@@ -26,7 +26,7 @@ func before_exit() -> void:
 		RenderingServer.canvas_item_clear(_canvas_item)
 
 
-func process_message_precalculate(message: Message) -> void:
+func process_message_execute(message: Message) -> void:
 	match message.type:
 		"visual_update":
 			texture = message.data.get("texture", texture)
@@ -44,6 +44,28 @@ func process_message_precalculate(message: Message) -> void:
 		"set_canvas":
 			assert(message.data.has("canvas"))
 			set_target_canvas(message.data.get("canvas"))
+		"fov_updated":
+			assert(message.data.has("fov"))
+			assert(message.data.has("position"))
+			var can_remember: bool = false
+			var remember_color: Color
+			if message.data.has("remember"):
+				can_remember = true
+				remember_color = message.data.get("remember")
+			var visible: bool = message.data.get("fov").get(message.data.get("position"), false)
+			var explored: bool = (_parent_entity.map_data.tiles[message.data.get("position")] as Tile).is_explored
+			_set_visibility(visible, explored, can_remember, remember_color)
+
+
+func _set_visibility(visible: bool, explored: bool, can_remember: bool, remember_color: Color) -> void:
+	if not _canvas_item.is_valid():
+		return
+	if not can_remember:
+		RenderingServer.canvas_item_set_visible(_canvas_item, visible)
+	else:
+		RenderingServer.canvas_item_set_visible(_canvas_item, visible and explored)
+		var modulate_color: Color = Color.WHITE if visible else remember_color
+		RenderingServer.canvas_item_set_modulate(_canvas_item, modulate_color)
 
 
 func _configure_position(position: Vector2i) -> void:

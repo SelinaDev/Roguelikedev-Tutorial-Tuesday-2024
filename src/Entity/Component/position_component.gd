@@ -17,12 +17,12 @@ func _enter_entity(_entity: Entity) -> void:
 
 func process_message_precalculate(message: Message) -> void:
 	match message.type:
-		"render", "fov_update":
+		"render", "fov_update", "fov_updated":
 			message.data["position"] = position
 		"move":
 			var destination: Vector2i = position + message.data.get("offset", Vector2i.ZERO)
 			var destination_tile: Tile = _parent_entity.map_data.tiles.get(destination)
-			if destination_tile == null or destination_tile.blocks_movement:
+			if destination_tile == null or destination_tile.blocks_movement or _parent_entity.map_data.get_blocking_entity_at(destination) != null:
 				destination = position
 			message.data["destination"] = destination
 		"set_camera_state":

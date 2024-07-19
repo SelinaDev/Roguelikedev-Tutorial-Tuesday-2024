@@ -5,11 +5,13 @@ enum Type {
 	None,
 	Actor,
 	Camera,
+	Door,
 	Drawable,
 	Fov,
 	MovementBlocker,
 	Player,
 	Position,
+	Rememberable,
 	VisibilityBlocker
 }
 
