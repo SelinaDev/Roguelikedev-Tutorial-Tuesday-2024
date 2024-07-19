@@ -13,15 +13,14 @@ const CORRIDORS_PATH = "res://resources/MapGeneration/Dungeon/Corridors/"
 
 const CORRIDOR_CHANCE = 0.2
 
-const FLOOR_TILE = preload("res://resources/Tiles/floor.tres")
-const WALL_TILE = preload("res://resources/Tiles/wall.tres")
-const PLAYER = preload("res://resources/Entities/Actors/player.tres")
+const TILE_DB = preload("res://resources/ResourceDBs/Tile_db.tres")
+const ENTITY_DB = preload("res://resources/ResourceDBs/Entity_db.tres")
 
 var _dungeon: Room
 var _rooms: Array[Room]
 
 func _generate_map(map_config: MapConfig, id: int, player_info: Array[PlayerInfo]) -> MapData:
-	var map_data := MapData.new(id, map_config.map_width, map_config.map_height, FLOOR_TILE)
+	var map_data := MapData.new(id, map_config.map_width, map_config.map_height, TILE_DB.entries.get("floor"))
 	
 	_generate_dungeon(map_config)
 	_dungeon_to_map(map_data)
@@ -32,7 +31,7 @@ func _generate_map(map_config: MapConfig, id: int, player_info: Array[PlayerInfo
 	player_start_pos = first_room.position + first_room_floor[_rng.randi() % first_room_floor.size()]
 	
 	for player: PlayerInfo in player_info:
-		var player_entity := PLAYER.reify()
+		var player_entity: Entity = ENTITY_DB.entries.get("player").reify()
 		var player_component: PlayerComponent = player_entity.get_component(Component.Type.Player)
 		player_component.player_info = player
 		player.player_entity = player_entity
@@ -60,16 +59,10 @@ func _dungeon_to_map(map_data: MapData) -> void:
 			var tile_position := Vector2i(x, y)
 			var tile: Tile
 			if _dungeon.get_tile(tile_position) == FLOOR:
-				tile = FLOOR_TILE.duplicate()
+				tile = TILE_DB.entries.get("floor").duplicate()
 			else:
-				tile = WALL_TILE.duplicate()
+				tile = TILE_DB.entries.get("wall").duplicate()
 			map_data.tiles[tile_position] = tile
-	for x: int in range(-1, _dungeon.size.x + 1):
-		map_data.tiles[Vector2i(x, -1)] = WALL_TILE.duplicate()
-		map_data.tiles[Vector2i(x, _dungeon.size.y)] = WALL_TILE.duplicate()
-	for y: int in range(-1, _dungeon.size.y + 1):
-		map_data.tiles[Vector2i(-1, y)] = WALL_TILE.duplicate()
-		map_data.tiles[Vector2i(_dungeon.size.x, y)] = WALL_TILE.duplicate()
 
 
 func _generate_dungeon(map_config: MapConfig) -> Room:

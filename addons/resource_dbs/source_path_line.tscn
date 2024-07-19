@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=3 uid="uid://cs8bqtbrs67u8"]
+
+[ext_resource type="Script" path="res://addons/resource_dbs/source_path_line.gd" id="1_v5g5h"]
+
+[node name="SourcePathLine" type="HBoxContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+size_flags_horizontal = 3
+script = ExtResource("1_v5g5h")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+text = "Choose Path ..."
+
+[node name="DeleteButton" type="Button" parent="."]
+layout_mode = 2
+text = " X "
+
+[node name="FileDialog" type="FileDialog" parent="."]
+title = "Open a Directory"
+size = Vector2i(392, 159)
+ok_button_text = "Select Current Folder"
+file_mode = 2
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="DeleteButton" to="." method="_on_delete_button_pressed"]
+[connection signal="dir_selected" from="FileDialog" to="." method="_on_file_dialog_dir_selected"]

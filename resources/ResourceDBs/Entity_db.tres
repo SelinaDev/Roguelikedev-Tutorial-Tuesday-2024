@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ResourceDB" load_steps=3 format=3 uid="uid://xkhtpuu4ubfc"]
+
+[ext_resource type="Resource" uid="uid://08un78dx64fi" path="res://resources/Entities/Actors/player.tres" id="1_0s4sv"]
+[ext_resource type="Script" path="res://addons/resource_dbs/resource_db.gd" id="2_1cunx"]
+
+[resource]
+script = ExtResource("2_1cunx")
+entries = {
+"player": ExtResource("1_0s4sv")
+}

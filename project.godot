@@ -8,6 +8,10 @@
 
 config_version=5
 
+[addons]
+
+resource_dbs/categories=["Entity", "Tile"]
+
 [application]
 
 config/name="Roguelikedev-tutorial-tuesday-2024"
@@ -24,6 +28,10 @@ Globals="*res://src/Game/Autoloads/globals.gd"
 [debug]
 
 gdscript/warnings/shadowed_variable=0
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/resource_dbs/plugin.cfg")
 
 [global]
 

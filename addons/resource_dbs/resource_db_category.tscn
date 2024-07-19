@@ -1,0 +1,41 @@
+[gd_scene load_steps=2 format=3 uid="uid://khaak03rrd2x"]
+
+[ext_resource type="Script" path="res://addons/resource_dbs/resource_db_category.gd" id="1_jnstv"]
+
+[node name="ResourceDbCategory" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jnstv")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="CategoryNameLabel" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="DestPathButton" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AddLineButton" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "Add source path"
+
+[node name="SourcePaths" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="."]
+layout_mode = 2
+
+[node name="FileDialog" type="FileDialog" parent="."]
+title = "Open a Directory"
+initial_position = 1
+ok_button_text = "Select Current Folder"
+file_mode = 2
+
+[connection signal="pressed" from="HBoxContainer/DestPathButton" to="." method="_on_dest_path_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/AddLineButton" to="." method="_on_add_line_button_pressed"]
+[connection signal="dir_selected" from="FileDialog" to="." method="_on_file_dialog_dir_selected"]
