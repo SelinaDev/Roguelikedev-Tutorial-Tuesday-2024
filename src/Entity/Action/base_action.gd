@@ -16,3 +16,7 @@ func _init(performing_entity: Entity) -> void:
 
 func perform() -> Result:
 	return Result.NoAction
+
+
+func _check_message(message: Message, key: String) -> Result:
+	return Result.TurnAction if message.data.get(key, false) else Result.NoAction

@@ -15,7 +15,7 @@ func generate_world(_config: WorldConfig, players: Array[PlayerInfo], rng_seed: 
 	
 	# TEMP
 	var map_generator := MapGeneratorDungeon.new()
-	var map_config := MapConfig.new()
+	var map_config := preload("res://resources/default_map_config.tres")
 	map_config.map_height = 40
 	map_config.map_width = 40
 	var map: MapData = map_generator.generate_map(map_config, 0, _rng, players)

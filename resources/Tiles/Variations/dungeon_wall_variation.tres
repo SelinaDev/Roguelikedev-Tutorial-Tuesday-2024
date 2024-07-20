@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="TileVariation" load_steps=6 format=3 uid="uid://bueuip5l015ph"]
+
+[ext_resource type="Script" path="res://src/Map/MapGenerator/tile_variation_resource.gd" id="1_v87g0"]
+[ext_resource type="Texture2D" uid="uid://cl5u3naxm2fy" path="res://assets/urizen_onebit_tileset__v1d0.png" id="2_mvwfy"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rogie"]
+atlas = ExtResource("2_mvwfy")
+region = Rect2(66, 27, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_npmvf"]
+atlas = ExtResource("2_mvwfy")
+region = Rect2(79, 27, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_omm25"]
+atlas = ExtResource("2_mvwfy")
+region = Rect2(92, 27, 12, 12)
+
+[resource]
+script = ExtResource("1_v87g0")
+tile_textures = Array[AtlasTexture]([SubResource("AtlasTexture_rogie"), SubResource("AtlasTexture_npmvf"), SubResource("AtlasTexture_omm25"), SubResource("AtlasTexture_rogie"), SubResource("AtlasTexture_rogie")])

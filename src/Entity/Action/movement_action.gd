@@ -3,7 +3,8 @@ extends ActionWithDirection
 
 
 func perform() -> Result:
+	var move_message := Message.new("move", {"offset": offset})
 	_performing_entity.process_message(
-		Message.new("move", {"offset": offset})
+		move_message
 	)
-	return Result.TurnAction
+	return _check_message(move_message, "did_perform_move")

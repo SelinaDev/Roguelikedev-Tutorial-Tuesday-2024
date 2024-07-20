@@ -24,6 +24,7 @@ config/icon="res://icon.svg"
 InputManager="*res://src/Game/Autoloads/InputManager.gd"
 WorldManager="*res://src/Game/Autoloads/WorldManager.gd"
 Globals="*res://src/Game/Autoloads/globals.gd"
+SignalBus="*res://src/Game/Autoloads/signal_bus.gd"
 
 [debug]
 

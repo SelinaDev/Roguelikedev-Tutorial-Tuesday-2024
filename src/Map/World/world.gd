@@ -6,6 +6,10 @@ extends Resource
 var _active_maps: Dictionary
 
 
+func get_active_maps() -> Array:
+	return _active_maps.values()
+
+
 func get_map(id: int = 0) -> MapData:
 	var map_data: MapData
 	

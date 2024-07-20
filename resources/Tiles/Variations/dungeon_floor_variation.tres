@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="TileVariation" load_steps=7 format=3 uid="uid://c3pn25g7s1xse"]
+
+[ext_resource type="Script" path="res://src/Map/MapGenerator/tile_variation_resource.gd" id="1_856ho"]
+[ext_resource type="Texture2D" uid="uid://cl5u3naxm2fy" path="res://assets/urizen_onebit_tileset__v1d0.png" id="2_1nu3f"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wggbc"]
+atlas = ExtResource("2_1nu3f")
+region = Rect2(66, 66, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6w7fa"]
+atlas = ExtResource("2_1nu3f")
+region = Rect2(79, 66, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pul68"]
+atlas = ExtResource("2_1nu3f")
+region = Rect2(92, 66, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8sj8m"]
+atlas = ExtResource("2_1nu3f")
+region = Rect2(53, 66, 12, 12)
+
+[resource]
+script = ExtResource("1_856ho")
+tile_textures = Array[AtlasTexture]([SubResource("AtlasTexture_wggbc"), SubResource("AtlasTexture_6w7fa"), SubResource("AtlasTexture_pul68"), SubResource("AtlasTexture_8sj8m"), SubResource("AtlasTexture_wggbc"), SubResource("AtlasTexture_6w7fa"), SubResource("AtlasTexture_pul68")])

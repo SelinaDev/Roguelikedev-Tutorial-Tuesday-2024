@@ -19,6 +19,7 @@ func process_message_execute(message: Message) -> void:
 					{"texture": texture_open}
 				))
 				open = true
+				message.data["did_open"] = true
 		"close":
 			if open:
 				_parent_entity.enter_component(MovementBlockerComponent.new())

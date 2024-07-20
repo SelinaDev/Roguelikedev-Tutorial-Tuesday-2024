@@ -1,9 +1,24 @@
 class_name Room
 extends Resource
 
+enum {
+	INVALID,
+	UNUSED,
+	FLOOR,
+	WALL,
+	DOOR,
+}
+
+static var MAP := {
+	".": FLOOR,
+	"#": WALL,
+	"x": UNUSED,
+	"+": DOOR
+}
+
 @export var position: Vector2i
 @export var size: Vector2i
-@export var data: Array[int]
+@export var data: PackedByteArray
 
 
 func initialize(size: Vector2i, initial_tile: int) -> void:
@@ -121,3 +136,27 @@ func _reverse_rows() -> void:
 			new_row.append(get_tile(Vector2i(size.x - 1 - x, y)))
 		for x: int in size.x:
 			set_tile(Vector2i(x, y), new_row[x])
+
+
+static func parse_room(room_source: String) -> Room:
+	var data: Array[int] = []
+	var x: int = 0
+	var y: int = 1
+	
+	var lines := room_source.split("\n", false)
+	
+	for line: String in lines:
+		for i: int in line.length():
+			var tile_char: String = line[i]
+			var tile_data: int = MAP.get(tile_char, INVALID)
+			if tile_data != INVALID:
+				data.append(tile_data)
+	
+	y = lines.size()
+	@warning_ignore("integer_division")
+	x = data.size() / y
+	
+	var room := Room.new()
+	room.initialize(Vector2i(x, y), FLOOR)
+	room.data = PackedByteArray(data)
+	return room

@@ -32,7 +32,9 @@ func process_message_precalculate(message: Message) -> void:
 func process_message_execute(message: Message) -> void:
 	match message.type:
 		"move":
+			var old_position := position
 			position = message.data.get("destination", position)
+			message.data["did_perform_move"] = old_position != position
 
 
 # implements Manhattan distance

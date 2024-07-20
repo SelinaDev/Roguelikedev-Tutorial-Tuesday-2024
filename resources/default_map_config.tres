@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="MapConfig" load_steps=4 format=3 uid="uid://c6ffl6i6aalmx"]
+
+[ext_resource type="Resource" uid="uid://c3pn25g7s1xse" path="res://resources/Tiles/Variations/dungeon_floor_variation.tres" id="1_2ytlt"]
+[ext_resource type="Script" path="res://src/Map/map_config.gd" id="1_tyc3b"]
+[ext_resource type="Resource" uid="uid://bueuip5l015ph" path="res://resources/Tiles/Variations/dungeon_wall_variation.tres" id="3_25koy"]
+
+[resource]
+script = ExtResource("1_tyc3b")
+map_width = 100
+map_height = 100
+max_rooms = 17
+max_tries = 500
+max_enemies_per_room = 2
+floor_variation = ExtResource("1_2ytlt")
+wall_variation = ExtResource("3_25koy")
