@@ -19,8 +19,6 @@ func _new_game(data: Dictionary) -> void:
 	WorldManager.generate_new_world(null, _player_info)
 	var _active_map: MapData = WorldManager.get_map(0)
 	scheduler.start(_player_info)
-	#for entity: Entity in active_map.get_entities([Component.Type.Actor]):
-		#scheduler.actors.append(entity.get_component(Component.Type.Actor))
 	
 	for info: PlayerInfo in _player_info:
 		var map: MapData = info.player_entity.map_data

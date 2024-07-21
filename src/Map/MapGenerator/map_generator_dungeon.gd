@@ -1,13 +1,11 @@
 class_name MapGeneratorDungeon
 extends MapGenerator
 
-const ROOMS_PATH = "res://resources/MapGeneration/Dungeon/Rooms/"
-const CORRIDORS_PATH = "res://resources/MapGeneration/Dungeon/Corridors/"
-
 const CORRIDOR_CHANCE = 0.2
 
 const TILE_DB = preload("res://resources/ResourceDBs/Tile_db.tres")
 const ENTITY_DB = preload("res://resources/ResourceDBs/Entity_db.tres")
+const ROOM_PACK_DB = preload("res://resources/ResourceDBs/RoomPack_db.tres")
 
 var _dungeon: Room
 var _rooms: Array[Room]
@@ -59,6 +57,8 @@ func _dungeon_to_map(map_data: MapData, map_config: MapConfig) -> void:
 				Room.WALL:
 					tile = TILE_DB.entries.get("wall").duplicate()
 					map_config.wall_variation.modify(tile, _rng)
+				Room.BARS:
+					tile = TILE_DB.entries.get("bars").duplicate()
 				_:
 					tile = TILE_DB.entries.get("floor").duplicate()
 					map_config.floor_variation.modify(tile, _rng)
@@ -73,8 +73,9 @@ func _generate_dungeon(map_config: MapConfig) -> Room:
 	
 	var candidates: Array[Vector2i] = []
 	
-	var prototype_rooms := _load_rooms(ROOMS_PATH)
-	var prototype_corridors := _load_rooms(CORRIDORS_PATH)
+	var room_pack: RoomPack = ROOM_PACK_DB.entries.get(map_config.room_pack)
+	var prototype_rooms: Array[Room] = room_pack.rooms
+	var prototype_corridors: Array[Room] = room_pack.corridors
 	
 	_place_first_room(prototype_rooms[_rng.randi() % prototype_rooms.size()])
 	
@@ -190,22 +191,6 @@ func _does_room_fit(room: Room) -> bool:
 	if room_end.x + 1 >= _dungeon.size.x or room_end.y + 1>= _dungeon.size.y:
 		return false
 	return true
-
-
-func _load_rooms(path: String) -> Array[Room]:
-	var rooms_array: Array[Room] = []
-	var dir := DirAccess.open(path)
-	dir.list_dir_begin()
-	var file_name := dir.get_next()
-	while file_name != "":
-		rooms_array.append(_load_room(path.path_join(file_name)))
-		file_name = dir.get_next()
-	return rooms_array
-
-
-func _load_room(path: String) -> Room:
-	var file := FileAccess.open(path, FileAccess.READ)
-	return Room.parse_room(file.get_as_text(true))
 
 
 func _is_candidate(p: Vector2i) -> bool:

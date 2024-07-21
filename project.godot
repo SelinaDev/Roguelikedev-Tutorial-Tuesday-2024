@@ -10,7 +10,7 @@ config_version=5
 
 [addons]
 
-resource_dbs/categories=["Entity", "Tile"]
+resource_dbs/categories=["Entity", "Tile", "RoomPack"]
 
 [application]
 

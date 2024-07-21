@@ -1,3 +1,4 @@
+@tool
 class_name Room
 extends Resource
 
@@ -7,13 +8,15 @@ enum {
 	FLOOR,
 	WALL,
 	DOOR,
+	BARS,
 }
 
 static var MAP := {
 	".": FLOOR,
 	"#": WALL,
 	"x": UNUSED,
-	"+": DOOR
+	"+": DOOR,
+	"|": BARS,
 }
 
 @export var position: Vector2i
