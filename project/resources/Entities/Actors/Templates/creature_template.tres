@@ -1,16 +1,22 @@
-[gd_resource type="Resource" script_class="EntityTemplate" load_steps=6 format=3 uid="uid://cr15gc6rayc4v"]
+[gd_resource type="Resource" script_class="EntityTemplate" load_steps=8 format=3 uid="uid://cr15gc6rayc4v"]
 
 [ext_resource type="Script" path="res://src/Entity/entity_template.gd" id="1_qcbkr"]
 [ext_resource type="Script" path="res://src/Entity/Component/movement_blocker_component.gd" id="2_4ckbt"]
 [ext_resource type="Script" path="res://src/Entity/Component/ActorComponent/hostile_enemy_actor_component.gd" id="3_816fo"]
+[ext_resource type="Script" path="res://src/Entity/Component/power_component.gd" id="4_uhq3t"]
 
 [sub_resource type="Resource" id="Resource_bcxaw"]
 script = ExtResource("2_4ckbt")
 
 [sub_resource type="Resource" id="Resource_28bf4"]
 script = ExtResource("3_816fo")
+ai_components = Array[Resource("res://src/Entity/Component/ActorComponent/AiComponents/base_ai_component.gd")]([])
+
+[sub_resource type="Resource" id="Resource_hkhgl"]
+script = ExtResource("4_uhq3t")
+base_power = 1
 
 [resource]
 script = ExtResource("1_qcbkr")
 templates = Array[ExtResource("1_qcbkr")]([])
-template_components = Array[Resource("res://src/Entity/Component/component.gd")]([SubResource("Resource_bcxaw"), SubResource("Resource_28bf4")])
+template_components = Array[Resource("res://src/Entity/Component/component.gd")]([SubResource("Resource_bcxaw"), SubResource("Resource_28bf4"), SubResource("Resource_hkhgl")])

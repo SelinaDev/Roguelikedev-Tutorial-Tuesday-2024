@@ -11,7 +11,7 @@ var map_data: MapData:
 		return _map_data_ref.get_ref() as MapData
 	set(value):
 		_map_data_ref = weakref(value)
-var _map_data_ref: WeakRef
+var _map_data_ref: WeakRef = weakref(null)
 
 var _message_queue: Array[Message]
 

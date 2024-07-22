@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="Entity" load_steps=7 format=3 uid="uid://bdaryf1h2fgfo"]
+[gd_resource type="Resource" script_class="Entity" load_steps=10 format=3 uid="uid://bdaryf1h2fgfo"]
 
 [ext_resource type="Script" path="res://src/Entity/entity.gd" id="1_71i23"]
 [ext_resource type="Script" path="res://src/Entity/Component/drawable_component.gd" id="1_ad45g"]
 [ext_resource type="Texture2D" uid="uid://cl5u3naxm2fy" path="res://assets/urizen_onebit_tileset__v1d0.png" id="2_fo3nt"]
+[ext_resource type="Script" path="res://src/Entity/Component/durability_component.gd" id="3_1gaep"]
 [ext_resource type="Resource" uid="uid://cr15gc6rayc4v" path="res://resources/Entities/Actors/Templates/creature_template.tres" id="4_jkxms"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d711m"]
@@ -14,8 +15,21 @@ script = ExtResource("1_ad45g")
 texture = SubResource("AtlasTexture_d711m")
 render_order = 3
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_npvb8"]
+atlas = ExtResource("2_fo3nt")
+region = Rect2(456, 209, 12, 12)
+
+[sub_resource type="Resource" id="Resource_j5qmc"]
+script = ExtResource("3_1gaep")
+max_hp = 5
+current_hp = 0
+death_texture = SubResource("AtlasTexture_npvb8")
+death_z_index = 1
+death_removes_movement_blocker = true
+death_removes_visibility_blocker = true
+
 [resource]
 script = ExtResource("1_71i23")
 name = "Goblin"
 templates = Array[Resource("res://src/Entity/entity_template.gd")]([ExtResource("4_jkxms")])
-initial_components = Array[Resource("res://src/Entity/Component/component.gd")]([SubResource("Resource_wv305")])
+initial_components = Array[Resource("res://src/Entity/Component/component.gd")]([SubResource("Resource_wv305"), SubResource("Resource_j5qmc")])

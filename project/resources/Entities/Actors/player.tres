@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Entity" load_steps=15 format=3 uid="uid://08un78dx64fi"]
+[gd_resource type="Resource" script_class="Entity" load_steps=18 format=3 uid="uid://08un78dx64fi"]
 
 [ext_resource type="Script" path="res://src/Entity/entity.gd" id="1_ge48h"]
 [ext_resource type="Script" path="res://src/Entity/Component/player_component.gd" id="1_paibh"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://src/Entity/Component/ActorComponent/player_actor_component.gd" id="4_8ra2p"]
 [ext_resource type="Script" path="res://src/Entity/Component/camera_component.gd" id="5_1sppd"]
 [ext_resource type="Script" path="res://src/Entity/Component/fov_component.gd" id="6_mutce"]
+[ext_resource type="Script" path="res://src/Entity/Component/durability_component.gd" id="7_kjin3"]
 
 [sub_resource type="Resource" id="Resource_yntj7"]
 script = ExtResource("1_paibh")
@@ -31,8 +32,21 @@ script = ExtResource("5_1sppd")
 script = ExtResource("6_mutce")
 base_radius = 8
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_vgbaf"]
+atlas = ExtResource("3_ifa31")
+region = Rect2(300, 222, 12, 12)
+
+[sub_resource type="Resource" id="Resource_foi8v"]
+script = ExtResource("7_kjin3")
+max_hp = 30
+current_hp = 0
+death_texture = SubResource("AtlasTexture_vgbaf")
+death_z_index = 1
+death_removes_movement_blocker = true
+death_removes_visibility_blocker = true
+
 [resource]
 script = ExtResource("1_ge48h")
 name = "Player"
 templates = Array[Resource("res://src/Entity/entity_template.gd")]([ExtResource("3_kx7dw")])
-initial_components = Array[Resource("res://src/Entity/Component/component.gd")]([SubResource("Resource_yntj7"), SubResource("Resource_qlvlf"), SubResource("Resource_merbi"), SubResource("Resource_bihn8"), SubResource("Resource_n76u1")])
+initial_components = Array[Resource("res://src/Entity/Component/component.gd")]([SubResource("Resource_yntj7"), SubResource("Resource_qlvlf"), SubResource("Resource_merbi"), SubResource("Resource_bihn8"), SubResource("Resource_n76u1"), SubResource("Resource_foi8v")])

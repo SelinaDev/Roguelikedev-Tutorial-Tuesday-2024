@@ -7,10 +7,12 @@ enum Type {
 	Camera,
 	Door,
 	Drawable,
+	Durability,
 	Fov,
 	MovementBlocker,
 	Player,
 	Position,
+	Power,
 	Rememberable,
 	VisibilityBlocker
 }

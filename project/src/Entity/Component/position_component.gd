@@ -17,7 +17,7 @@ func _enter_entity(_entity: Entity) -> void:
 
 func process_message_precalculate(message: Message) -> void:
 	match message.type:
-		"render", "fov_update", "fov_updated":
+		"render", "fov_update", "fov_updated", "pathfinder_update":
 			message.data["position"] = position
 		"move":
 			var destination: Vector2i = position + message.data.get("offset", Vector2i.ZERO)

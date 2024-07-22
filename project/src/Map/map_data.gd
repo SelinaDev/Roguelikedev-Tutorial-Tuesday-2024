@@ -1,6 +1,8 @@
 class_name MapData
 extends Resource
 
+const BLOCKING_ENTITIY_PATHFIND_WEIGHT = 5
+
 @export var id: int
 @export var canvas: RID
 @export var entities: Array[Entity]
@@ -10,6 +12,7 @@ extends Resource
 
 var total_fov: Dictionary = {}
 var fovs: Dictionary = {}
+var pathfinder: AStarGrid2D
 
 
 func set_fov(index: int, new_fov: Dictionary) -> void:
@@ -97,9 +100,33 @@ func get_blocking_entity_at(position: Vector2i) -> Entity:
 func enter_entity(entity: Entity) -> void:
 	entities.append(entity)
 	entity.map_data = self
+	entity.process_message(Message.new("enter_map"))
 
 
 func activate() -> void:
+	setup_pathfinder()
 	canvas = RenderingServer.canvas_create()
 	_render_tiles()
 	_render_entities()
+
+
+func setup_pathfinder() -> void:
+	pathfinder = AStarGrid2D.new()
+	pathfinder.region = Rect2i(Vector2i.ZERO, size)
+	pathfinder.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_NEVER
+	pathfinder.default_compute_heuristic = AStarGrid2D.HEURISTIC_MANHATTAN
+	pathfinder.default_estimate_heuristic = AStarGrid2D.HEURISTIC_MANHATTAN
+	pathfinder.update()
+	for tile_position: Vector2i in tiles:
+		var tile: Tile = tiles[tile_position]
+		pathfinder.set_point_solid(tile_position, tile.blocks_movement)
+	for entity: Entity in get_entities([Component.Type.Position, Component.Type.MovementBlocker]):
+		var entity_position: Vector2i = (entity.get_component(Component.Type.Position) as PositionComponent).position
+		pathfinder.set_point_weight_scale(entity_position, BLOCKING_ENTITIY_PATHFIND_WEIGHT)
+
+
+func pathfinder_set_point(point: Vector2i, blocked: bool) -> void:
+	if not pathfinder:
+		return
+	var weight := BLOCKING_ENTITIY_PATHFIND_WEIGHT if blocked else 0
+	pathfinder.set_point_weight_scale(point, weight)
