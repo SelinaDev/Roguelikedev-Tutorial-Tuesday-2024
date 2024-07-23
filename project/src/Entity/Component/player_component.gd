@@ -12,3 +12,10 @@ func process_message_precalculate(message: Message) -> void:
 
 func get_component_type() -> Type:
 	return Type.Player
+
+
+static func get_player_index(entity: Entity) -> int:
+	var player_component: PlayerComponent = entity.get_component(Component.Type.Player)
+	if not player_component:
+		return -1
+	return player_component.player_info.player_index

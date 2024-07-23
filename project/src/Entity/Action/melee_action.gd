@@ -18,7 +18,10 @@ func perform() -> Result:
 	var damage := prepare_hit_message.get_calculation("damage").get_result()
 	var execute_hit_message := Message.new(
 		"take_damage",
-		{"damage_types": prepare_hit_message.data.get("damage_types", [])}
+		{
+			"damage_types": prepare_hit_message.data.get("damage_types", []),
+			"source": _performing_entity
+		}
 	)
 	execute_hit_message.get_calculation("damage").base_value = damage
 	target.process_message(execute_hit_message)

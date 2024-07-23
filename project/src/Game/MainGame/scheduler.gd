@@ -27,7 +27,6 @@ func _process(_delta: float) -> void:
 				func(entity: Entity) -> ActorComponent: return entity.get_component(Component.Type.Actor)
 			)
 		)
-		
 	for actor: ActorComponent in actors:
 		var action: Action = actor.get_action()
 		if action:

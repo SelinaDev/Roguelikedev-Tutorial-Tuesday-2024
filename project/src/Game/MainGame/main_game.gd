@@ -23,6 +23,7 @@ func _new_game(data: Dictionary) -> void:
 	for info: PlayerInfo in _player_info:
 		var map: MapData = info.player_entity.map_data
 		RenderingServer.viewport_attach_canvas(info.sub_viewport.get_viewport_rid(), map.canvas)
+		info.player_panel.setup(info.player_entity)
 		info.player_entity.process_message(Message.new("render"))
 
 
@@ -33,5 +34,6 @@ func create_player_info(player_index: int, device: int) -> PlayerInfo:
 	info.device = device
 	info.player_index = player_index
 	info.sub_viewport = get_node(ui_info.viewport)
+	info.player_panel = get_node(ui_info.player_panel)
 	
 	return info

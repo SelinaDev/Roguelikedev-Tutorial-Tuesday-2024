@@ -1,24 +1,29 @@
-[gd_scene load_steps=8 format=3 uid="uid://bqt3hjr2wmn58"]
+[gd_scene load_steps=11 format=3 uid="uid://bqt3hjr2wmn58"]
 
+[ext_resource type="Theme" uid="uid://d1ihrcds1upna" path="res://resources/default_theme.tres" id="1_o04s4"]
 [ext_resource type="Script" path="res://src/Game/MainGame/main_game.gd" id="1_o5ko0"]
 [ext_resource type="Script" path="res://src/Game/MainGame/player_ui_resource.gd" id="2_6elw4"]
 [ext_resource type="Script" path="res://src/Game/MainGame/scheduler.gd" id="3_tr50j"]
+[ext_resource type="PackedScene" uid="uid://idg8d684o3jv" path="res://src/GUI/PlayerPanel/player_panel.tscn" id="5_mvqio"]
+[ext_resource type="PackedScene" uid="uid://bmmkuxu5kfrpu" path="res://src/GUI/LogPanel/log_panel.tscn" id="6_1324e"]
 
 [sub_resource type="Resource" id="Resource_l2irm"]
 script = ExtResource("2_6elw4")
-viewport = NodePath("HBoxContainer/SubViewportContainer/SubViewport_P1")
+viewport = NodePath("VBoxContainer/HBoxContainer/SubViewportContainer/SubViewport_P1")
+player_panel = NodePath("VBoxContainer/HBoxContainer2/PlayerPanel")
 
 [sub_resource type="Resource" id="Resource_pdg5y"]
 script = ExtResource("2_6elw4")
-viewport = NodePath("HBoxContainer/SubViewportContainer2/SubViewport_P2")
+viewport = NodePath("VBoxContainer/HBoxContainer/SubViewportContainer2/SubViewport_P2")
+player_panel = NodePath("VBoxContainer/HBoxContainer2/PlayerPanel2")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kk8uo"]
+bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_deoid"]
 color = Color(1, 1, 1, 1)
 thickness = 4
 vertical = true
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kk8uo"]
-bg_color = Color(0, 0, 0, 1)
 
 [node name="MainGame2p" type="Control"]
 layout_mode = 3
@@ -27,48 +32,15 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_o04s4")
 script = ExtResource("1_o5ko0")
 player_ui = Array[ExtResource("2_6elw4")]([SubResource("Resource_l2irm"), SubResource("Resource_pdg5y")])
 
 [node name="Scheduler" type="Node" parent="."]
 script = ExtResource("3_tr50j")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 0
-
-[node name="SubViewportContainer" type="SubViewportContainer" parent="HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-stretch = true
-
-[node name="SubViewport_P1" type="SubViewport" parent="HBoxContainer/SubViewportContainer"]
-handle_input_locally = false
-canvas_item_default_texture_filter = 0
-size = Vector2i(574, 648)
-render_target_update_mode = 4
-
-[node name="VSeparator" type="VSeparator" parent="HBoxContainer"]
-layout_mode = 2
-theme_override_styles/separator = SubResource("StyleBoxLine_deoid")
-
-[node name="SubViewportContainer2" type="SubViewportContainer" parent="HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-stretch = true
-
-[node name="SubViewport_P2" type="SubViewport" parent="HBoxContainer/SubViewportContainer2"]
-handle_input_locally = false
-canvas_item_default_texture_filter = 0
-size = Vector2i(574, 648)
-render_target_update_mode = 4
-
 [node name="Label" type="Label" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -90,3 +62,56 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_kk8uo")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+stretch = true
+
+[node name="SubViewport_P1" type="SubViewport" parent="VBoxContainer/HBoxContainer/SubViewportContainer"]
+handle_input_locally = false
+canvas_item_default_texture_filter = 0
+size = Vector2i(574, 448)
+render_target_update_mode = 4
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_deoid")
+
+[node name="SubViewportContainer2" type="SubViewportContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+stretch = true
+
+[node name="SubViewport_P2" type="SubViewport" parent="VBoxContainer/HBoxContainer/SubViewportContainer2"]
+handle_input_locally = false
+canvas_item_default_texture_filter = 0
+size = Vector2i(574, 448)
+render_target_update_mode = 4
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+
+[node name="PlayerPanel" parent="VBoxContainer/HBoxContainer2" instance=ExtResource("5_mvqio")]
+layout_mode = 2
+
+[node name="MessagePanel" parent="VBoxContainer/HBoxContainer2" instance=ExtResource("6_1324e")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PlayerPanel2" parent="VBoxContainer/HBoxContainer2" instance=ExtResource("5_mvqio")]
+layout_mode = 2

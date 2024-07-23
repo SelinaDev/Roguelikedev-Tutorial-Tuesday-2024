@@ -2,15 +2,25 @@ class_name HostileEnemyActorComponent
 extends ActorComponent
 
 @export var ai_components: Array[AiComponent]
+@export var turn_syncher: TurnSyncher
 
 
 func _enter_entity(_entity: Entity) -> void:
-	SignalBus.group_took_turn.connect(_on_group_took_turn)
+	var duplicated_components: Array[AiComponent] = []
+	for ai_component: AiComponent in ai_components:
+		duplicated_components.append(ai_component.duplicate(true))
+	ai_components = duplicated_components
+	turn_syncher = TurnSyncher.new()
 
 
 func _on_group_took_turn() -> void:
-#	print("The %s wonders when it will get to take a real turn." % _parent_entity.name.capitalize())
-	_take_turn()
+	if turn_syncher.check_group_durn():
+		_take_turn()
+
+
+func _on_player_took_turn(player: Entity) -> void:
+	if turn_syncher.check_player_turn(player):
+		_take_turn()
 
 
 func _take_turn() -> void:
@@ -25,10 +35,9 @@ func _take_turn() -> void:
 func process_message_precalculate(message: Message) -> void:
 	match message.type:
 		"get_action":
-			# TODO: switch this to a targeted player
-			var player_entity: Entity = _parent_entity.map_data.get_entities([Component.Type.Player]).front()
+			var player_entity: Entity = turn_syncher.get_synched_player()
 			for ai_component: AiComponent in ai_components:
-				message.get_array("proposed_actions").append(ai_component.get_proposed_actions(_parent_entity, player_entity))
+				message.get_array("proposed_actions").append_array(ai_component.get_proposed_actions(_parent_entity, player_entity))
 
 
 func process_message_execute(message: Message) -> void:
@@ -44,3 +53,7 @@ func process_message_execute(message: Message) -> void:
 					return tested_action if tested_action.score > action.score else action
 			)
 			_queued_action = proposed_action.action
+		"enter_map":
+			turn_syncher.setup(_parent_entity)
+			SignalBus.group_took_turn.connect(_on_group_took_turn)
+			SignalBus.player_took_turn.connect(_on_player_took_turn)

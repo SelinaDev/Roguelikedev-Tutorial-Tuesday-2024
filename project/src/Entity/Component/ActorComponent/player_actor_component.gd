@@ -26,3 +26,5 @@ func _on_event(event: InputEvent) -> void:
 		_queued_action = BumpAction.new(_parent_entity, Vector2i.UP)
 	elif event.is_action_pressed("move_down"):
 		_queued_action = BumpAction.new(_parent_entity, Vector2i.DOWN)
+	elif event.is_action_pressed("wait"):
+		_queued_action = WaitAction.new(_parent_entity)

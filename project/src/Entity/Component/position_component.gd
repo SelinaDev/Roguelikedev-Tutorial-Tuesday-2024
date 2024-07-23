@@ -11,6 +11,12 @@ extends Component
 			_parent_entity.process_message(message)
 
 
+static func get_entity_position(entity: Entity) -> Vector2i:
+	var position_component: PositionComponent = entity.get_component(Component.Type.Position)
+	assert(position_component != null)
+	return position_component.position
+
+
 func _enter_entity(_entity: Entity) -> void:
 	pass
 

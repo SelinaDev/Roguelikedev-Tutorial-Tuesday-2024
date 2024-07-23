@@ -25,6 +25,13 @@ func clear_fov(index: int) -> void:
 	_update_total_fov()
 
 
+func is_in_fov(position: Vector2i, index: int = -1) -> bool:
+	var target_fov: Dictionary = total_fov
+	if index != -1:
+		target_fov = fovs.get(index, {})
+	return target_fov.get(position, false) 
+
+
 func _update_total_fov() -> void:
 	_recompute_total_fov()
 	for drawable_entity: Entity in get_entities([Component.Type.Drawable, Component.Type.Position]):

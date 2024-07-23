@@ -2,6 +2,7 @@ class_name DurabilityComponent
 extends Component
 
 signal hp_changed(hp, max_hp)
+signal took_damage(amount, source)
 
 @export var max_hp: int:
 	set(value):
@@ -46,10 +47,13 @@ func process_message_execute(message: Message) -> void:
 				_parent_entity.remove_component(Component.Type.MovementBlocker)
 			if death_removes_visibility_blocker:
 				_parent_entity.remove_component(Component.Type.VisibilityBlocker)
+			_parent_entity.remove_component(Component.Type.Actor)
 			_parent_entity.process_message(Message.new(
 				"visual_update",
 				{"texture": death_texture, "render_order": death_z_index}
 			))
+			Log.send_log("The %s died." % _parent_entity.name)
+			_parent_entity.name = "Remains of %s" % _parent_entity.name
 		"heal":
 			var actual_amount := heal(message.get_calculation("amount").get_result())
 			message.data["actual_amount"] = actual_amount
@@ -57,6 +61,23 @@ func process_message_execute(message: Message) -> void:
 			message.data["did_hit"] = current_hp > 0
 			var actual_amount := take_damage(message.get_calculation("damage").get_result())
 			message.data["actual_amount"] = actual_amount
+			var damage_source: Entity = message.data.get("source")
+			var hit_verb: String = message.data.get("verb", "hit")
+			if actual_amount > 0:
+				Log.send_log("The %s %s the %s for %d damage!" % [
+					damage_source.name,
+					hit_verb,
+					_parent_entity.name,
+					actual_amount
+				])
+			else:
+				Log.send_log("The %s %s the %s, but did no damage." % [
+					damage_source.name,
+					hit_verb,
+					_parent_entity.name
+				])
+				
+			took_damage.emit(actual_amount, message.data.get("source", null))
 
 
 func heal(amount: int) -> int:

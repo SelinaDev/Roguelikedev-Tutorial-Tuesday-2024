@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://blyhg8b5vispg"]
+
+[ext_resource type="Script" path="res://src/GUI/Elements/bar.gd" id="1_m86bg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bhsvl"]
+bg_color = Color(0.501961, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bnb53"]
+bg_color = Color(0, 0.501961, 0, 1)
+
+[node name="Bar" type="Label"]
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("1_m86bg")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_bhsvl")
+theme_override_styles/fill = SubResource("StyleBoxFlat_bnb53")
+value = 50.0
+show_percentage = false
