@@ -9,6 +9,7 @@ region = Rect2(53, 66, 12, 12)
 
 [resource]
 script = ExtResource("1_einqy")
+name = "Floor"
 texture = SubResource("AtlasTexture_i0ov6")
 blocks_movement = false
 blocks_sight = false

@@ -28,3 +28,29 @@ func _on_event(event: InputEvent) -> void:
 		_queued_action = BumpAction.new(_parent_entity, Vector2i.DOWN)
 	elif event.is_action_pressed("wait"):
 		_queued_action = WaitAction.new(_parent_entity)
+	elif event.is_action_pressed("look"):
+		_spawn_reticle()
+	
+	elif event.is_action_pressed("attack"):
+		_queued_action = await DirectionGetter.new(
+			device,
+			MeleeAction.new(_parent_entity, Vector2i.ZERO)
+		).direction_selected
+	
+	elif event.is_action_pressed("open"):
+		_queued_action = await DirectionGetter.new(
+			device,
+			OpenAction.new(_parent_entity, Vector2i.ZERO)
+		).direction_selected
+	
+	elif event.is_action_pressed("close"):
+		_queued_action = await DirectionGetter.new(
+			device,
+			CloseAction.new(_parent_entity, Vector2i.ZERO)
+		).direction_selected
+
+
+func _spawn_reticle() -> void:
+	var reticle := Reticle.new()
+	reticle.setup(_parent_entity)
+	await reticle.reticle_finished

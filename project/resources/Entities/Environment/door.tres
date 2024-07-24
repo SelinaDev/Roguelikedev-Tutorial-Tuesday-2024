@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://src/Entity/entity.gd" id="1_ouvr3"]
 [ext_resource type="Texture2D" uid="uid://cl5u3naxm2fy" path="res://assets/urizen_onebit_tileset__v1d0.png" id="2_eht5y"]
 [ext_resource type="Script" path="res://src/Entity/Component/movement_blocker_component.gd" id="3_k4se1"]
-[ext_resource type="Script" path="res://src/Entity/Component/drawable_component.gd" id="4_02wwb"]
+[ext_resource type="Script" path="res://src/Entity/Component/DrawableComponent/drawable_component.gd" id="4_02wwb"]
 [ext_resource type="Script" path="res://src/Entity/Component/rememberable_component.gd" id="5_vlfww"]
 [ext_resource type="Script" path="res://src/Entity/Component/visibility_blocker_component.gd" id="6_bos4u"]
 [ext_resource type="Script" path="res://src/Entity/Component/durability_component.gd" id="7_xwcse"]
@@ -31,6 +31,12 @@ script = ExtResource("3_k4se1")
 script = ExtResource("4_02wwb")
 texture = SubResource("AtlasTexture_7btkw")
 render_order = 0
+color = Color(1, 1, 1, 1)
+modulate = Color(1, 1, 1, 1)
+visible = true
+position = Vector2i(0, 0)
+drawable_effects = Array[Resource("res://src/Entity/Component/DrawableComponent/drawable_effect.gd")]([])
+_active_drawable_effects = {}
 
 [sub_resource type="Resource" id="Resource_oiumw"]
 script = ExtResource("5_vlfww")

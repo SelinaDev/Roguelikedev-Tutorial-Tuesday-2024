@@ -4,12 +4,13 @@ extends Resource
 const BLOCKING_ENTITIY_PATHFIND_WEIGHT = 5
 
 @export var id: int
-@export var canvas: RID
 @export var entities: Array[Entity]
 @export var tiles: Dictionary # Dictionary[Vector2i, Tile]
 @export var size: Vector2i
 @export var region_name: String = ""
 
+
+var canvas: RID
 var total_fov: Dictionary = {}
 var fovs: Dictionary = {}
 var pathfinder: AStarGrid2D
@@ -91,6 +92,12 @@ func get_entities(types: Array[Component.Type]) -> Array[Entity]:
 		func(entity: Entity) -> bool: return types.all(
 			func(type: Component.Type) -> bool: return  entity.has_component(type)
 		)
+	)
+
+
+func get_entities_at(position: Vector2i) -> Array[Entity]:
+	return get_entities([Component.Type.Position]).filter(
+		func(entity: Entity) -> bool: return PositionComponent.get_entity_position(entity) == position
 	)
 
 

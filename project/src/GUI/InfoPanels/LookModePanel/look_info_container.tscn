@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://be0ke5t4huc12"]
+
+[ext_resource type="Script" path="res://src/GUI/InfoPanels/LookModePanel/look_info_container.gd" id="1_vnf4v"]
+
+[node name="LookInfoContainer" type="MarginContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_vnf4v")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 2
+bbcode_enabled = true
+fit_content = true

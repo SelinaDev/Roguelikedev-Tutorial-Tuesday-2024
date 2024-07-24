@@ -18,6 +18,10 @@ func process_message_execute(message: Message) -> void:
 		"set_camera_state":
 			camera_state = message.data.get("camera_state")
 			camera_state.grid_position = message.data.get("position")
+		"discard_camera_state":
+			if camera_state:
+				camera_state.discard()
+				camera_state = null
 		"zoom_in":
 			camera_state.zoom *= 2
 		"zoom_out":

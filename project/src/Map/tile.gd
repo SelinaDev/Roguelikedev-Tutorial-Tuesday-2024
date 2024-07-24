@@ -3,6 +3,7 @@ extends Resource
 
 const DARK_COLOR = Color.DARK_BLUE
 
+@export var name: String
 @export var texture: AtlasTexture
 @export var blocks_movement: bool = true
 @export var blocks_sight: bool = true

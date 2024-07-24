@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ResourceDB" load_steps=7 format=3 uid="uid://xkhtpuu4ubfc"]
+
+[ext_resource type="Resource" uid="uid://08un78dx64fi" path="res://resources/Entities/Actors/player.tres" id="1_0s4sv"]
+[ext_resource type="Resource" uid="uid://bdaryf1h2fgfo" path="res://resources/Entities/Actors/goblin.tres" id="1_b2oup"]
+[ext_resource type="Script" path="res://addons/resource_dbs/resource_db.gd" id="2_1cunx"]
+[ext_resource type="Resource" uid="uid://b44koamww3qdl" path="res://resources/Entities/Actors/orc.tres" id="2_i4gmb"]
+[ext_resource type="Resource" uid="uid://t85rri7mf6hh" path="res://resources/Entities/Environment/door.tres" id="4_myg1p"]
+[ext_resource type="Resource" uid="uid://cymutgrbp1efh" path="res://resources/Entities/UI/reticle.tres" id="5_ivxki"]
+
+[resource]
+script = ExtResource("2_1cunx")
+entries = {
+"door": ExtResource("4_myg1p"),
+"goblin": ExtResource("1_b2oup"),
+"orc": ExtResource("2_i4gmb"),
+"player": ExtResource("1_0s4sv"),
+"reticle": ExtResource("5_ivxki")
+}

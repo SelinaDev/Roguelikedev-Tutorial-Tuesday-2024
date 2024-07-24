@@ -30,6 +30,7 @@ func process_message_execute(message: Message) -> void:
 					{"texture": texture_closed}
 				))
 				open = false
+				message.data["did_close"] = true
 
 
 func get_component_type() -> Type:

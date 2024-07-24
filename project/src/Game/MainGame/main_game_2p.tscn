@@ -1,21 +1,24 @@
-[gd_scene load_steps=11 format=3 uid="uid://bqt3hjr2wmn58"]
+[gd_scene load_steps=12 format=3 uid="uid://bqt3hjr2wmn58"]
 
 [ext_resource type="Theme" uid="uid://d1ihrcds1upna" path="res://resources/default_theme.tres" id="1_o04s4"]
 [ext_resource type="Script" path="res://src/Game/MainGame/main_game.gd" id="1_o5ko0"]
 [ext_resource type="Script" path="res://src/Game/MainGame/player_ui_resource.gd" id="2_6elw4"]
 [ext_resource type="Script" path="res://src/Game/MainGame/scheduler.gd" id="3_tr50j"]
+[ext_resource type="Script" path="res://src/GUI/InfoPanels/PlayerInfoDisplay.gd" id="5_lddc3"]
 [ext_resource type="PackedScene" uid="uid://idg8d684o3jv" path="res://src/GUI/PlayerPanel/player_panel.tscn" id="5_mvqio"]
 [ext_resource type="PackedScene" uid="uid://bmmkuxu5kfrpu" path="res://src/GUI/LogPanel/log_panel.tscn" id="6_1324e"]
 
 [sub_resource type="Resource" id="Resource_l2irm"]
 script = ExtResource("2_6elw4")
 viewport = NodePath("VBoxContainer/HBoxContainer/SubViewportContainer/SubViewport_P1")
-player_panel = NodePath("VBoxContainer/HBoxContainer2/PlayerPanel")
+player_panel = NodePath("VBoxContainer/HBoxContainer2/PlayerInfoDisplay/PlayerPanel")
+player_info_display = NodePath("VBoxContainer/HBoxContainer2/PlayerInfoDisplay")
 
 [sub_resource type="Resource" id="Resource_pdg5y"]
 script = ExtResource("2_6elw4")
 viewport = NodePath("VBoxContainer/HBoxContainer/SubViewportContainer2/SubViewport_P2")
-player_panel = NodePath("VBoxContainer/HBoxContainer2/PlayerPanel2")
+player_panel = NodePath("VBoxContainer/HBoxContainer2/PlayerInfoDisplay2/PlayerPanel2")
+player_info_display = NodePath("VBoxContainer/HBoxContainer2/PlayerInfoDisplay2")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kk8uo"]
 bg_color = Color(0, 0, 0, 1)
@@ -106,12 +109,20 @@ render_target_update_mode = 4
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 
-[node name="PlayerPanel" parent="VBoxContainer/HBoxContainer2" instance=ExtResource("5_mvqio")]
+[node name="PlayerInfoDisplay" type="MarginContainer" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+script = ExtResource("5_lddc3")
+
+[node name="PlayerPanel" parent="VBoxContainer/HBoxContainer2/PlayerInfoDisplay" instance=ExtResource("5_mvqio")]
 layout_mode = 2
 
 [node name="MessagePanel" parent="VBoxContainer/HBoxContainer2" instance=ExtResource("6_1324e")]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="PlayerPanel2" parent="VBoxContainer/HBoxContainer2" instance=ExtResource("5_mvqio")]
+[node name="PlayerInfoDisplay2" type="MarginContainer" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+script = ExtResource("5_lddc3")
+
+[node name="PlayerPanel2" parent="VBoxContainer/HBoxContainer2/PlayerInfoDisplay2" instance=ExtResource("5_mvqio")]
 layout_mode = 2

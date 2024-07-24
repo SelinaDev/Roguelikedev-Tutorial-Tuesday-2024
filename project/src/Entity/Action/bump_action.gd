@@ -7,8 +7,8 @@ func perform() -> Result:
 	
 	if blocking_entity:
 		if blocking_entity.has_component(Component.Type.Door):
-			return OpenAction.new(_performing_entity, offset, blocking_entity).perform()
+			return OpenAction.new(_performing_entity, offset).perform()
 		else:
-			return MeleeAction.new(_performing_entity, offset, blocking_entity).perform()
+			return MeleeAction.new(_performing_entity, offset).perform()
 	
 	return MovementAction.new(_performing_entity, offset).perform()

@@ -22,7 +22,7 @@ func get_proposed_actions(entity: Entity, target_player: Entity) -> Array[Propos
 	
 	path.pop_front()
 	return [
-		ProposedAction.new().with_priority(ProposedAction.Priority.LOW).with_action(
+		ProposedAction.new().with_priority(ProposedAction.Priority.LOW).with_score(5).with_action(
 			MovementAction.new(entity, next_position - entity_position)
 		)
 	]

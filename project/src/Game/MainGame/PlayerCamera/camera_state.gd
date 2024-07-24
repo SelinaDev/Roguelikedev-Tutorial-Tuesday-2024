@@ -16,8 +16,9 @@ var zoom: int = 2:
 		state_changed.emit()
 
 
-func _init(initial_position: Vector2i) -> void:
+func _init(initial_position: Vector2i, start_zoom: int) -> void:
 	grid_position = initial_position
+	zoom = start_zoom
 
 
 func change_canvas(canvas: RID) -> void:

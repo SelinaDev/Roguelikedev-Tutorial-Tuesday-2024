@@ -9,6 +9,7 @@ region = Rect2(14, 27, 12, 12)
 
 [resource]
 script = ExtResource("1_238no")
+name = "Wall"
 texture = SubResource("AtlasTexture_iqiid")
 blocks_movement = true
 blocks_sight = true

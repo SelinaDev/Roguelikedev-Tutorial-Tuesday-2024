@@ -9,6 +9,7 @@ region = Rect2(66, 521, 12, 12)
 
 [resource]
 script = ExtResource("1_5o2ex")
+name = "Bars"
 texture = SubResource("AtlasTexture_hvhnc")
 blocks_movement = true
 blocks_sight = false

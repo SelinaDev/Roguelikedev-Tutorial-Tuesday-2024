@@ -35,5 +35,5 @@ func create_player_info(player_index: int, device: int) -> PlayerInfo:
 	info.player_index = player_index
 	info.sub_viewport = get_node(ui_info.viewport)
 	info.player_panel = get_node(ui_info.player_panel)
-	
+	info.info_display = get_node(ui_info.player_info_display)
 	return info

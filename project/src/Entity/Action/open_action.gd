@@ -1,15 +1,9 @@
 class_name OpenAction
 extends ActionWithDirection
 
-var target: Entity
-
-
-func _init(performing_entity: Entity, offset: Vector2i, target: Entity) -> void:
-	super(performing_entity, offset)
-	self.target = target
-
 
 func perform() -> Result:
+	var target: Entity = get_blocking_entity_at_destination()
 	if not target:
 		return Result.NoAction
 	var open_message := Message.new("open")

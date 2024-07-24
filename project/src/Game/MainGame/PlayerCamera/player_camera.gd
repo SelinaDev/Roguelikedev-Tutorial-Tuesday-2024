@@ -21,11 +21,13 @@ func _init(player_info: PlayerInfo) -> void:
 
 func obtain_state() -> PlayerCameraState:
 	var start_position = Vector2i.ZERO
+	var start_zoom: int = 2
 	if not _camera_state_stack.is_empty():
 		var current_state: PlayerCameraState = _camera_state_stack.back()
 		current_state.state_changed.disconnect(_on_camera_state_changed)
 		start_position = current_state.grid_position
-	var new_state := PlayerCameraState.new(start_position)
+		start_zoom = current_state.zoom
+	var new_state := PlayerCameraState.new(start_position, start_zoom)
 	new_state.state_changed.connect(_on_camera_state_changed)
 	new_state.state_discarded.connect(_pop_state.bind(new_state))
 	new_state.canvas_changed.connect(_set_canvas)

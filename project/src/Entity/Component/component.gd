@@ -5,6 +5,7 @@ enum Type {
 	None,
 	Actor,
 	Camera,
+	DirectController,
 	Door,
 	Drawable,
 	Durability,
@@ -22,7 +23,7 @@ var _parent_entity: Entity:
 		_parent_entity_ref = weakref(value)
 	get:
 		return _parent_entity_ref.get_ref() as Entity
-var _parent_entity_ref: WeakRef
+var _parent_entity_ref: WeakRef = weakref(null)
 var type: get = get_component_type
 
 
