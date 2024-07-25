@@ -70,19 +70,19 @@ func _on_event(event: InputEvent) -> void:
 	if event.is_echo():
 		return
 	
-	if event.is_action_pressed("move_up"):
+	if InputMap.event_is_action(event, &"move_up"):
 		_position += Vector2i.UP
-	elif event.is_action_pressed("move_down"):
+	elif InputMap.event_is_action(event, &"move_down"):
 		_position += Vector2i.DOWN
-	elif event.is_action_pressed("move_left"):
+	elif InputMap.event_is_action(event, &"move_left"):
 		_position += Vector2i.LEFT
-	elif event.is_action_pressed("move_right"):
+	elif InputMap.event_is_action(event, &"move_right"):
 		_position += Vector2i.RIGHT
-	elif event.is_action_pressed("zoom_in"):
+	elif InputMap.event_is_action(event, &"zoom_in"):
 		_camera_state.zoom *= 2
-	elif event.is_action_pressed("zoom_out"):
+	elif InputMap.event_is_action(event, &"zoom_out"):
 		_camera_state.zoom /= 2
-	elif event.is_action_pressed("back"):
+	elif InputMap.event_is_action(event, &"back"):
 		_free_reticle()
 
 

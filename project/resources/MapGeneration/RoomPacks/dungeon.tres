@@ -1,81 +1,87 @@
-[gd_resource type="Resource" script_class="RoomPack" load_steps=15 format=3 uid="uid://co7x4jujtrytn"]
+[gd_resource type="Resource" script_class="RoomPack" load_steps=16 format=3 uid="uid://co7x4jujtrytn"]
 
 [ext_resource type="Script" path="res://src/Map/MapGenerator/Rooms/room.gd" id="1_pfyx0"]
 [ext_resource type="Script" path="res://src/Map/MapGenerator/Rooms/room_pack.gd" id="2_ii5im"]
 
-[sub_resource type="Resource" id="Resource_khqh5"]
+[sub_resource type="Resource" id="Resource_7dg3k"]
 script = ExtResource("1_pfyx0")
 position = Vector2i(0, 0)
 size = Vector2i(1, 4)
 data = PackedByteArray(2, 2, 2, 2)
 
-[sub_resource type="Resource" id="Resource_ta4ys"]
+[sub_resource type="Resource" id="Resource_57bha"]
 script = ExtResource("1_pfyx0")
 position = Vector2i(0, 0)
 size = Vector2i(7, 1)
 data = PackedByteArray(2, 2, 2, 2, 2, 2, 2)
 
-[sub_resource type="Resource" id="Resource_f5xwv"]
+[sub_resource type="Resource" id="Resource_8mp4y"]
 script = ExtResource("1_pfyx0")
 position = Vector2i(0, 0)
 size = Vector2i(4, 3)
 data = PackedByteArray(2, 2, 2, 2, 2, 1, 1, 1, 2, 1, 1, 1)
 
-[sub_resource type="Resource" id="Resource_qpylm"]
+[sub_resource type="Resource" id="Resource_hfhdp"]
 script = ExtResource("1_pfyx0")
 position = Vector2i(0, 0)
 size = Vector2i(5, 2)
 data = PackedByteArray(2, 2, 3, 2, 2, 1, 2, 2, 2, 1)
 
-[sub_resource type="Resource" id="Resource_3m7h6"]
+[sub_resource type="Resource" id="Resource_8dnxl"]
 script = ExtResource("1_pfyx0")
 position = Vector2i(0, 0)
 size = Vector2i(5, 5)
 data = PackedByteArray(2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2)
 
-[sub_resource type="Resource" id="Resource_ka676"]
+[sub_resource type="Resource" id="Resource_fwyv2"]
 script = ExtResource("1_pfyx0")
 position = Vector2i(0, 0)
 size = Vector2i(6, 4)
 data = PackedByteArray(2, 2, 1, 1, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2)
 
-[sub_resource type="Resource" id="Resource_dlc8c"]
+[sub_resource type="Resource" id="Resource_ra73c"]
 script = ExtResource("1_pfyx0")
 position = Vector2i(0, 0)
 size = Vector2i(4, 4)
 data = PackedByteArray(2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 1, 1)
 
-[sub_resource type="Resource" id="Resource_6a8eb"]
+[sub_resource type="Resource" id="Resource_2wjr0"]
 script = ExtResource("1_pfyx0")
 position = Vector2i(0, 0)
 size = Vector2i(7, 5)
-data = PackedByteArray(2, 2, 2, 3, 2, 2, 2, 2, 2, 2, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 2, 2, 2, 2, 2, 2, 3, 2, 2, 2)
+data = PackedByteArray(2, 2, 2, 5, 2, 2, 2, 2, 2, 2, 3, 2, 2, 2, 2, 2, 2, 4, 2, 2, 2, 2, 2, 2, 3, 2, 2, 2, 2, 2, 2, 5, 2, 2, 2)
 
-[sub_resource type="Resource" id="Resource_hfaro"]
+[sub_resource type="Resource" id="Resource_ckq4w"]
 script = ExtResource("1_pfyx0")
 position = Vector2i(0, 0)
 size = Vector2i(5, 5)
 data = PackedByteArray(1, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 1)
 
-[sub_resource type="Resource" id="Resource_t0lf0"]
+[sub_resource type="Resource" id="Resource_3l1be"]
 script = ExtResource("1_pfyx0")
 position = Vector2i(0, 0)
 size = Vector2i(6, 6)
 data = PackedByteArray(2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2)
 
-[sub_resource type="Resource" id="Resource_0g6o5"]
+[sub_resource type="Resource" id="Resource_7sj58"]
 script = ExtResource("1_pfyx0")
 position = Vector2i(0, 0)
 size = Vector2i(7, 5)
 data = PackedByteArray(2, 2, 4, 2, 2, 2, 2, 2, 2, 3, 2, 2, 2, 2, 4, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 1, 1)
 
-[sub_resource type="Resource" id="Resource_g8r8x"]
+[sub_resource type="Resource" id="Resource_0umrg"]
 script = ExtResource("1_pfyx0")
 position = Vector2i(0, 0)
-size = Vector2i(7, 5)
-data = PackedByteArray(2, 2, 2, 3, 2, 2, 2, 2, 2, 2, 3, 2, 2, 2, 4, 3, 5, 3, 5, 3, 4, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 1, 1)
+size = Vector2i(9, 6)
+data = PackedByteArray(3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2, 3, 2, 2, 2, 3, 3, 2, 2, 2, 3, 2, 2, 2, 3, 3, 4, 3, 5, 3, 5, 3, 4, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 2, 2, 2, 1, 1, 1)
+
+[sub_resource type="Resource" id="Resource_2pn56"]
+script = ExtResource("1_pfyx0")
+position = Vector2i(0, 0)
+size = Vector2i(8, 8)
+data = PackedByteArray(1, 1, 2, 2, 2, 2, 1, 1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 2, 2, 2, 2, 2, 2, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1, 1, 1, 2, 2, 2, 2, 1, 1)
 
 [resource]
 script = ExtResource("2_ii5im")
-rooms = Array[ExtResource("1_pfyx0")]([SubResource("Resource_3m7h6"), SubResource("Resource_ka676"), SubResource("Resource_dlc8c"), SubResource("Resource_6a8eb"), SubResource("Resource_hfaro"), SubResource("Resource_t0lf0"), SubResource("Resource_0g6o5"), SubResource("Resource_g8r8x")])
-corridors = Array[ExtResource("1_pfyx0")]([SubResource("Resource_khqh5"), SubResource("Resource_ta4ys"), SubResource("Resource_f5xwv"), SubResource("Resource_qpylm")])
+rooms = Array[ExtResource("1_pfyx0")]([SubResource("Resource_8dnxl"), SubResource("Resource_fwyv2"), SubResource("Resource_ra73c"), SubResource("Resource_2wjr0"), SubResource("Resource_ckq4w"), SubResource("Resource_3l1be"), SubResource("Resource_7sj58"), SubResource("Resource_0umrg"), SubResource("Resource_2pn56")])
+corridors = Array[ExtResource("1_pfyx0")]([SubResource("Resource_7dg3k"), SubResource("Resource_57bha"), SubResource("Resource_8mp4y"), SubResource("Resource_hfhdp")])

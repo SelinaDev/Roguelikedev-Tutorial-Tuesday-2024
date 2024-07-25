@@ -36,11 +36,11 @@ func _generate_map(map_config: MapConfig, id: int, player_info: Array[PlayerInfo
 		var player_camera := PlayerCamera.new(player)
 		player_entity.process_message(
 			Message.new(
-				"set_camera_state", 
-				{"camera_state": player_camera.obtain_state()}
+				&"set_camera_state", 
+				{&"camera_state": player_camera.obtain_state()}
 			)
 		)
-		player_entity.process_message(Message.new("fov_update"))
+		player_entity.process_message(Message.new(&"fov_update"))
 		
 	return map_data
 
@@ -115,6 +115,8 @@ func _generate_dungeon(map_config: MapConfig) -> Room:
 		var new_room_prototype_rotated := new_room_prototype.duplicate()
 		new_room_prototype_rotated.rotate(_rng.randi())
 		var room_offsets: Array[Vector2i] = new_room_prototype_rotated.get_outer_tiles(direction * -1, Room.FLOOR)
+		if room_offsets.is_empty():
+			continue
 		var room_offset: Vector2i = room_offsets[_rng.randi() % room_offsets.size()]
 		var room_position := candidate + direction - room_offset
 		var new_room := _duplicate_room_at(new_room_prototype_rotated, room_position)

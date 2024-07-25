@@ -16,3 +16,9 @@ layout_mode = 2
 fill_color = Color(0, 0.501961, 0, 1)
 background_color = Color(0.501961, 0, 0, 1)
 stat_name = "HP"
+
+[node name="ControlsLabel" type="Label" parent="."]
+custom_minimum_size = Vector2(50, 16)
+layout_mode = 2
+size_flags_vertical = 8
+autowrap_mode = 3

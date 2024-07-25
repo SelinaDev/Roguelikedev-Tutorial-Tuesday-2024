@@ -9,28 +9,36 @@ extends Component
 
 func process_message_execute(message: Message) -> void:
 	match message.type:
-		"open":
+		&"open":
 			if not open:
 				_parent_entity.remove_component(Component.Type.MovementBlocker)
 				if not transparent:
 					_parent_entity.remove_component(Component.Type.VisibilityBlocker)
 				_parent_entity.process_message(Message.new(
-					"visual_update",
-					{"texture": texture_open}
+					&"visual_update",
+					{&"texture": texture_open}
 				))
 				open = true
-				message.data["did_open"] = true
-		"close":
+				message.data[&"did_open"] = true
+				_parent_entity.map_data.force_fov_update()
+		&"close":
 			if open:
+				if not _parent_entity.map_data.get_entities_at(PositionComponent.get_entity_position(_parent_entity)).is_empty():
+					Log.send_log(
+						"The %s cannot close because there is something in the way." % _parent_entity.name,
+						Log.COLOR_IMPOSSIBLE
+					)
+					return
 				_parent_entity.enter_component(MovementBlockerComponent.new())
 				if not transparent:
 					_parent_entity.enter_component(VisibilityBlockerComponent.new())
 				_parent_entity.process_message(Message.new(
-					"visual_update",
-					{"texture": texture_closed}
+					&"visual_update",
+					{&"texture": texture_closed}
 				))
 				open = false
-				message.data["did_close"] = true
+				message.data[&"did_close"] = true
+				_parent_entity.map_data.force_fov_update()
 
 
 func get_component_type() -> Type:

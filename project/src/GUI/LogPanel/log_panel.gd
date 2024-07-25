@@ -1,6 +1,12 @@
 class_name Log
 extends PanelContainer
 
+const COLOR_NEUTRAL = Color.WHITE
+const COLOR_IMPORTANT = Color.RED
+const COLOR_NEGATIVE = Color.LIGHT_CORAL
+const COLOR_POSITIVE = Color.LIGHT_GREEN
+const COLOR_IMPOSSIBLE = Color.GRAY
+
 var last_log: LogLine = null
 
 @onready var scroll_container: ScrollContainer = $ScrollContainer

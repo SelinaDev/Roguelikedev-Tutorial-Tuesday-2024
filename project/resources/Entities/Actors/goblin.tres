@@ -27,7 +27,7 @@ region = Rect2(456, 209, 12, 12)
 
 [sub_resource type="Resource" id="Resource_j5qmc"]
 script = ExtResource("3_1gaep")
-max_hp = 5
+max_hp = 2
 current_hp = 0
 death_texture = SubResource("AtlasTexture_npvb8")
 death_z_index = 1

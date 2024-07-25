@@ -1,7 +1,15 @@
-[gd_resource type="Theme" load_steps=5 format=3 uid="uid://d1ihrcds1upna"]
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://d1ihrcds1upna"]
 
 [ext_resource type="Texture2D" uid="uid://c4kkuxc3bxqpw" path="res://assets/kenney_fantasy-ui-borders/PNG/Default/Border/panel-border-005.png" id="1_fn5dc"]
 [ext_resource type="FontFile" uid="uid://bnh85awwk8xuj" path="res://assets/kenney_kenney-fonts/Fonts/Kenney Pixel.ttf" id="2_yvh8i"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3lgdo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_77bbi"]
+draw_center = false
+border_width_top = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_akykc"]
 texture = ExtResource("1_fn5dc")
@@ -17,6 +25,12 @@ bg_color = Color(1, 1, 1, 1)
 [resource]
 default_font = ExtResource("2_yvh8i")
 default_font_size = 16
+Button/font_sizes/font_size = 16
+Button/styles/disabled = SubResource("StyleBoxEmpty_3lgdo")
+Button/styles/focus = SubResource("StyleBoxFlat_77bbi")
+Button/styles/hover = SubResource("StyleBoxFlat_77bbi")
+Button/styles/normal = SubResource("StyleBoxEmpty_3lgdo")
+Button/styles/pressed = SubResource("StyleBoxEmpty_3lgdo")
 HBoxContainer/constants/separation = 0
 Label/colors/font_color = Color(1, 1, 1, 1)
 Label/colors/font_outline_color = Color(0, 0, 0, 1)

@@ -27,7 +27,7 @@ region = Rect2(352, 209, 12, 12)
 
 [sub_resource type="Resource" id="Resource_kba1c"]
 script = ExtResource("3_r1iu2")
-max_hp = 10
+max_hp = 5
 current_hp = 0
 death_texture = SubResource("AtlasTexture_25wib")
 death_z_index = 1

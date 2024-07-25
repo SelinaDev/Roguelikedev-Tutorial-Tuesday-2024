@@ -4,6 +4,7 @@ extends GameState
 @export_file("*tscn") var main_game_path_2p
 
 @onready var devices_label: Label = $CenterContainer/VBoxContainer/DevicesLabel
+@onready var start_button: Button = $CenterContainer/VBoxContainer/StartButton
 
 var main_device: int
 var other_devices: Array[int]
@@ -12,6 +13,10 @@ var other_devices: Array[int]
 func enter(data: Dictionary = {}) -> void:
 	assert(data.has("device"))
 	main_device = data.device
+
+
+func _ready() -> void:
+	start_button.grab_focus()
 
 
 func _input(event: InputEvent) -> void:

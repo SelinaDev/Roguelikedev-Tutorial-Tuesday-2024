@@ -6,8 +6,8 @@ extends Component
 
 func process_message_precalculate(message: Message) -> void:
 	match message.type:
-		"fov_updated":
-			message.data["remember"] = not_in_view_color
+		&"fov_updated":
+			message.data[&"remember"] = not_in_view_color
 
 
 func get_component_type() -> Type:

@@ -22,10 +22,10 @@ var value: int:
 func _ready() -> void:
 	var style_box_fill := StyleBoxFlat.new()
 	style_box_fill.bg_color = fill_color
-	progress_bar.set("theme_override_styles/fill", style_box_fill)
+	progress_bar.set(&"theme_override_styles/fill", style_box_fill)
 	var style_box_background := StyleBoxFlat.new()
 	style_box_background.bg_color = background_color
-	progress_bar.set("theme_override_styles/background", style_box_background)
+	progress_bar.set(&"theme_override_styles/background", style_box_background)
 	_update_label()
 
 

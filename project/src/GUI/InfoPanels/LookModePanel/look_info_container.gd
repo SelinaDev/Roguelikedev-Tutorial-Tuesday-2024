@@ -28,4 +28,11 @@ func set_look_info(tile: Tile, entities: Array[Entity]) -> void:
 			tile.name
 		]
 	rich_text_label.parse_bbcode(info_text)
-	
+
+
+func _get_control_hint_text_controller() -> String:
+	return "D-Pad: move, <B>: close"
+
+
+func _get_control_hint_text_keyboard() -> String:
+	return "Arrow keys: move, Backspace: close"
