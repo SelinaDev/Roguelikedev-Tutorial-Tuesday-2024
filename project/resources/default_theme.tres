@@ -7,7 +7,9 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_77bbi"]
 draw_center = false
+border_width_left = 1
 border_width_top = 1
+border_width_right = 1
 border_width_bottom = 1
 border_color = Color(1, 1, 1, 1)
 
@@ -32,11 +34,12 @@ Button/styles/hover = SubResource("StyleBoxFlat_77bbi")
 Button/styles/normal = SubResource("StyleBoxEmpty_3lgdo")
 Button/styles/pressed = SubResource("StyleBoxEmpty_3lgdo")
 HBoxContainer/constants/separation = 0
+HSeparator/constants/separation = 6
 Label/colors/font_color = Color(1, 1, 1, 1)
 Label/colors/font_outline_color = Color(0, 0, 0, 1)
 Label/constants/outline_size = 1
 PanelContainer/styles/panel = SubResource("StyleBoxTexture_akykc")
-VBoxContainer/constants/separation = 0
+VBoxContainer/constants/separation = 2
 VScrollBar/styles/grabber = SubResource("StyleBoxFlat_ocwhg")
 VScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_ocwhg")
 VScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_ocwhg")

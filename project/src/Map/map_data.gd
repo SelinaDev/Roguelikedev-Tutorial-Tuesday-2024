@@ -28,7 +28,7 @@ func clear_fov(index: int) -> void:
 
 func force_fov_update() -> void:
 	for entity: Entity in get_entities([Component.Type.Fov, Component.Type.Position]): 
-		entity.process_message(Message.new(&"fov_update"))
+		entity.process_message(Message.new("fov_update"))
 
 
 func is_in_fov(position: Vector2i, index: int = -1) -> bool:
@@ -42,8 +42,8 @@ func _update_total_fov() -> void:
 	_recompute_total_fov()
 	for drawable_entity: Entity in get_entities([Component.Type.Drawable, Component.Type.Position]):
 		drawable_entity.process_message(Message.new(
-			&"fov_updated",
-			{&"fov": total_fov}
+			"fov_updated",
+			{"fov": total_fov}
 		))
 
 
@@ -78,7 +78,7 @@ func _render_tiles() -> void:
 func _render_entities() -> void:
 	var renderable_entities: Array[Entity] = get_entities([Component.Type.Drawable, Component.Type.Position])
 	for entity: Entity in renderable_entities:
-		entity.process_message(Message.new(&"render", {&"canvas": canvas}))
+		entity.process_message(Message.new("render", {"canvas": canvas}))
 
 
 func _init(id: int, width: int, height: int, base_tile: Tile = null) -> void:
@@ -119,7 +119,13 @@ func get_blocking_entity_at(position: Vector2i) -> Entity:
 func enter_entity(entity: Entity) -> void:
 	entities.append(entity)
 	entity.map_data = self
-	entity.process_message(Message.new(&"enter_map"))
+	entity.process_message(Message.new("enter_map", {"canvas": canvas}))
+
+
+func remove_entity(entity: Entity) -> void:
+	entities.erase(entity)
+	entity.map_data = null
+	entity.process_message(Message.new("exit_map"))
 
 
 func activate() -> void:

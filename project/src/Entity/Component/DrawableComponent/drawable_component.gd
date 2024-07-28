@@ -24,7 +24,7 @@ enum RenderOrder {
 	set = set_position
 
 @export var drawable_effects: Array[DrawableEffect]
-@export var _active_drawable_effects: Dictionary
+@export_storage var _active_drawable_effects: Dictionary
 
 var _target_canvas: RID
 var _canvas_item: RID
@@ -58,28 +58,30 @@ func _on_drawable_effect_finished(effect: DrawableEffect) -> void:
 
 func process_message_execute(message: Message) -> void:
 	match message.type:
-		&"visual_update":
-			render_order = message.data.get(&"render_order", render_order)
-			texture = message.data.get(&"texture", texture)
-		&"position_update":
-			assert(message.data.has(&"position"))
-			position = message.data.get(&"position")
-		&"render":
-			if message.data.has(&"canvas"):
-				set_target_canvas(message.data.get(&"canvas"))
-			if message.data.has(&"position"):
-				position = message.data.get(&"position")
+		"visual_update":
+			render_order = message.data.get("render_order", render_order)
+			texture = message.data.get("texture", texture)
+		"position_update":
+			assert(message.data.has("position"))
+			position = message.data.get("position")
+		"render", "enter_map":
+			if message.data.has("canvas"):
+				set_target_canvas(message.data.get("canvas"))
+			if message.data.has("position"):
+				position = message.data.get("position")
 				_full_update()
-		&"set_canvas":
-			assert(message.data.has(&"canvas"))
-			set_target_canvas(message.data.get(&"canvas"))
-		&"clear_visuals":
+		"set_canvas":
+			assert(message.data.has("canvas"))
+			set_target_canvas(message.data.get("canvas"))
+		"clear_visuals":
 			clear()
-		&"fov_updated":
+		"fov_updated":
 			_handle_fov_updated(message)
-		&"set_visibility":
-			var visible: bool = message.data.get(&"visible", true)
+		"set_visibility":
+			var visible: bool = message.data.get("visible", true)
 			RenderingServer.canvas_item_set_visible(_canvas_item, visible)
+		"exit_map":
+			clear()
 
 
 func clear() -> void:
@@ -92,15 +94,15 @@ func clear() -> void:
 
 
 func _handle_fov_updated(message: Message) -> void:
-	assert(message.data.has(&"fov"))
-	assert(message.data.has(&"position"))
+	assert(message.data.has("fov"))
+	assert(message.data.has("position"))
 	var can_remember: bool = false
 	var remember_color: Color
-	if message.data.has(&"remember"):
+	if message.data.has("remember"):
 		can_remember = true
-		remember_color = message.data.get(&"remember")
-	var in_fov: bool = message.data.get(&"fov").get(message.data.get(&"position"), false)
-	var explored: bool = (_parent_entity.map_data.tiles[message.data.get(&"position")] as Tile).is_explored
+		remember_color = message.data.get("remember")
+	var in_fov: bool = message.data.get("fov").get(message.data.get("position"), false)
+	var explored: bool = (_parent_entity.map_data.tiles[message.data.get("position")] as Tile).is_explored
 	_set_fov_visibility(in_fov, explored, can_remember, remember_color)
 
 
@@ -115,7 +117,7 @@ func _set_fov_visibility(in_fov: bool, explored: bool, can_remember: bool, remem
 func _configure_position(position: Vector2i) -> void:
 	if not _canvas_item.is_valid():
 		return
-	var cell_size: Vector2i = ProjectSettings.get_setting(&"global/cell_size")
+	var cell_size: Vector2i = ProjectSettings.get_setting("global/cell_size")
 	var transform := Transform2D().translated(Vector2(position * cell_size))
 	if _canvas_item.is_valid():
 		RenderingServer.canvas_item_set_transform(_canvas_item, transform)
@@ -152,16 +154,14 @@ func set_visible(new_visibility: bool) -> void:
 
 func set_position(new_position: Vector2i) -> void:
 	position = new_position
-	if not _canvas_item.is_valid():
-		return
-	var cell_size: Vector2i = ProjectSettings.get_setting(&"global/cell_size")
+	var cell_size: Vector2i = ProjectSettings.get_setting("global/cell_size")
 	_transform = Transform2D().translated(Vector2(position * cell_size))
 	if _canvas_item.is_valid():
 		RenderingServer.canvas_item_set_transform(_canvas_item, _transform)
 
 
 func _full_update() -> void:
-	var cell_size: Vector2i = ProjectSettings.get_setting(&"global/cell_size")
+	var cell_size: Vector2i = ProjectSettings.get_setting("global/cell_size")
 	if not _canvas_item.is_valid():
 		_canvas_item = RenderingServer.canvas_item_create()
 	else:

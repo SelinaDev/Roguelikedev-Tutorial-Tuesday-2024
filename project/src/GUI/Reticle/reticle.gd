@@ -67,22 +67,22 @@ func _update_look_info() -> void:
 
 
 func _on_event(event: InputEvent) -> void:
-	if event.is_echo():
+	if event.is_echo() or event.is_released():
 		return
 	
-	if InputMap.event_is_action(event, &"move_up"):
+	if InputMap.event_is_action(event, "move_up"):
 		_position += Vector2i.UP
-	elif InputMap.event_is_action(event, &"move_down"):
+	elif InputMap.event_is_action(event, "move_down"):
 		_position += Vector2i.DOWN
-	elif InputMap.event_is_action(event, &"move_left"):
+	elif InputMap.event_is_action(event, "move_left"):
 		_position += Vector2i.LEFT
-	elif InputMap.event_is_action(event, &"move_right"):
+	elif InputMap.event_is_action(event, "move_right"):
 		_position += Vector2i.RIGHT
-	elif InputMap.event_is_action(event, &"zoom_in"):
+	elif InputMap.event_is_action(event, "zoom_in"):
 		_camera_state.zoom *= 2
-	elif InputMap.event_is_action(event, &"zoom_out"):
+	elif InputMap.event_is_action(event, "zoom_out"):
 		_camera_state.zoom /= 2
-	elif InputMap.event_is_action(event, &"back"):
+	elif InputMap.event_is_action(event, "back"):
 		_free_reticle()
 
 

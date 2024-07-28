@@ -7,13 +7,13 @@ const DARK_COLOR = Color.DARK_BLUE
 @export var texture: AtlasTexture
 @export var blocks_movement: bool = true
 @export var blocks_sight: bool = true
-@export var is_explored: bool = false:
+@export_storage var is_explored: bool = false:
 	set(value):
 		if not is_explored:
 			is_explored = value
 		if is_explored and canvas_item.is_valid():
 			RenderingServer.canvas_item_set_visible(canvas_item, true)
-@export var is_in_view: bool = false: 
+@export_storage var is_in_view: bool = false: 
 	set(value):
 		if value == is_in_view:
 			return
@@ -27,7 +27,7 @@ var canvas_item: RID
 
 
 func render(canvas: RID, position: Vector2i) -> void:
-	var cell_size: Vector2i = ProjectSettings.get_setting(&"global/cell_size")
+	var cell_size: Vector2i = ProjectSettings.get_setting("global/cell_size")
 	var render_pos := Vector2(position * cell_size)
 	canvas_item = RenderingServer.canvas_item_create()
 	RenderingServer.canvas_item_add_texture_rect_region(

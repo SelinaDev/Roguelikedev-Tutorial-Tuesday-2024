@@ -2,6 +2,7 @@ class_name Entity
 extends Resource
 
 @export var name: String
+@export var is_proper_name: bool = false
 @export var templates: Array[EntityTemplate]
 @export var initial_components: Array[Component]
 
@@ -68,3 +69,10 @@ func process_message(message: Message) -> void:
 		for component: Component in _components.values():
 			component.process_message_execute(_message_queue.front())
 		_message_queue.pop_front()
+
+
+func get_entity_name() -> String:
+	if is_proper_name:
+		return name
+	else:
+		return "the " + name

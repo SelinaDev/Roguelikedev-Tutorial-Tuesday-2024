@@ -24,7 +24,7 @@ func _new_game(data: Dictionary) -> void:
 		var map: MapData = info.player_entity.map_data
 		RenderingServer.viewport_attach_canvas(info.sub_viewport.get_viewport_rid(), map.canvas)
 		info.player_panel.setup(info.player_entity)
-		info.player_entity.process_message(Message.new(&"render"))
+		info.player_entity.process_message(Message.new("render"))
 	
 	Log.send_log.bindv(["Welcome, adventurer%s!" % "s" if _player_info.size() > 1 else "", Log.COLOR_POSITIVE]).call_deferred()
 

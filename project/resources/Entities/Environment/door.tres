@@ -1,13 +1,16 @@
-[gd_resource type="Resource" script_class="Entity" load_steps=18 format=3 uid="uid://t85rri7mf6hh"]
+[gd_resource type="Resource" script_class="Entity" load_steps=21 format=3 uid="uid://t85rri7mf6hh"]
 
 [ext_resource type="Script" path="res://src/Entity/Component/door_component.gd" id="1_5hitb"]
 [ext_resource type="Script" path="res://src/Entity/entity.gd" id="1_ouvr3"]
+[ext_resource type="Script" path="res://src/Entity/Component/component.gd" id="1_owng2"]
 [ext_resource type="Texture2D" uid="uid://cl5u3naxm2fy" path="res://assets/urizen_onebit_tileset__v1d0.png" id="2_eht5y"]
 [ext_resource type="Script" path="res://src/Entity/Component/movement_blocker_component.gd" id="3_k4se1"]
 [ext_resource type="Script" path="res://src/Entity/Component/DrawableComponent/drawable_component.gd" id="4_02wwb"]
+[ext_resource type="Script" path="res://src/Entity/Component/DrawableComponent/drawable_effect.gd" id="5_j0for"]
 [ext_resource type="Script" path="res://src/Entity/Component/rememberable_component.gd" id="5_vlfww"]
 [ext_resource type="Script" path="res://src/Entity/Component/visibility_blocker_component.gd" id="6_bos4u"]
 [ext_resource type="Script" path="res://src/Entity/Component/durability_component.gd" id="7_xwcse"]
+[ext_resource type="Script" path="res://src/Entity/entity_template.gd" id="11_bjthg"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7btkw"]
 atlas = ExtResource("2_eht5y")
@@ -35,7 +38,7 @@ color = Color(1, 1, 1, 1)
 modulate = Color(1, 1, 1, 1)
 visible = true
 position = Vector2i(0, 0)
-drawable_effects = Array[Resource("res://src/Entity/Component/DrawableComponent/drawable_effect.gd")]([])
+drawable_effects = Array[ExtResource("5_j0for")]([])
 _active_drawable_effects = {}
 
 [sub_resource type="Resource" id="Resource_oiumw"]
@@ -61,5 +64,6 @@ death_removes_visibility_blocker = true
 [resource]
 script = ExtResource("1_ouvr3")
 name = "Door"
-templates = Array[Resource("res://src/Entity/entity_template.gd")]([])
-initial_components = Array[Resource("res://src/Entity/Component/component.gd")]([SubResource("Resource_ku177"), SubResource("Resource_45j3k"), SubResource("Resource_bf7hl"), SubResource("Resource_oiumw"), SubResource("Resource_0yx4u"), SubResource("Resource_lv2on")])
+is_proper_name = false
+templates = Array[ExtResource("11_bjthg")]([])
+initial_components = Array[ExtResource("1_owng2")]([SubResource("Resource_ku177"), SubResource("Resource_45j3k"), SubResource("Resource_bf7hl"), SubResource("Resource_oiumw"), SubResource("Resource_0yx4u"), SubResource("Resource_lv2on")])

@@ -2,14 +2,17 @@ extends InfoContainer
 
 signal action_selected(action)
 
-@onready var actions_list: VBoxContainer = $ScrollContainer/ActionsList
+const INVENTORY_INFO_CONTAINER = preload("res://src/GUI/InfoPanels/InventoryPanel/inventory_info_container.tscn")
+
+@onready var menu_list: MenuList = $MenuList
 
 
 const actions = [
 	"attack",
 	"close",
+	"look",
 	"open",
-	"look"
+	"pickup"
 ]
 
 const action_mapping_controller = {
@@ -20,56 +23,40 @@ const action_mapping_keyboard = {
 	"attack": "A",
 	"close": "C",
 	"open": "O",
-	"look": "L"
+	"look": "L",
+	"pickup": "P"
 }
+
 
 
 func _setup() -> void:
 	InputManager.obtain_input_handle(_device).received_input.connect(_on_event)
-	var _first_button: Button = null
 	for action: String in actions:
-		var button := _create_action_button(action)
-		actions_list.add_child(button)
-		if not _first_button:
-			_first_button = button
-	if _first_button:
-		_first_button.grab_focus()
-	var action_buttons: Array = actions_list.get_children()
-	if not action_buttons.is_empty():
-		for i: int in action_buttons.size():
-			var prev_button: Button = action_buttons[(i - 1) % action_buttons.size()]
-			var button: Button = action_buttons[i]
-			var next_button: Button = action_buttons[(i + 1) % action_buttons.size()]
-			var prev_button_path := button.get_path_to(prev_button)
-			var next_button_path := button.get_path_to(next_button)
-			
-			button.focus_neighbor_bottom = next_button_path
-			button.focus_neighbor_right = next_button_path
-			button.focus_next = next_button_path
-			
-			button.focus_neighbor_top = prev_button_path
-			button.focus_neighbor_left = prev_button_path
-			button.focus_previous = prev_button_path
+		_create_action_button(action)
+	menu_list.finish_menu()
 
 
 func _on_event(event: InputEvent) -> void:
 	if event.is_echo():
 		return
 	
-	if event.is_action_pressed(&"back"):
+	if event.is_action_pressed("ui_accept"):
+		_on_action_button_pressed(menu_list.accept())
+	elif event.is_action_pressed("move_down"):
+		menu_list.select_next()
+	elif event.is_action_pressed("move_up"):
+		menu_list.select_previous()
+	elif event.is_action_pressed("back"):
 		_submit_action(null)
 
 
-func _create_action_button(action: String) -> Button:
-	var action_button := Button.new()
+func _create_action_button(action: String) -> void:
 	var mapping: Dictionary = action_mapping_keyboard if _device == -1 else action_mapping_controller
-	action_button.text = action.capitalize()
+	var action_text = action.capitalize()
 	var hint_text: String = mapping.get(action, "")
 	if not hint_text.is_empty():
-		action_button.text += " (" + hint_text + ")"
-	action_button.pressed.connect(_on_action_button_pressed.bind(action))
-	action_button.alignment = HORIZONTAL_ALIGNMENT_LEFT
-	return action_button
+		action_text += " (" + hint_text + ")"
+	menu_list.add_button(action_text, action)
 
 
 func _on_action_button_pressed(action_name: String) -> void:
@@ -95,6 +82,8 @@ func _on_action_button_pressed(action_name: String) -> void:
 			).direction_selected
 		"look":
 			_spawn_reticle()
+		"pickup":
+			action = PickupAction.new(_player, Vector2i.ZERO)
 	if action:
 		_submit_action(action)
 

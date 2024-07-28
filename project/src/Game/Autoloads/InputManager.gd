@@ -26,6 +26,8 @@ func pop_handle(device: int) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if event.is_echo():
+		return
 	var device: int = get_device_index(event)
 	if _input_handles.has(device):
 		_input_handles[device].back().received_input.emit(event)
@@ -36,4 +38,5 @@ func reset() -> void:
 
 
 class InputHandle extends RefCounted:
+	@warning_ignore("unused_signal")
 	signal received_input(event)
