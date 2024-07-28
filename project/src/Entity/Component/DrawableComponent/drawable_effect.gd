@@ -1,6 +1,7 @@
 class_name DrawableEffect
 extends Resource
 
+@warning_ignore("unused_signal")
 signal effect_finished
 
 var _drawable_component: DrawableComponent

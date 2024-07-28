@@ -10,11 +10,14 @@ enum Type {
 	Drawable,
 	Durability,
 	Fov,
+	Inventory,
+	Item,
 	MovementBlocker,
 	Player,
 	Position,
 	Power,
 	Rememberable,
+	Use,
 	VisibilityBlocker
 }
 

@@ -17,23 +17,23 @@ var _fov: Dictionary
 
 func process_message_precalculate(message: Message) -> void:
 	match message.type:
-		&"fov_update":
-			message.data.merge({&"radius": base_radius}) # TODO: Maybe replace with a message data calculation
+		"fov_update":
+			message.data.merge({"radius": base_radius}) # TODO: Maybe replace with a message data calculation
 
 
 func process_message_execute(message: Message) -> void:
 	match message.type:
-		&"position_update":
-			_parent_entity.process_message(Message.new(&"fov_update"))
-		&"fov_update":
-			assert(message.data.has(&"position"))
-			assert(message.data.has(&"index"))
+		"position_update":
+			_parent_entity.process_message(Message.new("fov_update"))
+		"fov_update":
+			assert(message.data.has("position"))
+			assert(message.data.has("index"))
 			_update_fov(
 				_parent_entity.map_data,
-				message.data.get(&"position"),
-				message.data.get(&"radius")
+				message.data.get("position"),
+				message.data.get("radius")
 			)
-			_parent_entity.map_data.set_fov(message.data.get(&"index"), _fov)
+			_parent_entity.map_data.set_fov(message.data.get("index"), _fov)
 
 
 func get_component_type() -> Type:

@@ -16,7 +16,7 @@ func enter(data: Dictionary = {}) -> void:
 
 
 func _ready() -> void:
-	start_button.grab_focus()
+	start_button.grab_focus.call_deferred()
 
 
 func _input(event: InputEvent) -> void:

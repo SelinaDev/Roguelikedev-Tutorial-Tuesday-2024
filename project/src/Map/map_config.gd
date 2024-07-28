@@ -10,6 +10,7 @@ enum MapType {
 @export var max_rooms: int = 20
 @export var max_tries: int = 1000
 @export var max_enemies_per_room: int = 2
+@export var max_items_per_room: int = 1
 @export var floor_variation: TileVariation
 @export var wall_variation: TileVariation
 @export var map_type: MapType = MapType.DUNGEON

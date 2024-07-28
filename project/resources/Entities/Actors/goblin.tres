@@ -1,10 +1,13 @@
-[gd_resource type="Resource" script_class="Entity" load_steps=10 format=3 uid="uid://bdaryf1h2fgfo"]
+[gd_resource type="Resource" script_class="Entity" load_steps=13 format=3 uid="uid://bdaryf1h2fgfo"]
 
 [ext_resource type="Script" path="res://src/Entity/entity.gd" id="1_71i23"]
 [ext_resource type="Script" path="res://src/Entity/Component/DrawableComponent/drawable_component.gd" id="1_ad45g"]
+[ext_resource type="Script" path="res://src/Entity/Component/component.gd" id="1_f6mlm"]
+[ext_resource type="Script" path="res://src/Entity/Component/DrawableComponent/drawable_effect.gd" id="2_1pdfl"]
 [ext_resource type="Texture2D" uid="uid://cl5u3naxm2fy" path="res://assets/urizen_onebit_tileset__v1d0.png" id="2_fo3nt"]
 [ext_resource type="Script" path="res://src/Entity/Component/durability_component.gd" id="3_1gaep"]
 [ext_resource type="Resource" uid="uid://cr15gc6rayc4v" path="res://resources/Entities/Actors/Templates/creature_template.tres" id="4_jkxms"]
+[ext_resource type="Script" path="res://src/Entity/entity_template.gd" id="7_wyj2n"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d711m"]
 atlas = ExtResource("2_fo3nt")
@@ -18,7 +21,7 @@ color = Color(1, 1, 1, 1)
 modulate = Color(1, 1, 1, 1)
 visible = true
 position = Vector2i(0, 0)
-drawable_effects = Array[Resource("res://src/Entity/Component/DrawableComponent/drawable_effect.gd")]([])
+drawable_effects = Array[ExtResource("2_1pdfl")]([])
 _active_drawable_effects = {}
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_npvb8"]
@@ -37,5 +40,6 @@ death_removes_visibility_blocker = true
 [resource]
 script = ExtResource("1_71i23")
 name = "Goblin"
-templates = Array[Resource("res://src/Entity/entity_template.gd")]([ExtResource("4_jkxms")])
-initial_components = Array[Resource("res://src/Entity/Component/component.gd")]([SubResource("Resource_wv305"), SubResource("Resource_j5qmc")])
+is_proper_name = false
+templates = Array[ExtResource("7_wyj2n")]([ExtResource("4_jkxms")])
+initial_components = Array[ExtResource("1_f6mlm")]([SubResource("Resource_wv305"), SubResource("Resource_j5qmc")])

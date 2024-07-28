@@ -1,7 +1,9 @@
-[gd_resource type="Resource" script_class="Entity" load_steps=18 format=3 uid="uid://08un78dx64fi"]
+[gd_resource type="Resource" script_class="Entity" load_steps=23 format=3 uid="uid://08un78dx64fi"]
 
+[ext_resource type="Script" path="res://src/Entity/Component/component.gd" id="1_5seo2"]
 [ext_resource type="Script" path="res://src/Entity/entity.gd" id="1_ge48h"]
 [ext_resource type="Script" path="res://src/Entity/Component/player_component.gd" id="1_paibh"]
+[ext_resource type="Script" path="res://src/Entity/Component/DrawableComponent/drawable_effect.gd" id="3_5r2i6"]
 [ext_resource type="Script" path="res://src/Entity/Component/DrawableComponent/drawable_component.gd" id="3_dvelo"]
 [ext_resource type="Texture2D" uid="uid://cl5u3naxm2fy" path="res://assets/urizen_onebit_tileset__v1d0.png" id="3_ifa31"]
 [ext_resource type="Resource" uid="uid://cr15gc6rayc4v" path="res://resources/Entities/Actors/Templates/creature_template.tres" id="3_kx7dw"]
@@ -9,9 +11,12 @@
 [ext_resource type="Script" path="res://src/Entity/Component/camera_component.gd" id="5_1sppd"]
 [ext_resource type="Script" path="res://src/Entity/Component/fov_component.gd" id="6_mutce"]
 [ext_resource type="Script" path="res://src/Entity/Component/durability_component.gd" id="7_kjin3"]
+[ext_resource type="Script" path="res://src/Entity/Component/inventory_component.gd" id="11_2tcfn"]
+[ext_resource type="Script" path="res://src/Entity/entity_template.gd" id="11_l0emg"]
 
 [sub_resource type="Resource" id="Resource_yntj7"]
 script = ExtResource("1_paibh")
+player_index = 0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_r61x0"]
 atlas = ExtResource("3_ifa31")
@@ -20,12 +25,12 @@ region = Rect2(1, 222, 12, 12)
 [sub_resource type="Resource" id="Resource_qlvlf"]
 script = ExtResource("3_dvelo")
 texture = SubResource("AtlasTexture_r61x0")
-render_order = 2
+render_order = 3
 color = Color(1, 1, 1, 1)
 modulate = Color(1, 1, 1, 1)
 visible = true
 position = Vector2i(0, 0)
-drawable_effects = Array[Resource("res://src/Entity/Component/DrawableComponent/drawable_effect.gd")]([])
+drawable_effects = Array[ExtResource("3_5r2i6")]([])
 _active_drawable_effects = {}
 
 [sub_resource type="Resource" id="Resource_merbi"]
@@ -51,8 +56,14 @@ death_z_index = 1
 death_removes_movement_blocker = true
 death_removes_visibility_blocker = true
 
+[sub_resource type="Resource" id="Resource_gpmxi"]
+script = ExtResource("11_2tcfn")
+capacity = 24
+items = Array[ExtResource("1_ge48h")]([])
+
 [resource]
 script = ExtResource("1_ge48h")
 name = "Player"
-templates = Array[Resource("res://src/Entity/entity_template.gd")]([ExtResource("3_kx7dw")])
-initial_components = Array[Resource("res://src/Entity/Component/component.gd")]([SubResource("Resource_yntj7"), SubResource("Resource_qlvlf"), SubResource("Resource_merbi"), SubResource("Resource_bihn8"), SubResource("Resource_n76u1"), SubResource("Resource_foi8v")])
+is_proper_name = true
+templates = Array[ExtResource("11_l0emg")]([ExtResource("3_kx7dw")])
+initial_components = Array[ExtResource("1_5seo2")]([SubResource("Resource_yntj7"), SubResource("Resource_qlvlf"), SubResource("Resource_merbi"), SubResource("Resource_bihn8"), SubResource("Resource_n76u1"), SubResource("Resource_foi8v"), SubResource("Resource_gpmxi")])

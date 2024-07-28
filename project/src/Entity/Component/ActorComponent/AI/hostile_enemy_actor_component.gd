@@ -25,8 +25,8 @@ func _on_player_took_turn(player: Entity) -> void:
 
 func _take_turn() -> void:
 	_parent_entity.process_message(Message.new(
-		&"get_action",
-		{&"proposed_actions": [
+		"get_action",
+		{"proposed_actions": [
 			ProposedAction.new().with_priority(ProposedAction.Priority.FALLBACK).with_action(WaitAction.new(_parent_entity))
 		]}
 	))
@@ -34,16 +34,16 @@ func _take_turn() -> void:
 
 func process_message_precalculate(message: Message) -> void:
 	match message.type:
-		&"get_action":
+		"get_action":
 			var player_entity: Entity = turn_syncher.get_synched_player()
 			for ai_component: AiComponent in ai_components:
-				message.get_array(&"proposed_actions").append_array(ai_component.get_proposed_actions(_parent_entity, player_entity))
+				message.get_array("proposed_actions").append_array(ai_component.get_proposed_actions(_parent_entity, player_entity))
 
 
 func process_message_execute(message: Message) -> void:
 	match message.type:
-		&"get_action":
-			var proposed_actions := message.get_array(&"proposed_actions")
+		"get_action":
+			var proposed_actions := message.get_array("proposed_actions")
 			var proposed_action: ProposedAction = proposed_actions.reduce(
 				func(action: ProposedAction, tested_action: ProposedAction) -> ProposedAction:
 					if tested_action.priority > action.priority:
@@ -53,7 +53,7 @@ func process_message_execute(message: Message) -> void:
 					return tested_action if tested_action.score > action.score else action
 			)
 			_queued_action = proposed_action.action
-		&"enter_map":
+		"enter_map":
 			turn_syncher.setup(_parent_entity)
 			SignalBus.group_took_turn.connect(_on_group_took_turn)
 			SignalBus.player_took_turn.connect(_on_player_took_turn)

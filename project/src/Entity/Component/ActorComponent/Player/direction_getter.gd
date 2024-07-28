@@ -20,14 +20,16 @@ func _init(player: Entity, action_name: String, action: ActionWithDirection) -> 
 
 
 func _on_event(event: InputEvent) -> void:
-	if event.is_echo():
+	if event.is_echo() or event.is_released():
 		return
 	
-	for action: StringName in Globals.DIRECTION_MAPPING:
-		if InputMap.event_is_action(event, action):
+	for action: String in Globals.DIRECTION_MAPPING:
+		if event.is_action_pressed(action):
 			accept(Globals.DIRECTION_MAPPING[action])
 			return
-	if event.is_action_pressed(&"back"):
+	if InputMap.event_is_action(event, "wait"):
+		accept(Vector2i.ZERO)
+	elif event.is_action_pressed("back"):
 		cancel()
 
 

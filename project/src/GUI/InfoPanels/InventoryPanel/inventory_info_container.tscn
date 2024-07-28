@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://cfnpmhqqex73w"]
+
+[ext_resource type="Script" path="res://src/GUI/InfoPanels/InventoryPanel/inventory_info_container.gd" id="1_7xwra"]
+[ext_resource type="PackedScene" uid="uid://cl8inmqgr3urt" path="res://src/GUI/ButtonList/menu_list.tscn" id="2_tuu5r"]
+
+[node name="InventoryInfoContainer" type="MarginContainer"]
+offset_right = 138.0
+offset_bottom = 96.0
+script = ExtResource("1_7xwra")
+
+[node name="MenuList" parent="." instance=ExtResource("2_tuu5r")]
+layout_mode = 2

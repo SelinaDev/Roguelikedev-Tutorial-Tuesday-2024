@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://b78i3vdu1aoa"]
+[gd_scene load_steps=3 format=3 uid="uid://b78i3vdu1aoa"]
 
 [ext_resource type="Script" path="res://src/GUI/InfoPanels/ActionsPanel/actions_info_container.gd" id="1_ep61p"]
+[ext_resource type="PackedScene" uid="uid://cl8inmqgr3urt" path="res://src/GUI/ButtonList/menu_list.tscn" id="2_3btxc"]
 
 [node name="ActionsInfoContainer" type="MarginContainer"]
 anchors_preset = 15
@@ -10,11 +11,5 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ep61p")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="."]
+[node name="MenuList" parent="." instance=ExtResource("2_3btxc")]
 layout_mode = 2
-follow_focus = true
-horizontal_scroll_mode = 0
-
-[node name="ActionsList" type="VBoxContainer" parent="ScrollContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
