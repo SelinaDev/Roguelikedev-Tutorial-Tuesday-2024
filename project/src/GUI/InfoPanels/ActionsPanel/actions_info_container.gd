@@ -10,18 +10,21 @@ const INVENTORY_INFO_CONTAINER = preload("res://src/GUI/InfoPanels/InventoryPane
 const actions = [
 	"attack",
 	"close",
+	"inventory",
 	"look",
 	"open",
 	"pickup"
 ]
 
 const action_mapping_controller = {
-	"look": "X"
+	"look": "X",
+	"inventory": "Y"
 }
 
 const action_mapping_keyboard = {
 	"attack": "A",
 	"close": "C",
+	"inventory": "I",
 	"open": "O",
 	"look": "L",
 	"pickup": "P"
@@ -84,6 +87,8 @@ func _on_action_button_pressed(action_name: String) -> void:
 			_spawn_reticle()
 		"pickup":
 			action = PickupAction.new(_player, Vector2i.ZERO)
+		"inventory":
+			action = await _spawn_inventory()
 	if action:
 		_submit_action(action)
 
@@ -106,3 +111,10 @@ func _spawn_reticle() -> void:
 	var reticle := Reticle.new()
 	reticle.setup(_player)
 	await reticle.reticle_finished
+
+
+func _spawn_inventory() -> Action:
+	var player_info: PlayerInfo = PlayerComponent.get_player_info(_player)
+	var inventory_info: InventoryInfoContainer = player_info.info_display.spawn_panel("Inventory", INVENTORY_INFO_CONTAINER, _player).info_container
+	inventory_info.set_mode_list()
+	return await inventory_info.action_selected

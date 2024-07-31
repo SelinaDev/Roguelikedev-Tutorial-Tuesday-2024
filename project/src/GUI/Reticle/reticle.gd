@@ -3,6 +3,12 @@ extends RefCounted
 
 signal reticle_finished
 
+enum Mode {
+	LOOK,
+	TARGET_SINGLE,
+	TARGET_AOE
+}
+
 const RETICLE_TEXTURE = preload("res://resources/Textures/reticle_texture.tres")
 const LOOK_INFO_CONTAINER = preload("res://src/GUI/InfoPanels/LookModePanel/look_info_container.tscn")
 const BLINK_FREQUENCY = 1.0
@@ -18,9 +24,10 @@ var _cell_size: Vector2
 var _tween: Tween
 var _visible: bool = true
 var _info_container: LookInfoContainer
+var _mode: Mode = Mode.LOOK
 
 
-func setup(player: Entity) -> void:
+func setup(player: Entity, mode: Mode = Mode.LOOK) -> void:
 	_player_entity = player
 	_map_data  = _player_entity.map_data
 	var player_info: PlayerInfo = (_player_entity.get_component(Component.Type.Player) as PlayerComponent).player_info

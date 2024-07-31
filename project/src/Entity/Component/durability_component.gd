@@ -4,6 +4,8 @@ extends Component
 signal hp_changed(hp, max_hp)
 signal took_damage(amount, source)
 
+const HEALING = preload("res://resources/DrawableEffects/healing.tres")
+
 @export var max_hp: int:
 	set(value):
 		if value == max_hp:
@@ -63,13 +65,17 @@ func process_message_execute(message: Message) -> void:
 				log_color = Log.COLOR_POSITIVE
 			Log.send_log(log_text, log_color)
 			_parent_entity.name = "Remains of %s" % _parent_entity.name
+			_parent_entity.remove_component(get_component_type())
 		"heal":
 			var actual_amount := heal(message.get_calculation("amount").get_result())
 			message.data["actual_amount"] = actual_amount
 			if actual_amount > 0:
 				Log.send_log("%s was healed for %d health" % [_parent_entity.get_entity_name(), actual_amount], Log.COLOR_POSITIVE)
+				_parent_entity.process_message(Message.new(
+					"add_drawable_effect",
+					{"drawable_effect": HEALING}
+				))
 		"take_damage":
-			message.data["did_hit"] = current_hp > 0
 			var actual_amount := take_damage(message.get_calculation("damage").get_result())
 			message.data["actual_amount"] = actual_amount
 			var damage_source: Entity = message.data.get("source")
@@ -91,7 +97,7 @@ func process_message_execute(message: Message) -> void:
 					hit_verb,
 					_parent_entity.get_entity_name()
 				])
-				
+			message.data["did_hit"] = current_hp > 0
 			took_damage.emit(actual_amount, message.data.get("source", null))
 
 

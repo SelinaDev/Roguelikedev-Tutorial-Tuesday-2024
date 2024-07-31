@@ -269,7 +269,7 @@ func _place_entities_in_room(map_data: MapData, map_config: MapConfig, room: Roo
 	
 	for _i in num_items:
 		var item_position: Vector2i = room_tiles.pop_at(_rng.randi() % room_tiles.size())
-		var item_type: String = "potion_health"
+		var item_type: String = ["potion_health", "scroll_lightning"][_rng.rand_weighted([3, 1])]
 		var item: Entity = ENTITY_DB.entries.get(item_type).reify()
 		item.place_at(item_position)
 		map_data.enter_entity(item)

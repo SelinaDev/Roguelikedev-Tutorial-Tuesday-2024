@@ -4,7 +4,7 @@ extends UseEffect
 @export var amount: int
 
 
-func apply(entity: Entity) -> bool:
+func apply(entity: Entity, _source: Entity) -> bool:
 	var heal_message := Message.new("heal")
 	heal_message.get_calculation("amount").base_value = amount
 	entity.process_message(heal_message)

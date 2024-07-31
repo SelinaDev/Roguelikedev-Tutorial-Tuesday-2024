@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://src/Entity/entity.gd" id="1_71i23"]
 [ext_resource type="Script" path="res://src/Entity/Component/DrawableComponent/drawable_component.gd" id="1_ad45g"]
 [ext_resource type="Script" path="res://src/Entity/Component/component.gd" id="1_f6mlm"]
-[ext_resource type="Script" path="res://src/Entity/Component/DrawableComponent/drawable_effect.gd" id="2_1pdfl"]
+[ext_resource type="Script" path="res://src/Entity/Component/DrawableComponent/DrawableEffects/drawable_effect.gd" id="2_1pdfl"]
 [ext_resource type="Texture2D" uid="uid://cl5u3naxm2fy" path="res://assets/urizen_onebit_tileset__v1d0.png" id="2_fo3nt"]
 [ext_resource type="Script" path="res://src/Entity/Component/durability_component.gd" id="3_1gaep"]
 [ext_resource type="Resource" uid="uid://cr15gc6rayc4v" path="res://resources/Entities/Actors/Templates/creature_template.tres" id="4_jkxms"]

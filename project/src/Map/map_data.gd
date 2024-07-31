@@ -155,3 +155,28 @@ func pathfinder_set_point(point: Vector2i, blocked: bool) -> void:
 		return
 	var weight := BLOCKING_ENTITIY_PATHFIND_WEIGHT if blocked else 0
 	pathfinder.set_point_weight_scale(point, weight)
+
+
+func draw_line(from: Vector2i, to: Vector2i, interrupted_by_movement_block: bool = true, interrupted_by_sight_block: bool = true, include_start: bool = false) -> Array[Vector2i]:
+	var points: Array[Vector2i] = [from] if include_start else []
+	
+	var diff := (to - from).abs()
+	var n := maxi(diff.x, diff.y)
+	var from_f := Vector2(from) + Vector2(0.5, 0.5)
+	var to_f := Vector2(from) + Vector2(0.5, 0.5)
+	for i: int in range(1, n):
+		var t := inverse_lerp(0, n, i)
+		var point_f := from_f.lerp(to_f, t)
+		var point := Vector2i(point_f.round())
+		var tile: Tile = tiles.get(point)
+		if not tile:
+			break
+		if (interrupted_by_movement_block and tile.blocks_movement) or (interrupted_by_sight_block and tile.blocks_sight):
+				break
+		var entities := get_entities_at(point)
+		if interrupted_by_movement_block and not entities.filter(func(e: Entity) -> bool: return e.has_component(Component.Type.MovementBlocker)):
+			break
+		if interrupted_by_sight_block and not entities.filter(func(e: Entity) -> bool: return e.has_component(Component.Type.VisibilityBlocker)):
+			break
+		points.append(point)
+	return points

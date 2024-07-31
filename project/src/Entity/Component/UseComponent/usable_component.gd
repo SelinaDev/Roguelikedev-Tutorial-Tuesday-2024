@@ -16,7 +16,7 @@ func activate(_user: Entity, targets: Array[Entity]) -> bool:
 	var did_use := false
 	for target: Entity in targets:
 		for effect: UseEffect in effects:
-			did_use = effect.apply(target) or did_use
+			did_use = effect.apply(target, _user) or did_use
 	return did_use
 
 

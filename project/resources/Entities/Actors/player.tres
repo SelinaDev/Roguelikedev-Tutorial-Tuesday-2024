@@ -1,9 +1,9 @@
-[gd_resource type="Resource" script_class="Entity" load_steps=23 format=3 uid="uid://08un78dx64fi"]
+[gd_resource type="Resource" script_class="Entity" load_steps=25 format=3 uid="uid://08un78dx64fi"]
 
 [ext_resource type="Script" path="res://src/Entity/Component/component.gd" id="1_5seo2"]
 [ext_resource type="Script" path="res://src/Entity/entity.gd" id="1_ge48h"]
 [ext_resource type="Script" path="res://src/Entity/Component/player_component.gd" id="1_paibh"]
-[ext_resource type="Script" path="res://src/Entity/Component/DrawableComponent/drawable_effect.gd" id="3_5r2i6"]
+[ext_resource type="Script" path="res://src/Entity/Component/DrawableComponent/DrawableEffects/drawable_effect.gd" id="3_5r2i6"]
 [ext_resource type="Script" path="res://src/Entity/Component/DrawableComponent/drawable_component.gd" id="3_dvelo"]
 [ext_resource type="Texture2D" uid="uid://cl5u3naxm2fy" path="res://assets/urizen_onebit_tileset__v1d0.png" id="3_ifa31"]
 [ext_resource type="Resource" uid="uid://cr15gc6rayc4v" path="res://resources/Entities/Actors/Templates/creature_template.tres" id="3_kx7dw"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://src/Entity/Component/durability_component.gd" id="7_kjin3"]
 [ext_resource type="Script" path="res://src/Entity/Component/inventory_component.gd" id="11_2tcfn"]
 [ext_resource type="Script" path="res://src/Entity/entity_template.gd" id="11_l0emg"]
+[ext_resource type="Script" path="res://src/Entity/Component/faction_component.gd" id="12_b1s0l"]
 
 [sub_resource type="Resource" id="Resource_yntj7"]
 script = ExtResource("1_paibh")
@@ -61,9 +62,13 @@ script = ExtResource("11_2tcfn")
 capacity = 24
 items = Array[ExtResource("1_ge48h")]([])
 
+[sub_resource type="Resource" id="Resource_o14as"]
+script = ExtResource("12_b1s0l")
+faction = 1
+
 [resource]
 script = ExtResource("1_ge48h")
 name = "Player"
 is_proper_name = true
 templates = Array[ExtResource("11_l0emg")]([ExtResource("3_kx7dw")])
-initial_components = Array[ExtResource("1_5seo2")]([SubResource("Resource_yntj7"), SubResource("Resource_qlvlf"), SubResource("Resource_merbi"), SubResource("Resource_bihn8"), SubResource("Resource_n76u1"), SubResource("Resource_foi8v"), SubResource("Resource_gpmxi")])
+initial_components = Array[ExtResource("1_5seo2")]([SubResource("Resource_yntj7"), SubResource("Resource_qlvlf"), SubResource("Resource_merbi"), SubResource("Resource_bihn8"), SubResource("Resource_n76u1"), SubResource("Resource_foi8v"), SubResource("Resource_gpmxi"), SubResource("Resource_o14as")])

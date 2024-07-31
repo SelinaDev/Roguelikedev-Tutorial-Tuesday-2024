@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ResourceDB" load_steps=7 format=3 uid="uid://c786ivrv1akyg"]
+[gd_resource type="Resource" script_class="ResourceDB" load_steps=8 format=3 uid="uid://c786ivrv1akyg"]
 
 [ext_resource type="Resource" uid="uid://bdaryf1h2fgfo" path="res://resources/Entities/Actors/goblin.tres" id="1_xbgdx"]
 [ext_resource type="Script" path="res://addons/resource_dbs/resource_db.gd" id="2_1cunx"]
@@ -6,6 +6,7 @@
 [ext_resource type="Resource" uid="uid://08un78dx64fi" path="res://resources/Entities/Actors/player.tres" id="3_s1q16"]
 [ext_resource type="Resource" uid="uid://t85rri7mf6hh" path="res://resources/Entities/Environment/door.tres" id="4_myg1p"]
 [ext_resource type="Resource" uid="uid://m776b4mfjdd0" path="res://resources/Entities/Items/potion_health.tres" id="5_ky6cc"]
+[ext_resource type="Resource" uid="uid://c1xdsitx3w6o8" path="res://resources/Entities/Items/scroll_lightning.tres" id="6_j5310"]
 
 [resource]
 script = ExtResource("2_1cunx")
@@ -14,5 +15,6 @@ entries = {
 "goblin": ExtResource("1_xbgdx"),
 "orc": ExtResource("2_pdipy"),
 "player": ExtResource("3_s1q16"),
-"potion_health": ExtResource("5_ky6cc")
+"potion_health": ExtResource("5_ky6cc"),
+"scroll_lightning": ExtResource("6_j5310")
 }

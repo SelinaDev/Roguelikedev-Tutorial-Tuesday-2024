@@ -49,10 +49,12 @@ func add_drawable_effect(effect: DrawableEffect) -> void:
 	if previous_effect:
 		previous_effect.stop()
 	_active_drawable_effects[effect.get_effect_type()] = effect
+	effect.effect_finished.connect(_on_drawable_effect_finished.bind(effect))
 	effect.start(self)
 
 
 func _on_drawable_effect_finished(effect: DrawableEffect) -> void:
+	effect.stop()
 	_active_drawable_effects.erase(effect.get_effect_type())
 
 
@@ -80,6 +82,10 @@ func process_message_execute(message: Message) -> void:
 		"set_visibility":
 			var visible: bool = message.data.get("visible", true)
 			RenderingServer.canvas_item_set_visible(_canvas_item, visible)
+		"add_drawable_effect":
+			var drawable_effect: DrawableEffect = message.data.get("drawable_effect")
+			if drawable_effect:
+				add_drawable_effect(drawable_effect)
 		"exit_map":
 			clear()
 
