@@ -1,0 +1,72 @@
+[gd_resource type="Resource" script_class="Entity" load_steps=24 format=3 uid="uid://nbv1upmnd3i8"]
+
+[ext_resource type="Script" path="res://src/Entity/Component/component.gd" id="1_rnyew"]
+[ext_resource type="Script" path="res://src/Entity/Component/DrawableComponent/DrawableEffects/drawable_effect.gd" id="2_ok3ae"]
+[ext_resource type="Script" path="res://src/Entity/Component/DrawableComponent/drawable_component.gd" id="3_uo88w"]
+[ext_resource type="Texture2D" uid="uid://cl5u3naxm2fy" path="res://assets/urizen_onebit_tileset__v1d0.png" id="4_dnb1d"]
+[ext_resource type="Script" path="res://src/Entity/Component/UseComponent/UseEffects/use_effect.gd" id="5_mhehk"]
+[ext_resource type="Script" path="res://src/Entity/Component/UseComponent/UseEffects/status_effect_use_effect.gd" id="6_ou60j"]
+[ext_resource type="Script" path="res://src/Entity/Component/StatusEffects/confused_status_effect.gd" id="7_es5he"]
+[ext_resource type="Script" path="res://src/Entity/Component/DrawableComponent/DrawableEffects/flash_icon_drawable_effect.gd" id="8_yca4a"]
+[ext_resource type="Script" path="res://src/Entity/Component/UseComponent/UseEffects/drawable_use_effect.gd" id="9_lce28"]
+[ext_resource type="Script" path="res://src/Entity/Component/UseComponent/consumable_component.gd" id="10_6ehdp"]
+[ext_resource type="Script" path="res://src/Entity/Component/UseComponent/UseTarget/use_target_single.gd" id="11_t86g7"]
+[ext_resource type="Script" path="res://src/Entity/entity.gd" id="12_i22y5"]
+[ext_resource type="Script" path="res://src/Entity/entity_template.gd" id="13_g0q11"]
+[ext_resource type="Resource" uid="uid://oqj7r5bb5j5d" path="res://resources/Entities/Items/Templates/item_template.tres" id="14_upvga"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kqu2g"]
+atlas = ExtResource("4_dnb1d")
+region = Rect2(352, 430, 12, 12)
+
+[sub_resource type="Resource" id="Resource_5v8pb"]
+script = ExtResource("3_uo88w")
+texture = SubResource("AtlasTexture_kqu2g")
+render_order = 2
+color = Color(1, 1, 1, 1)
+modulate = Color(1, 1, 1, 1)
+visible = true
+position = Vector2i(0, 0)
+drawable_effects = Array[ExtResource("2_ok3ae")]([])
+_active_drawable_effects = {}
+
+[sub_resource type="Resource" id="Resource_n2h1h"]
+script = ExtResource("7_es5he")
+duration = 5
+
+[sub_resource type="Resource" id="Resource_rsqen"]
+script = ExtResource("6_ou60j")
+status_effect = SubResource("Resource_n2h1h")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_27g55"]
+atlas = ExtResource("4_dnb1d")
+region = Rect2(391, 417, 12, 12)
+
+[sub_resource type="Resource" id="Resource_rlc27"]
+script = ExtResource("8_yca4a")
+frequency = 0.5
+times = 2
+icon = SubResource("AtlasTexture_27g55")
+
+[sub_resource type="Resource" id="Resource_k7sns"]
+script = ExtResource("9_lce28")
+drawable_effect = SubResource("Resource_rlc27")
+
+[sub_resource type="Resource" id="Resource_3spa0"]
+script = ExtResource("11_t86g7")
+max_range = 10
+target_faction = 3
+
+[sub_resource type="Resource" id="Resource_v3vo7"]
+script = ExtResource("10_6ehdp")
+uses = 1
+effects = Array[ExtResource("5_mhehk")]([SubResource("Resource_rsqen"), SubResource("Resource_k7sns")])
+targeting = SubResource("Resource_3spa0")
+usage_type = 1
+
+[resource]
+script = ExtResource("12_i22y5")
+name = "Scroll of Confusion"
+is_proper_name = false
+templates = Array[ExtResource("13_g0q11")]([ExtResource("14_upvga")])
+initial_components = Array[ExtResource("1_rnyew")]([SubResource("Resource_5v8pb"), SubResource("Resource_v3vo7")])

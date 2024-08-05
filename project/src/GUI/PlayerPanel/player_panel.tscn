@@ -17,6 +17,11 @@ fill_color = Color(0, 0.501961, 0, 1)
 background_color = Color(0.501961, 0, 0, 1)
 stat_name = "HP"
 
+[node name="StatusList" type="RichTextLabel" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+bbcode_enabled = true
+
 [node name="ControlsLabel" type="Label" parent="."]
 custom_minimum_size = Vector2(50, 16)
 layout_mode = 2

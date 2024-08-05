@@ -20,7 +20,7 @@ enum RenderOrder {
 	set = set_modulate
 @export var visible: bool = true:
 	set = set_visible
-@export var position: Vector2i:
+@export_storage var position: Vector2i:
 	set = set_position
 
 @export var drawable_effects: Array[DrawableEffect]
@@ -49,7 +49,8 @@ func add_drawable_effect(effect: DrawableEffect) -> void:
 	if previous_effect:
 		previous_effect.stop()
 	_active_drawable_effects[effect.get_effect_type()] = effect
-	effect.effect_finished.connect(_on_drawable_effect_finished.bind(effect))
+	if not effect.effect_finished.is_connected(_on_drawable_effect_finished):
+		effect.effect_finished.connect(_on_drawable_effect_finished.bind(effect))
 	effect.start(self)
 
 

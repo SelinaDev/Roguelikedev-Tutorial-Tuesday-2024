@@ -75,8 +75,8 @@ func _on_event(event: InputEvent) -> void:
 
 func _spawn_reticle() -> void:
 	var reticle := Reticle.new()
-	reticle.setup(_parent_entity)
-	await reticle.reticle_finished
+	reticle.setup(_parent_entity).with_look_info()
+	var _targets = await reticle.targets_selected
 
 
 func _spawn_actions_menu() -> void:

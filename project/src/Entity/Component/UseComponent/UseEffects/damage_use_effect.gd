@@ -6,7 +6,7 @@ extends UseEffect
 
 
 func apply(entity: Entity, source: Entity) -> bool:
-	var damage_message := Message.new("take_damage", {"source": source})
+	var damage_message := Message.new("take_damage", {"source": source, "verb": verb})
 	damage_message.get_calculation("damage").base_value = amount
 	entity.process_message(damage_message)
 	#var actual_amount: int = damage_message.data.get("actual_amount", 0)

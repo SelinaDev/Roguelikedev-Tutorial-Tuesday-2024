@@ -22,7 +22,14 @@ func set_look_info(tile: Tile, entities: Array[Entity]) -> void:
 	else:
 		info_text = "You see here:\n[ul]%s%s\n[/ul]" % [
 			entities.reduce(
-				func(list: String, entity: Entity) -> String: return list + entity.name + "\n",
+				func(list: String, entity: Entity) -> String: 
+					var line := entity.name
+					var status_effects_component: StatusEffectsComponent = entity.get_component(Component.Type.StatusEffects)
+					if status_effects_component:
+						var effects := status_effects_component.get_descriptions()
+						if not effects.is_empty():
+							line = line + " (%s)" % ", ".join(effects)
+					return list + line + "\n",
 				""
 			),
 			tile.name

@@ -1,0 +1,61 @@
+[gd_resource type="Resource" script_class="Entity" load_steps=19 format=3 uid="uid://dbtvrl1v78std"]
+
+[ext_resource type="Script" path="res://src/Entity/Component/component.gd" id="1_a086o"]
+[ext_resource type="Script" path="res://src/Entity/Component/DrawableComponent/DrawableEffects/drawable_effect.gd" id="2_s6lo1"]
+[ext_resource type="Script" path="res://src/Entity/entity.gd" id="2_ycwdb"]
+[ext_resource type="Script" path="res://src/Entity/entity_template.gd" id="3_6cicf"]
+[ext_resource type="Script" path="res://src/Entity/Component/DrawableComponent/drawable_component.gd" id="3_jx8ho"]
+[ext_resource type="Texture2D" uid="uid://cl5u3naxm2fy" path="res://assets/urizen_onebit_tileset__v1d0.png" id="4_ikdyu"]
+[ext_resource type="Script" path="res://src/Entity/Component/UseComponent/UseEffects/use_effect.gd" id="5_dadne"]
+[ext_resource type="Script" path="res://src/Entity/Component/UseComponent/UseEffects/damage_use_effect.gd" id="6_nuaxy"]
+[ext_resource type="Script" path="res://src/Entity/Component/UseComponent/consumable_component.gd" id="7_1aenc"]
+[ext_resource type="Resource" uid="uid://oqj7r5bb5j5d" path="res://resources/Entities/Items/Templates/item_template.tres" id="7_lyvug"]
+[ext_resource type="Script" path="res://src/Entity/Component/UseComponent/UseTarget/use_target_single.gd" id="8_26y8e"]
+[ext_resource type="Script" path="res://src/Map/line_config.gd" id="8_oc2rf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cmaca"]
+atlas = ExtResource("4_ikdyu")
+region = Rect2(352, 430, 12, 12)
+
+[sub_resource type="Resource" id="Resource_080yj"]
+script = ExtResource("3_jx8ho")
+texture = SubResource("AtlasTexture_cmaca")
+render_order = 2
+color = Color(1, 1, 1, 1)
+modulate = Color(1, 1, 1, 1)
+visible = true
+position = Vector2i(0, 0)
+drawable_effects = Array[ExtResource("2_s6lo1")]([])
+_active_drawable_effects = {}
+
+[sub_resource type="Resource" id="Resource_dh80t"]
+script = ExtResource("6_nuaxy")
+amount = 3
+verb = "damaged"
+
+[sub_resource type="Resource" id="Resource_ng7nu"]
+script = ExtResource("8_oc2rf")
+interrupted_by_movement_block = true
+interrupted_by_sight_block = true
+include_start = true
+include_last = true
+
+[sub_resource type="Resource" id="Resource_qjtye"]
+script = ExtResource("8_26y8e")
+max_range = 10
+target_faction = 3
+line_config = SubResource("Resource_ng7nu")
+
+[sub_resource type="Resource" id="Resource_pquyw"]
+script = ExtResource("7_1aenc")
+uses = 1
+effects = Array[ExtResource("5_dadne")]([SubResource("Resource_dh80t")])
+targeting = SubResource("Resource_qjtye")
+usage_type = 1
+
+[resource]
+script = ExtResource("2_ycwdb")
+name = "Scroll of Magic Missile"
+is_proper_name = false
+templates = Array[ExtResource("3_6cicf")]([ExtResource("7_lyvug")])
+initial_components = Array[ExtResource("1_a086o")]([SubResource("Resource_080yj"), SubResource("Resource_pquyw")])

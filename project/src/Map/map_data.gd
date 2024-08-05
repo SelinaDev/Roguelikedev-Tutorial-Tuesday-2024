@@ -157,26 +157,35 @@ func pathfinder_set_point(point: Vector2i, blocked: bool) -> void:
 	pathfinder.set_point_weight_scale(point, weight)
 
 
-func draw_line(from: Vector2i, to: Vector2i, interrupted_by_movement_block: bool = true, interrupted_by_sight_block: bool = true, include_start: bool = false) -> Array[Vector2i]:
-	var points: Array[Vector2i] = [from] if include_start else []
+func draw_line(from: Vector2i, to: Vector2i, config: LineConfig = LineConfig.new()) -> Array[Vector2i]:
+	var points: Array[Vector2i] = []
+	if config.include_start: points.append(from)
 	
 	var diff := (to - from).abs()
 	var n := maxi(diff.x, diff.y)
 	var from_f := Vector2(from) + Vector2(0.5, 0.5)
-	var to_f := Vector2(from) + Vector2(0.5, 0.5)
-	for i: int in range(1, n):
+	var to_f := Vector2(to) + Vector2(0.5, 0.5)
+	for i: int in range(1, n+1):
 		var t := inverse_lerp(0, n, i)
 		var point_f := from_f.lerp(to_f, t)
-		var point := Vector2i(point_f.round())
+		var point := Vector2i(point_f.floor())
 		var tile: Tile = tiles.get(point)
 		if not tile:
 			break
-		if (interrupted_by_movement_block and tile.blocks_movement) or (interrupted_by_sight_block and tile.blocks_sight):
+		if (config.interrupted_by_movement_block and tile.blocks_movement) or (config.interrupted_by_sight_block and tile.blocks_sight):
+				if config.include_last: points.append(point)
 				break
 		var entities := get_entities_at(point)
-		if interrupted_by_movement_block and not entities.filter(func(e: Entity) -> bool: return e.has_component(Component.Type.MovementBlocker)):
-			break
-		if interrupted_by_sight_block and not entities.filter(func(e: Entity) -> bool: return e.has_component(Component.Type.VisibilityBlocker)):
-			break
+		if not entities.is_empty():
+			if config.interrupted_by_movement_block and not entities.filter(func(e: Entity) -> bool: return e.has_component(Component.Type.MovementBlocker)).is_empty():
+				if config.include_last: points.append(point)
+				break
+			if config.interrupted_by_sight_block and not entities.filter(func(e: Entity) -> bool: return e.has_component(Component.Type.VisibilityBlocker)).is_empty():
+				if config.include_last: points.append(point)
+				break
 		points.append(point)
 	return points
+
+
+func cast_ray(from: Vector2i, to: Vector2i, config: LineConfig = LineConfig.new()) -> Vector2i:
+	return draw_line(from, to, config).back()

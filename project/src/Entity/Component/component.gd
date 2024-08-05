@@ -18,6 +18,7 @@ enum Type {
 	Position,
 	Power,
 	Rememberable,
+	StatusEffects,
 	Use,
 	VisibilityBlocker
 }

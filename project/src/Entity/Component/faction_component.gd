@@ -46,5 +46,11 @@ func process_message_precalculate(message: Message) -> void:
 				message.data["friendly_fire"] = true
 
 
+func process_message_execute(message: Message) -> void:
+	match message.type:
+		"die":
+			_parent_entity.remove_component(get_component_type())
+
+
 func get_component_type() -> Type:
 	return Component.Type.Faction
