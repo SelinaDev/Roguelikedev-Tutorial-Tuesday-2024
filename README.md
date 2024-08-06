@@ -4,7 +4,5 @@ This is the repository for my entry for the [2024 installment of the Tutorial Tu
 
 ## Web Build
 
-You can a web-playable version on the GitHub Pages site for this repository: https://selinadev.github.io/Roguelikedev-Tutorial-Tuesday-2024/
+You can a web-playable version on itch.io: https://selinadev.itch.io/roguelikedev-tutorial-tuesday-2024
 The web-build is playable by 1-2 players. The game works with keyboard or controller input (in split-screen mode only one player can use keyboard input).
-
-This version is automatically built from the main branch of this repository.
