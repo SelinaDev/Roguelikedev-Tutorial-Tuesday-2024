@@ -71,8 +71,20 @@ func process_message(message: Message) -> void:
 		_message_queue.pop_front()
 
 
-func get_entity_name() -> String:
+func add_status_effect(effect: StatusEffect) -> void:
+	if not has_component(Component.Type.StatusEffects):
+		enter_component(StatusEffectsComponent.new())
+	var effects_component: StatusEffectsComponent = get_component(Component.Type.StatusEffects)
+	effects_component.add_effect(effect)
+
+
+func get_entity_name(indefinite: bool = false) -> String:
 	if is_proper_name:
 		return name
+	elif indefinite:
+		if name.substr(0, 1).to_lower() in ["a", "e", "i", "o", "u"]:
+			return "an " + name
+		else:
+			return "a " + name
 	else:
 		return "the " + name

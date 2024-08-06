@@ -3,10 +3,14 @@ extends PanelContainer
 
 @onready var hp_bar: Bar = $VBoxContainer/HpBar
 @onready var controls_label: Label = $ControlsLabel
+@onready var status_list: RichTextLabel = $VBoxContainer/StatusList
+
+var _status_effects_component: StatusEffectsComponent
 
 
 func setup(player: Entity) -> void:
 	_setup_hp_bar(player)
+	_setup_status_list(player)
 	_setup_controls_label(player)
 
 
@@ -19,6 +23,18 @@ func _setup_hp_bar(player: Entity) -> void:
 func _on_player_hp_changed(hp: int, max_hp: int) -> void:
 	hp_bar.max_value = max_hp
 	hp_bar.value = hp
+
+
+func _setup_status_list(player: Entity) -> void:
+	_status_effects_component = player.get_component(Component.Type.StatusEffects)
+	_status_effects_component.effects_changed.connect(_update_status_list)
+	_update_status_list()
+
+
+func _update_status_list() -> void:
+	status_list.parse_bbcode(
+		"\n".join(_status_effects_component.get_descriptions(true))
+	)
 
 
 func _setup_controls_label(player: Entity) -> void:

@@ -14,6 +14,7 @@ func get_action() -> Action:
 
 func receive_action_result(result: Action.Result) -> void:
 	if result == Action.Result.TurnAction:
+		_parent_entity.process_message(Message.new("turn_end"))
 		took_turn.emit(_parent_entity)
 
 

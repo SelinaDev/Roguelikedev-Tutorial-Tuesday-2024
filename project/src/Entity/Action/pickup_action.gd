@@ -31,13 +31,13 @@ func perform() -> Result:
 func _perform_pickup(inventory: InventoryComponent, item: Entity) -> bool:
 	if inventory.items.size() >= inventory.capacity:
 		Log.send_log(
-			"%s cannot pick up %s (inventory is full)" % [_performing_entity.get_entity_name().capitalize(), item.get_entity_name()],
+			"%s cannot pick up %s (inventory is full)" % [_performing_entity.get_entity_name().capitalize(), item.get_entity_name(true)],
 			Log.COLOR_IMPOSSIBLE
 		)
 		return false
 	_performing_entity.map_data.remove_entity(item)
 	inventory.items.append(item)
 	Log.send_log(
-		"%s picked up %s" % [_performing_entity.get_entity_name().capitalize(), item.get_entity_name()]
+		"%s picked up %s" % [_performing_entity.get_entity_name().capitalize(), item.get_entity_name(true)]
 	)
 	return true

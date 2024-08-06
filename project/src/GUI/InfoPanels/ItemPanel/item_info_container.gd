@@ -14,12 +14,6 @@ func _setup() -> void:
 
 func setup_item(item: Entity) -> void:
 	_item = item
-	var buttons: Array[Button] = []
-	
-	menu_list.add_button(
-		"Drop", 
-		_on_drop_button_pressed
-	)
 	
 	var use_component: UsableComponent = item.get_component(Component.Type.Use)
 	if use_component:
@@ -27,6 +21,11 @@ func setup_item(item: Entity) -> void:
 			use_component.get_use_verb_active().capitalize(),
 			_on_use_button_pressed.bind(use_component.targeting)
 		)
+	
+	menu_list.add_button(
+		"Drop", 
+		_on_drop_button_pressed
+	)
 	
 	menu_list.finish_menu()
 

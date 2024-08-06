@@ -1,0 +1,69 @@
+[gd_resource type="Resource" script_class="Entity" load_steps=22 format=3 uid="uid://c86h58eyxtx5a"]
+
+[ext_resource type="Script" path="res://src/Entity/Component/component.gd" id="1_aslml"]
+[ext_resource type="Script" path="res://src/Entity/Component/DrawableComponent/DrawableEffects/drawable_effect.gd" id="2_1iovk"]
+[ext_resource type="Script" path="res://src/Entity/entity.gd" id="2_oll4t"]
+[ext_resource type="Script" path="res://src/Entity/entity_template.gd" id="3_e30fq"]
+[ext_resource type="Script" path="res://src/Entity/Component/DrawableComponent/drawable_component.gd" id="3_udafp"]
+[ext_resource type="Texture2D" uid="uid://cl5u3naxm2fy" path="res://assets/urizen_onebit_tileset__v1d0.png" id="4_rirdc"]
+[ext_resource type="Script" path="res://src/Entity/Component/UseComponent/UseEffects/use_effect.gd" id="5_foh77"]
+[ext_resource type="Script" path="res://src/Entity/Component/UseComponent/UseEffects/damage_use_effect.gd" id="6_qdb5l"]
+[ext_resource type="Script" path="res://src/Entity/Component/DrawableComponent/DrawableEffects/flash_icon_drawable_effect.gd" id="7_0sxuq"]
+[ext_resource type="Script" path="res://src/Entity/Component/UseComponent/consumable_component.gd" id="7_72qlv"]
+[ext_resource type="Script" path="res://src/Entity/Component/UseComponent/UseEffects/drawable_use_effect.gd" id="8_0vr1w"]
+[ext_resource type="Script" path="res://src/Entity/Component/UseComponent/UseTarget/use_target_nearest.gd" id="8_gi0qy"]
+[ext_resource type="Resource" uid="uid://oqj7r5bb5j5d" path="res://resources/Entities/Items/Templates/item_template.tres" id="11_3yu3q"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ae05"]
+atlas = ExtResource("4_rirdc")
+region = Rect2(352, 430, 12, 12)
+
+[sub_resource type="Resource" id="Resource_4jrrs"]
+script = ExtResource("3_udafp")
+texture = SubResource("AtlasTexture_8ae05")
+render_order = 2
+color = Color(1, 1, 1, 1)
+modulate = Color(1, 1, 1, 1)
+visible = true
+position = Vector2i(0, 0)
+drawable_effects = Array[ExtResource("2_1iovk")]([])
+_active_drawable_effects = {}
+
+[sub_resource type="Resource" id="Resource_1p5nc"]
+script = ExtResource("6_qdb5l")
+amount = 3
+verb = "damaged"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uiwjw"]
+atlas = ExtResource("4_rirdc")
+region = Rect2(1041, 508, 12, 12)
+
+[sub_resource type="Resource" id="Resource_e1o82"]
+script = ExtResource("7_0sxuq")
+frequency = 0.2
+times = 3
+icon = SubResource("AtlasTexture_uiwjw")
+
+[sub_resource type="Resource" id="Resource_nca3g"]
+script = ExtResource("8_0vr1w")
+drawable_effect = SubResource("Resource_e1o82")
+
+[sub_resource type="Resource" id="Resource_x4v0e"]
+script = ExtResource("8_gi0qy")
+max_range = 5
+target_faction = 3
+max_targets = 1
+
+[sub_resource type="Resource" id="Resource_46q2h"]
+script = ExtResource("7_72qlv")
+uses = 1
+effects = Array[ExtResource("5_foh77")]([SubResource("Resource_1p5nc"), SubResource("Resource_nca3g")])
+targeting = SubResource("Resource_x4v0e")
+usage_type = 1
+
+[resource]
+script = ExtResource("2_oll4t")
+name = "Scroll of Lightning"
+is_proper_name = false
+templates = Array[ExtResource("3_e30fq")]([ExtResource("11_3yu3q")])
+initial_components = Array[ExtResource("1_aslml")]([SubResource("Resource_4jrrs"), SubResource("Resource_46q2h")])

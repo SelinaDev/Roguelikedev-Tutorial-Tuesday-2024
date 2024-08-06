@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="FlashIconDrawableEffect" load_steps=4 format=3 uid="uid://ytm45scwr275"]
+
+[ext_resource type="Texture2D" uid="uid://cl5u3naxm2fy" path="res://assets/urizen_onebit_tileset__v1d0.png" id="1_58p2x"]
+[ext_resource type="Script" path="res://src/Entity/Component/DrawableComponent/DrawableEffects/flash_icon_drawable_effect.gd" id="1_bnmvs"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ndyy"]
+atlas = ExtResource("1_58p2x")
+region = Rect2(1, 352, 12, 12)
+
+[resource]
+script = ExtResource("1_bnmvs")
+frequency = 0.2
+times = 1
+icon = SubResource("AtlasTexture_7ndyy")
