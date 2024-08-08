@@ -32,6 +32,10 @@ var _parent_entity_ref: WeakRef = weakref(null)
 var type: get = get_component_type
 
 
+func set_parent_entity(entity: Entity) -> void:
+	_parent_entity = entity
+
+
 func get_component_type() -> Type:
 	push_error("get_component_type() not implemented properly, called virtual base function!")
 	return Type.None

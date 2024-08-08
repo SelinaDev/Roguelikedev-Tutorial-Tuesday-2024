@@ -43,3 +43,4 @@ name = "Goblin"
 is_proper_name = false
 templates = Array[ExtResource("7_wyj2n")]([ExtResource("4_jkxms")])
 initial_components = Array[ExtResource("1_f6mlm")]([SubResource("Resource_wv305"), SubResource("Resource_j5qmc")])
+_components = {}

@@ -1,7 +1,7 @@
 extends GameState
 
+const MAIN_MENU = "res://src/Menus/MainMenu/main_menu.tscn"
 @export var player_ui: Array[PlayerUiResource]
-
 @onready var scheduler: Scheduler = $Scheduler
 
 var entities: Array[Entity] = []
@@ -9,14 +9,14 @@ var _player_info: Array[PlayerInfo] = []
 
 
 func enter(data: Dictionary = {}) -> void:
-	_new_game(data)
+	SignalBus.exit_game.connect(_on_exit_game)
+	_setup(data)
 
 
-func _new_game(data: Dictionary) -> void:
+func _setup(data: Dictionary) -> void:
+	_player_info = data.get("player_info")
 	for i: int in player_ui.size():
-		var device = data.devices[i]
-		_player_info.append(create_player_info(i, device))
-	WorldManager.generate_new_world(null, _player_info)
+		_fill_player_info(_player_info[i], i)
 	var _active_map: MapData = WorldManager.get_map(0)
 	scheduler.start(_player_info)
 	
@@ -24,18 +24,30 @@ func _new_game(data: Dictionary) -> void:
 		var map: MapData = info.player_entity.map_data
 		RenderingServer.viewport_attach_canvas(info.sub_viewport.get_viewport_rid(), map.canvas)
 		info.player_panel.setup(info.player_entity)
-		info.player_entity.process_message(Message.new("render"))
+		var player: Entity = info.player_entity
+		var player_camera = PlayerCamera.new(info)
+		player.process_message(
+			Message.new(
+				"set_camera_state",
+				{"camera_state": player_camera.obtain_state()}
+			)
+		)
+		player.process_message(Message.new("fov_update"))
+		info.player_entity.process_message(Message.new("render", {"canvas": player.map_data.canvas}))
 	
-	Log.send_log.bindv(["Welcome, adventurer%s!" % "s" if _player_info.size() > 1 else "", Log.COLOR_POSITIVE]).call_deferred()
+	if data.get("new", false):
+		Log.send_log.bindv(["Welcome, adventurer%s!" % "s" if _player_info.size() > 1 else "", Log.COLOR_POSITIVE]).call_deferred()
+	else:
+		Log.send_log.bindv(["Welcome back, adventurer%s!" % "s" if _player_info.size() > 1 else "", Log.COLOR_POSITIVE]).call_deferred()
 
 
-func create_player_info(player_index: int, device: int) -> PlayerInfo:
-	var info := PlayerInfo.new()
-	
+func _fill_player_info(info: PlayerInfo, player_index: int) -> void:
 	var ui_info: PlayerUiResource = player_ui[player_index]
-	info.device = device
-	info.player_index = player_index
 	info.sub_viewport = get_node(ui_info.viewport)
 	info.player_panel = get_node(ui_info.player_panel)
 	info.info_display = get_node(ui_info.player_info_display)
-	return info
+
+
+func _on_exit_game() -> void:
+	# TODO: Transmit all devices here
+	transition_requested.emit(MAIN_MENU, {"device": _player_info[0].device})

@@ -47,3 +47,4 @@ name = "Potion of Healing"
 is_proper_name = false
 templates = Array[ExtResource("3_cssym")]([ExtResource("7_tw7p6")])
 initial_components = Array[ExtResource("1_iu87o")]([SubResource("Resource_qlm4l"), SubResource("Resource_rv1y4")])
+_components = {}

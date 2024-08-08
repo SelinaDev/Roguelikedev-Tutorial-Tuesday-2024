@@ -3,11 +3,11 @@ extends Resource
 
 const BLOCKING_ENTITIY_PATHFIND_WEIGHT = 5
 
-@export var id: int
-@export var entities: Array[Entity]
-@export var tiles: Dictionary # Dictionary[Vector2i, Tile]
-@export var size: Vector2i
-@export var region_name: String = ""
+@export_storage var id: int
+@export_storage var entities: Array[Entity]
+@export_storage var tiles: Dictionary # Dictionary[Vector2i, Tile]
+@export_storage var size: Vector2i
+@export_storage var region_name: String = ""
 
 
 var canvas: RID
@@ -131,6 +131,8 @@ func remove_entity(entity: Entity) -> void:
 func activate() -> void:
 	setup_pathfinder()
 	canvas = RenderingServer.canvas_create()
+	for entity: Entity in entities:
+		entity.reactivate(self)
 	_render_tiles()
 	_render_entities()
 

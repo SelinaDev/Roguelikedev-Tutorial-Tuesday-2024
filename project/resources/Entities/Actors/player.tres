@@ -77,3 +77,4 @@ name = "Player"
 is_proper_name = true
 templates = Array[ExtResource("11_l0emg")]([ExtResource("3_kx7dw")])
 initial_components = Array[ExtResource("1_5seo2")]([SubResource("Resource_yntj7"), SubResource("Resource_qlvlf"), SubResource("Resource_merbi"), SubResource("Resource_bihn8"), SubResource("Resource_n76u1"), SubResource("Resource_foi8v"), SubResource("Resource_gpmxi"), SubResource("Resource_o14as"), SubResource("Resource_u8cb1")])
+_components = {}

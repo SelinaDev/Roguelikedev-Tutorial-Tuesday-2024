@@ -59,3 +59,4 @@ name = "Scroll of Magic Missile"
 is_proper_name = false
 templates = Array[ExtResource("3_6cicf")]([ExtResource("7_lyvug")])
 initial_components = Array[ExtResource("1_a086o")]([SubResource("Resource_080yj"), SubResource("Resource_pquyw")])
+_components = {}

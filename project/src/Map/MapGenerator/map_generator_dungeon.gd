@@ -33,14 +33,6 @@ func _generate_map(map_config: MapConfig, id: int, player_info: Array[PlayerInfo
 		player_entity.place_at(start_position)
 		var actor_component: PlayerActorComponent = player_entity.get_component(Component.Type.Actor)
 		actor_component.set_device(player.device)
-		var player_camera := PlayerCamera.new(player)
-		player_entity.process_message(
-			Message.new(
-				"set_camera_state", 
-				{"camera_state": player_camera.obtain_state()}
-			)
-		)
-		player_entity.process_message(Message.new("fov_update"))
 		
 	return map_data
 

@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://bchg122yd20em"]
+
+[ext_resource type="Theme" uid="uid://d1ihrcds1upna" path="res://resources/default_theme.tres" id="1_wn7ub"]
+[ext_resource type="Script" path="res://src/Menus/LevelGenerationScreen/level_generation_screen.gd" id="2_8bf1p"]
+
+[node name="LevelGenerationScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_wn7ub")
+script = ExtResource("2_8bf1p")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Dungeon Generation in Progress
+"
+horizontal_alignment = 1
+vertical_alignment = 1

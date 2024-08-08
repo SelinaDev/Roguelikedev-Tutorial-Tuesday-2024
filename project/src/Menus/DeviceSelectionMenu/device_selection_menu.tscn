@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://f7t8ymitxmnb"]
+[gd_scene load_steps=3 format=3 uid="uid://f7t8ymitxmnb"]
 
 [ext_resource type="Script" path="res://src/Menus/DeviceSelectionMenu/device_selection_menu.gd" id="1_1vlk1"]
+[ext_resource type="Theme" uid="uid://d1ihrcds1upna" path="res://resources/default_theme.tres" id="1_mwova"]
 
 [node name="DeviceSelectionMenu" type="Control"]
 layout_mode = 3
@@ -9,6 +10,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_mwova")
 script = ExtResource("1_1vlk1")
 main_menu_path = "res://src/Menus/MainMenu/main_menu.tscn"
 

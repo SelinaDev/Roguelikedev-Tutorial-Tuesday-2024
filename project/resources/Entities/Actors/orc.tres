@@ -43,3 +43,4 @@ name = "Orc"
 is_proper_name = false
 templates = Array[ExtResource("7_8aesf")]([ExtResource("4_smwea")])
 initial_components = Array[ExtResource("1_cyk4p")]([SubResource("Resource_lihad"), SubResource("Resource_kba1c")])
+_components = {}

@@ -70,3 +70,4 @@ name = "Scroll of Confusion"
 is_proper_name = false
 templates = Array[ExtResource("13_g0q11")]([ExtResource("14_upvga")])
 initial_components = Array[ExtResource("1_rnyew")]([SubResource("Resource_5v8pb"), SubResource("Resource_v3vo7")])
+_components = {}

@@ -6,7 +6,7 @@ extends Resource
 @export var templates: Array[EntityTemplate]
 @export var initial_components: Array[Component]
 
-var _components: Dictionary
+@export_storage var _components: Dictionary
 var map_data: MapData:
 	get:
 		return _map_data_ref.get_ref() as MapData
@@ -27,6 +27,12 @@ func reify() -> Entity:
 	for component: Component in used_components.values():
 		reified_entity.enter_component(component.duplicate())
 	return reified_entity
+
+
+func reactivate(new_map_data: MapData) -> void:
+	map_data = new_map_data
+	for component: Component in _components.values():
+		component.set_parent_entity(self)
 
 
 func enter_component(component: Component) -> void:

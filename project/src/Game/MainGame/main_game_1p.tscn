@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b4c7vggrkn5iy"]
+[gd_scene load_steps=9 format=3 uid="uid://b4c7vggrkn5iy"]
 
 [ext_resource type="Script" path="res://src/Game/MainGame/main_game.gd" id="1_17pcn"]
 [ext_resource type="Theme" uid="uid://d1ihrcds1upna" path="res://resources/default_theme.tres" id="1_jijnk"]
@@ -14,9 +14,6 @@ viewport = NodePath("HBoxContainer/SubViewportContainer/SubViewport_P1")
 player_panel = NodePath("HBoxContainer/VBoxContainer/PlayerInfoDisplay/PlayerPanel")
 player_info_display = NodePath("HBoxContainer/VBoxContainer/PlayerInfoDisplay")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0kfik"]
-bg_color = Color(0, 0, 0, 1)
-
 [node name="MainGame1p" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -30,29 +27,6 @@ player_ui = Array[ExtResource("2_s2qg8")]([SubResource("Resource_kgpvq")])
 
 [node name="Scheduler" type="Node" parent="."]
 script = ExtResource("3_lewee")
-
-[node name="Label" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -23.0
-grow_horizontal = 2
-grow_vertical = 0
-text = "Move: Arrow Keys / D-Pad;  Zoom: Comma, Slash / L1, R1"
-horizontal_alignment = 1
-vertical_alignment = 2
-
-[node name="Panel" type="Panel" parent="Label"]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_0kfik")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1

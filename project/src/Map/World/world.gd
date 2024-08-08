@@ -1,7 +1,9 @@
 class_name World
 extends Resource
 
-@export var maps: Dictionary # Dictionary[int, MapData]
+@export_storage var maps: Dictionary # Dictionary[int, MapData]
+@export_storage var num_players: int
+@export_storage var player_locations: Array[int]
 
 var _active_maps: Dictionary
 

@@ -67,3 +67,4 @@ name = "Door"
 is_proper_name = false
 templates = Array[ExtResource("11_bjthg")]([])
 initial_components = Array[ExtResource("1_owng2")]([SubResource("Resource_ku177"), SubResource("Resource_45j3k"), SubResource("Resource_bf7hl"), SubResource("Resource_oiumw"), SubResource("Resource_0yx4u"), SubResource("Resource_lv2on")])
+_components = {}

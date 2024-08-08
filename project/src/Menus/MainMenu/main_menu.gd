@@ -2,6 +2,7 @@ extends GameState
 
 @export_file("*tscn") var main_game_path_1p
 @export_file("*tscn") var main_game_path_2p
+@export_file("*.tscn") var level_generator_scene
 
 @onready var devices_label: Label = $CenterContainer/VBoxContainer/DevicesLabel
 @onready var start_button: Button = $CenterContainer/VBoxContainer/StartButton
@@ -35,12 +36,27 @@ func _input(event: InputEvent) -> void:
 
 
 func _on_start_button_pressed() -> void:
+	_start_game(1, true)
+
+
+func _on_load_button_pressed() -> void:
+	_start_game(1, false)
+
+
+func _start_game(slot: int, new: bool) -> void:
 	var all_devices := [main_device] + other_devices
-	var data := {"devices": all_devices}
-	if all_devices.size() == 1:
-		transition_requested.emit(main_game_path_1p, data)
-	else:
-		transition_requested.emit(main_game_path_2p, data)
+	all_devices = all_devices.slice(0, 2)
+	var scenes := [main_game_path_1p, main_game_path_2p]
+	var num_devices := all_devices.size()
+	var data := {
+		"devices": all_devices,
+		"slot": slot,
+		"new": new,
+		"game_scene": scenes[mini(scenes.size(), num_devices) - 1]
+	}
+	if new:
+		transition_requested.emit(level_generator_scene, data)
+	
 
 
 func _on_quit_button_pressed() -> void:

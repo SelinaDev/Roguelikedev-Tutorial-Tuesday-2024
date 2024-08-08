@@ -12,8 +12,12 @@ func generate_world(_config: WorldConfig, players: Array[PlayerInfo], rng_seed: 
 		_rng.seed = rng_seed.hash()
 	
 	var world := World.new()
+	world.num_players = players.size()
 	
 	# TEMP
+	world.player_locations = []
+	world.player_locations.resize(world.num_players)
+	world.player_locations.fill(0)
 	var map_generator := MapGeneratorDungeon.new()
 	var map_config := preload("res://resources/default_map_config.tres")
 	map_config.map_height = 40
