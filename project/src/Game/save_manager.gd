@@ -55,6 +55,6 @@ func get_status() -> ResourceLoader.ThreadLoadStatus:
 
 
 func get_world() -> World:
-	if not ResourceLoader.load_threaded_get_status(_slot_path) != ResourceLoader.ThreadLoadStatus.THREAD_LOAD_LOADED:
+	if ResourceLoader.load_threaded_get_status(_slot_path) != ResourceLoader.ThreadLoadStatus.THREAD_LOAD_LOADED:
 		return null
 	return ResourceLoader.load_threaded_get(_slot_path)

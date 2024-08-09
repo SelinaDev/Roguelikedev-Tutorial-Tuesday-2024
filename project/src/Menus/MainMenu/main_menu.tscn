@@ -15,6 +15,7 @@ script = ExtResource("1_e5w8r")
 main_game_path_1p = "res://src/Game/MainGame/main_game_1p.tscn"
 main_game_path_2p = "res://src/Game/MainGame/main_game_2p.tscn"
 level_generator_scene = "res://src/Menus/LevelGenerationScreen/level_generation_screen.tscn"
+loading_screen_scene = "res://src/Menus/LoadingScreen/loading_screen.tscn"
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1

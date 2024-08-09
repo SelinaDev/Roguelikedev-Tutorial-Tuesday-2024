@@ -18,7 +18,6 @@ func _setup(data: Dictionary) -> void:
 	for i: int in player_ui.size():
 		_fill_player_info(_player_info[i], i)
 	var _active_map: MapData = WorldManager.get_map(0)
-	scheduler.start(_player_info)
 	
 	for info: PlayerInfo in _player_info:
 		var map: MapData = info.player_entity.map_data
@@ -34,6 +33,7 @@ func _setup(data: Dictionary) -> void:
 		)
 		player.process_message(Message.new("fov_update"))
 		info.player_entity.process_message(Message.new("render", {"canvas": player.map_data.canvas}))
+	scheduler.start(_player_info)
 	
 	if data.get("new", false):
 		Log.send_log.bindv(["Welcome, adventurer%s!" % "s" if _player_info.size() > 1 else "", Log.COLOR_POSITIVE]).call_deferred()

@@ -10,6 +10,10 @@ func get_map(id: int = 0) -> MapData:
 	return map_data
 
 
+func clear() -> void:
+	_world = null
+
+
 func get_active_maps() -> Array:
 	return _world.get_active_maps()
 

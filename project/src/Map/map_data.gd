@@ -81,7 +81,7 @@ func _render_entities() -> void:
 		entity.process_message(Message.new("render", {"canvas": canvas}))
 
 
-func _init(id: int, width: int, height: int, base_tile: Tile = null) -> void:
+func setup(id: int, width: int, height: int, base_tile: Tile = null) -> void:
 	self.id = id
 	canvas = RenderingServer.canvas_create()
 	tiles = {}
@@ -133,6 +133,7 @@ func activate() -> void:
 	canvas = RenderingServer.canvas_create()
 	for entity: Entity in entities:
 		entity.reactivate(self)
+		print(entity.map_data)
 	_render_tiles()
 	_render_entities()
 

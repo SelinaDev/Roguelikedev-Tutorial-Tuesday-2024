@@ -54,6 +54,10 @@ func _enter_entity(_entity: Entity) -> void:
 	pass
 
 
+func reactivate() -> void:
+	pass
+
+
 func before_exit() -> void:
 	pass
 

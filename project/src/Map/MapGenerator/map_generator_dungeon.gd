@@ -11,7 +11,8 @@ var _dungeon: Room
 var _rooms: Array[Room]
 
 func _generate_map(map_config: MapConfig, id: int, player_info: Array[PlayerInfo]) -> MapData:
-	var map_data := MapData.new(id, map_config.map_width, map_config.map_height, TILE_DB.entries.get("floor"))
+	var map_data := MapData.new()
+	map_data.setup(id, map_config.map_width, map_config.map_height, TILE_DB.entries.get("floor"))
 	
 	_generate_dungeon(map_config)
 	_dungeon_to_map(map_data, map_config)

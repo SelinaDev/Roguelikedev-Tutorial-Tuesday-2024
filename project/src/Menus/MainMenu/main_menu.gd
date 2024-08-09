@@ -3,6 +3,7 @@ extends GameState
 @export_file("*tscn") var main_game_path_1p
 @export_file("*tscn") var main_game_path_2p
 @export_file("*.tscn") var level_generator_scene
+@export_file("*.tscn") var loading_screen_scene
 
 @onready var devices_label: Label = $CenterContainer/VBoxContainer/DevicesLabel
 @onready var start_button: Button = $CenterContainer/VBoxContainer/StartButton
@@ -56,6 +57,8 @@ func _start_game(slot: int, new: bool) -> void:
 	}
 	if new:
 		transition_requested.emit(level_generator_scene, data)
+	else:
+		transition_requested.emit(loading_screen_scene, data)
 	
 
 
