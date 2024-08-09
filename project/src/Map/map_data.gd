@@ -133,7 +133,6 @@ func activate() -> void:
 	canvas = RenderingServer.canvas_create()
 	for entity: Entity in entities:
 		entity.reactivate(self)
-		print(entity.map_data)
 	_render_tiles()
 	_render_entities()
 

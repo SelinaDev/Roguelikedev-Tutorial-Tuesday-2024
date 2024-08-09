@@ -35,8 +35,6 @@ func _progress_to_game() -> void:
 		player_info.append(_create_player_info(i, device, entity))
 		var player_component: PlayerComponent = entity.get_component(Component.Type.Player)
 		player_component.player_info = player_info[i]
-		var player_actor_component: PlayerActorComponent = entity.get_component(Component.Type.Actor)
-		player_actor_component.set_device(device)
 	WorldManager.set_world(world, _slot)
 	_data["player_info"] = player_info
 	transition_requested.emit(_data.get("game_scene"), _data)

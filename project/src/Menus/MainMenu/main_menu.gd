@@ -1,24 +1,33 @@
 extends GameState
 
+const NOT_CONNECTED_TEXT = "Second Player: Press <A> Button or <Enter> Key to join"
+const CONNECTED_TEXT = "Second Player joined: Press <B> Button or <Escape> Key to disconnect"
+
 @export_file("*tscn") var main_game_path_1p
 @export_file("*tscn") var main_game_path_2p
 @export_file("*.tscn") var level_generator_scene
 @export_file("*.tscn") var loading_screen_scene
 
-@onready var devices_label: Label = $CenterContainer/VBoxContainer/DevicesLabel
-@onready var start_button: Button = $CenterContainer/VBoxContainer/StartButton
+@onready var label: Label = $MarginContainer/HBoxContainer/Label
+@onready var start_button: Button = $MarginContainer/HBoxContainer/VBoxContainer/StartButton
+@onready var slot_selection_panel: SlotSelectionPanel = $CenterContainer/SlotSelectionPanel
 
 var main_device: int
 var other_devices: Array[int]
 
 
 func enter(data: Dictionary = {}) -> void:
-	assert(data.has("device"))
-	main_device = data.device
+	assert(data.has("devices"))
+	main_device = data.devices.front()
+	other_devices = []
+	for device: int in data.devices.slice(1):
+		other_devices.append(device)
 
 
 func _ready() -> void:
+	InputManager.reset()
 	start_button.grab_focus.call_deferred()
+	_update_devices_label()
 
 
 func _input(event: InputEvent) -> void:
@@ -26,7 +35,7 @@ func _input(event: InputEvent) -> void:
 		return
 	if event.is_action("device_join"):
 		var index: int = InputManager.get_device_index(event)
-		if index != main_device and not index in other_devices:
+		if index != main_device and not index in other_devices and other_devices.size() <= 1:
 			other_devices.append(index)
 			_update_devices_label()
 	if event.is_action("device_disconnect"):
@@ -37,11 +46,11 @@ func _input(event: InputEvent) -> void:
 
 
 func _on_start_button_pressed() -> void:
-	_start_game(1, true)
+	slot_selection_panel.open("New Game", _start_game.bind(true))
 
 
 func _on_load_button_pressed() -> void:
-	_start_game(1, false)
+	slot_selection_panel.open("New Game", _start_game.bind(false))
 
 
 func _start_game(slot: int, new: bool) -> void:
@@ -67,4 +76,8 @@ func _on_quit_button_pressed() -> void:
 
 
 func _update_devices_label() -> void:
-	devices_label.text = "Connected devices: %s" % ", ".join(other_devices)
+	label.text = NOT_CONNECTED_TEXT if other_devices.is_empty() else CONNECTED_TEXT
+
+
+func _on_slot_selection_panel_slot_selection_panel_closed() -> void:
+	start_button.grab_focus()

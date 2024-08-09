@@ -15,8 +15,10 @@ func _enter_entity(_entity: Entity) -> void:
 
 func reactivate() -> void:
 	turn_syncher.setup(_parent_entity)
-	SignalBus.group_took_turn.connect(_on_group_took_turn)
-	SignalBus.player_took_turn.connect(_on_player_took_turn)
+	if not SignalBus.group_took_turn.is_connected(_on_group_took_turn):
+		SignalBus.group_took_turn.connect(_on_group_took_turn)
+	if not SignalBus.player_took_turn.is_connected(_on_player_took_turn):
+		SignalBus.player_took_turn.connect(_on_player_took_turn)
 
 
 func _on_group_took_turn() -> void:

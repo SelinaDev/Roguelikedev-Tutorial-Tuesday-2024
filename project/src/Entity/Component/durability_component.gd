@@ -66,6 +66,7 @@ func process_message_execute(message: Message) -> void:
 			Log.send_log(log_text, log_color)
 			_parent_entity.name = "Remains of %s" % _parent_entity.name
 			_parent_entity.remove_component(get_component_type())
+			_parent_entity.process_message(Message.new("died"))
 		"heal":
 			var actual_amount := heal(message.get_calculation("amount").get_result())
 			message.data["actual_amount"] = actual_amount

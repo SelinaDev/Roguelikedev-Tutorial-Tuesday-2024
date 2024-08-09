@@ -11,4 +11,4 @@ func _input(event: InputEvent) -> void:
 
 
 func _to_main_menu(device: int) -> void:
-	transition_requested.emit(main_menu_path, {"device": device})
+	transition_requested.emit(main_menu_path, {"devices": [device]})
