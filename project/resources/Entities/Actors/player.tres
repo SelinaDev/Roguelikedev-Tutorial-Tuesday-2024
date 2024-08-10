@@ -19,6 +19,7 @@
 [sub_resource type="Resource" id="Resource_yntj7"]
 script = ExtResource("1_paibh")
 player_index = 0
+player_name = ""
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_r61x0"]
 atlas = ExtResource("3_ifa31")

@@ -12,14 +12,15 @@ func enter(data: Dictionary = {}) -> void:
 func _create_new_world(data: Dictionary) -> void:
 	var player_info: Array[PlayerInfo] = []
 	for i: int in data.devices.size():
-		var device = data.devices[i]
-		player_info.append(_create_player_info(i, device))
+		player_info.append(_create_player_info(i, data))
 	WorldManager.generate_new_world(null, player_info, data.get("slot"))
 	data["player_info"] = player_info
 
 
-func _create_player_info(player_index: int, device: int) -> PlayerInfo:
+func _create_player_info(player_index: int, data: Dictionary) -> PlayerInfo:
 	var info := PlayerInfo.new()
-	info.device = device
+	info.device = data["devices"][player_index]
+	info.player_color = data["colors"][player_index]
+	info.player_name = data["names"][player_index]
 	info.player_index = player_index
 	return info

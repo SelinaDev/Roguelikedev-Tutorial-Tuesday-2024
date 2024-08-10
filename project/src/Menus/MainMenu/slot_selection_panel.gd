@@ -3,8 +3,8 @@ extends PanelContainer
 
 signal slot_selection_panel_closed
 
-const SLOT_FREE_TEXT = "Slot %d"
-const SLOT_USED_TEXT = "Slot %d (used)"
+const SLOT_FREE_TEXT = "FREE"
+const SLOT_USED_TEXT = "SLOT USED"
 
 @onready var label: Label = $VBoxContainer/Label
 @onready var slot_1_button: Button = $VBoxContainer/HBoxContainer/VBoxContainer/Slot1Button
@@ -21,7 +21,7 @@ func _ready() -> void:
 		var slot_num := i + 1
 		var slot_used := SaveManager.is_slot_used(slot_num)
 		var button: Button = _buttons[i]
-		button.text = (SLOT_USED_TEXT if slot_used else SLOT_FREE_TEXT) % slot_num
+		button.text = _get_slot_text(slot_num)
 		button.pressed.connect(_on_button_pressed.bind(slot_num))
 		
 		var prev_button: Button = _buttons[(i - 1) % _buttons.size()]
@@ -36,6 +36,17 @@ func _ready() -> void:
 		button.focus_neighbor_top = prev_button_path
 		button.focus_neighbor_left = prev_button_path
 		button.focus_previous = prev_button_path
+
+
+func _get_slot_text(slot: int) -> String:
+	if SaveManager.is_slot_used(slot):
+		var metadata := SaveManager.get_metadata(slot)
+		if metadata:
+			return ", ".join(metadata.player_names)
+		else:
+			return SLOT_USED_TEXT
+	else:
+		return SLOT_FREE_TEXT
 
 
 func _on_button_pressed(slot_num: int) -> void:
@@ -61,3 +72,4 @@ func _input(event: InputEvent) -> void:
 
 func close() -> void:
 	visible = false
+	slot_selection_panel_closed.emit()

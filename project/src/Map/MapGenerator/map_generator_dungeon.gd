@@ -24,16 +24,22 @@ func _generate_map(map_config: MapConfig, id: int, player_info: Array[PlayerInfo
 	var first_room_floor := first_room.get_tiles(Room.FLOOR)
 	player_start_pos = first_room.position + first_room_floor[_rng.randi() % first_room_floor.size()]
 	
+	# TODO: Move into a player setup function in the superclass
 	for player: PlayerInfo in player_info:
 		var player_entity: Entity = ENTITY_DB.entries.get("player").reify()
 		var player_component: PlayerComponent = player_entity.get_component(Component.Type.Player)
 		player_component.player_info = player
+		player_component.player_name = player.player_name
+		player_entity.name = player.player_name
+		player_entity.is_proper_name = true
 		player.player_entity = player_entity
 		map_data.enter_entity(player_entity)
 		var start_position := player_start_pos + Vector2i(player.player_index, 0)
 		player_entity.place_at(start_position)
 		var actor_component: PlayerActorComponent = player_entity.get_component(Component.Type.Actor)
 		actor_component.set_device(player.device)
+		var drawable_component: DrawableComponent = player_entity.get_component(Component.Type.Drawable)
+		drawable_component.color = player.player_color
 		
 	return map_data
 

@@ -42,7 +42,11 @@ func _progress_to_game() -> void:
 
 func _create_player_info(player_index: int, device: int, entity: Entity) -> PlayerInfo:
 	var info := PlayerInfo.new()
+	var player_component: PlayerComponent = entity.get_component(Component.Type.Player)
+	var player_color: Color = (entity.get_component(Component.Type.Drawable) as DrawableComponent).color
+	info.player_name = player_component.player_name
 	info.device = device
 	info.player_index = player_index
 	info.player_entity = entity
+	info.player_color = player_color
 	return info

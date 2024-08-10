@@ -13,7 +13,21 @@ var progress: int = 0
 static func save_world(slot: int) -> bool:
 	if not is_slot_valid(slot):
 		return false
-	return ResourceSaver.save(WorldManager.get_world(), SAVE_PATH % slot) == OK
+	var save_path := SAVE_PATH % slot
+	var metadata := SaveMetadata.new()
+	var world := WorldManager.get_world()
+	var save_err := ResourceSaver.save(world, save_path)
+	if save_err != OK:
+		return false
+	
+	var players := world.get_player_entities()
+	metadata.num_players = players.size()
+	metadata.player_names = players.map(
+		func(e: Entity) -> String: return (e.get_component(Component.Type.Player) as PlayerComponent).player_name
+	)
+	metadata.file_hash = FileAccess.get_md5(save_path)
+	metadata.save_slot(slot)
+	return true
 
 
 static func is_slot_used(slot: int) -> bool:
@@ -34,6 +48,21 @@ static func clear_slot(slot: int) -> void:
 	if not is_slot_used(slot):
 		return
 	DirAccess.remove_absolute(SAVE_PATH % slot)
+	SaveMetadata.clear_slot(slot)
+
+
+static func get_metadata(slot: int) -> SaveMetadata:
+	assert(is_slot_valid(slot))
+	if not is_slot_used(slot):
+		return null
+	var metadata := SaveMetadata.new()
+	metadata.load_slot(slot)
+	return metadata
+
+
+static func check_slot_hash(slot: int) -> bool:
+	var metadata := get_metadata(slot)
+	return FileAccess.get_md5(SAVE_PATH % slot) == metadata.file_hash
 
 
 func _init(slot: int) -> void:

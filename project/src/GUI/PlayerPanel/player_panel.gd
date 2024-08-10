@@ -4,14 +4,21 @@ extends PanelContainer
 @onready var hp_bar: Bar = $VBoxContainer/HpBar
 @onready var controls_label: Label = $ControlsLabel
 @onready var status_list: RichTextLabel = $VBoxContainer/StatusList
+@onready var player_label: Label = $VBoxContainer/PlayerLabel
 
 var _status_effects_component: StatusEffectsComponent
 
 
 func setup(player: Entity) -> void:
+	_setup_player_name(player)
 	_setup_hp_bar(player)
 	_setup_status_list(player)
 	_setup_controls_label(player)
+
+
+func _setup_player_name(player: Entity) -> void:
+	var player_info := PlayerComponent.get_player_info(player)
+	player_label.text = player_info.player_name
 
 
 func _setup_hp_bar(player: Entity) -> void:

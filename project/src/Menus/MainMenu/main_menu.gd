@@ -5,7 +5,7 @@ const CONNECTED_TEXT = "Second Player joined: Press <B> Button or <Escape> Key t
 
 @export_file("*tscn") var main_game_path_1p
 @export_file("*tscn") var main_game_path_2p
-@export_file("*.tscn") var level_generator_scene
+@export_file("*.tscn") var character_creator_scene
 @export_file("*.tscn") var loading_screen_scene
 
 @onready var label: Label = $MarginContainer/HBoxContainer/Label
@@ -50,7 +50,7 @@ func _on_start_button_pressed() -> void:
 
 
 func _on_load_button_pressed() -> void:
-	slot_selection_panel.open("New Game", _start_game.bind(false))
+	slot_selection_panel.open("Load Game", _start_game.bind(false))
 
 
 func _start_game(slot: int, new: bool) -> void:
@@ -65,7 +65,7 @@ func _start_game(slot: int, new: bool) -> void:
 		"game_scene": scenes[mini(scenes.size(), num_devices) - 1]
 	}
 	if new:
-		transition_requested.emit(level_generator_scene, data)
+		transition_requested.emit(character_creator_scene, data)
 	else:
 		transition_requested.emit(loading_screen_scene, data)
 	

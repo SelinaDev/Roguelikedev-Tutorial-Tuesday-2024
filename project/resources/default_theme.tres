@@ -31,7 +31,7 @@ vertical = true
 
 [resource]
 default_font = ExtResource("2_yvh8i")
-default_font_size = 16
+default_font_size = 32
 Button/font_sizes/font_size = 16
 Button/styles/disabled = SubResource("StyleBoxEmpty_3lgdo")
 Button/styles/focus = SubResource("StyleBoxFlat_77bbi")
