@@ -9,10 +9,15 @@ const ROOM_PACK_DB = preload("res://resources/ResourceDBs/RoomPack_db.tres")
 
 var _dungeon: Room
 var _rooms: Array[Room]
+var _enemies: Dictionary
+var _items: Dictionary
 
 func _generate_map(map_config: MapConfig, id: int, player_info: Array[PlayerInfo]) -> MapData:
 	var map_data := MapData.new()
 	map_data.setup(id, map_config.map_width, map_config.map_height, TILE_DB.entries.get("floor"))
+	
+	_enemies = WeightedEntity.get_weighted_array(map_config.enemies)
+	_items = WeightedEntity.get_weighted_array(map_config.items)
 	
 	_generate_dungeon(map_config)
 	_dungeon_to_map(map_data, map_config)
@@ -260,16 +265,18 @@ func _place_entities_in_room(map_data: MapData, map_config: MapConfig, room: Roo
 	var num_items: int = _rng.randi() % (map_config.max_items_per_room + 1)
 	var room_tiles := room.get_tiles_global(Room.FLOOR)
 	
+	
+	
 	for _i in num_enemies:
 		var enemy_position: Vector2i = room_tiles.pop_at(_rng.randi() % room_tiles.size())
-		var enemy_type: String = "orc" if _rng.randf() < 0.5 else "goblin"
+		var enemy_type: String = _enemies["entity_keys"][_rng.rand_weighted(_enemies["weights"])]
 		var enemy: Entity = ENTITY_DB.entries.get(enemy_type).reify()
 		enemy.place_at(enemy_position)
 		map_data.enter_entity(enemy)
 	
 	for _i in num_items:
 		var item_position: Vector2i = room_tiles.pop_at(_rng.randi() % room_tiles.size())
-		var item_type: String = ["potion_health", "scroll_lightning", "scroll_magic_missile", "scroll_fireball", "scroll_confusion"][_rng.rand_weighted([3, 1, 1, 1, 1])]
+		var item_type: String = _items["entity_keys"][_rng.rand_weighted(_items["weights"])]
 		var item: Entity = ENTITY_DB.entries.get(item_type).reify()
 		item.place_at(item_position)
 		map_data.enter_entity(item)
