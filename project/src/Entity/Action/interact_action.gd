@@ -12,6 +12,10 @@ func perform() -> Result:
 	if not grab_targets.is_empty():
 		return PickupAction.new(_performing_entity, offset).perform()
 	
+	var stairs_targets := targets.filter(func(e: Entity) -> bool: return e.has_component(Component.Type.Stairs))
+	if not stairs_targets.is_empty():
+		return StairsAction.new(_performing_entity).perform()
+	
 	var open_targets := targets.filter(func(e: Entity) -> bool: return e.has_component(Component.Type.Door))
 	if not open_targets.is_empty():
 		return OpenAction.new(_performing_entity, offset).perform()

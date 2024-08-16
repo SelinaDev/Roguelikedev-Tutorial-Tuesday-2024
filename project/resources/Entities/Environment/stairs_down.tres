@@ -1,0 +1,42 @@
+[gd_resource type="Resource" script_class="Entity" load_steps=13 format=3 uid="uid://wm7jwgulk3qw"]
+
+[ext_resource type="Script" path="res://src/Entity/Component/component.gd" id="1_i4e47"]
+[ext_resource type="Script" path="res://src/Entity/entity.gd" id="2_5wqww"]
+[ext_resource type="Script" path="res://src/Entity/Component/DrawableComponent/DrawableEffects/drawable_effect.gd" id="2_akf0l"]
+[ext_resource type="Script" path="res://src/Entity/Component/DrawableComponent/drawable_component.gd" id="3_nhg5v"]
+[ext_resource type="Script" path="res://src/Entity/entity_template.gd" id="3_rin70"]
+[ext_resource type="Texture2D" uid="uid://cl5u3naxm2fy" path="res://assets/urizen_onebit_tileset__v1d0.png" id="4_iubcv"]
+[ext_resource type="Script" path="res://src/Entity/Component/rememberable_component.gd" id="5_rnsd8"]
+[ext_resource type="Script" path="res://src/Entity/Component/stairs_component.gd" id="6_slrol"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eotiq"]
+atlas = ExtResource("4_iubcv")
+region = Rect2(300, 14, 12, 12)
+
+[sub_resource type="Resource" id="Resource_i53o7"]
+script = ExtResource("3_nhg5v")
+texture = SubResource("AtlasTexture_eotiq")
+render_order = 2
+color = Color(1, 1, 1, 1)
+modulate = Color(1, 1, 1, 1)
+visible = true
+position = Vector2i(0, 0)
+drawable_effects = Array[ExtResource("2_akf0l")]([])
+_active_drawable_effects = {}
+
+[sub_resource type="Resource" id="Resource_ljg01"]
+script = ExtResource("5_rnsd8")
+not_in_view_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Resource" id="Resource_vuvas"]
+script = ExtResource("6_slrol")
+target_map_index = 0
+use_verb = "descends"
+
+[resource]
+script = ExtResource("2_5wqww")
+name = "Stairs (Down)"
+is_proper_name = false
+templates = Array[ExtResource("3_rin70")]([])
+initial_components = Array[ExtResource("1_i4e47")]([SubResource("Resource_i53o7"), SubResource("Resource_ljg01"), SubResource("Resource_vuvas")])
+_components = {}

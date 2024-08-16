@@ -6,12 +6,19 @@ var player_info: PlayerInfo:
 		player_info = value
 		player_index = player_info.player_index
 @export_storage var player_index: int
+@export_storage var player_name: String
 
 
 func process_message_precalculate(message: Message) -> void:
 	match message.type:
 		"fov_update":
 			message.data["index"] = player_info.player_index
+
+
+func process_message_execute(message: Message) -> void:
+	match message.type:
+		"died":
+			SignalBus.player_died.emit()
 
 
 func get_component_type() -> Type:

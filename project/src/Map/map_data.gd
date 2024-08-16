@@ -3,11 +3,11 @@ extends Resource
 
 const BLOCKING_ENTITIY_PATHFIND_WEIGHT = 5
 
-@export var id: int
-@export var entities: Array[Entity]
-@export var tiles: Dictionary # Dictionary[Vector2i, Tile]
-@export var size: Vector2i
-@export var region_name: String = ""
+@export_storage var id: int
+@export_storage var entities: Array[Entity]
+@export_storage var tiles: Dictionary # Dictionary[Vector2i, Tile]
+@export_storage var size: Vector2i
+@export_storage var region_name: String = ""
 
 
 var canvas: RID
@@ -81,7 +81,7 @@ func _render_entities() -> void:
 		entity.process_message(Message.new("render", {"canvas": canvas}))
 
 
-func _init(id: int, width: int, height: int, base_tile: Tile = null) -> void:
+func setup(id: int, width: int, height: int, base_tile: Tile = null) -> void:
 	self.id = id
 	canvas = RenderingServer.canvas_create()
 	tiles = {}
@@ -124,15 +124,24 @@ func enter_entity(entity: Entity) -> void:
 
 func remove_entity(entity: Entity) -> void:
 	entities.erase(entity)
-	entity.map_data = null
 	entity.process_message(Message.new("exit_map"))
+	entity.map_data = null
 
 
 func activate() -> void:
 	setup_pathfinder()
 	canvas = RenderingServer.canvas_create()
+	for entity: Entity in entities:
+		entity.reactivate(self)
 	_render_tiles()
 	_render_entities()
+
+
+func deactivate() -> void:
+	pathfinder = null
+	canvas = RID()
+	for entity: Entity in entities:
+		entity.deactivate()
 
 
 func setup_pathfinder() -> void:

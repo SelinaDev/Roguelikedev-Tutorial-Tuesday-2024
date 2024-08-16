@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://clb55xo7qyjsx"]
+
+[ext_resource type="Script" path="res://markov_test.gd" id="1_q55wx"]
+
+[node name="MarkovTest" type="Node"]
+script = ExtResource("1_q55wx")

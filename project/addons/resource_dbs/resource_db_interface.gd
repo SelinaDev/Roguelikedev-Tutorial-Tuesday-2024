@@ -41,7 +41,6 @@ func _save_config() -> void:
 	var config := ConfigFile.new()
 	
 	for category_node: ResourceDbCategory in categories_container.get_children():
-		print(category_node.category_name, category_node.category_path, category_node.get_source_paths())
 		config.set_value(category_node.category_name, "destination_path", category_node.category_path)
 		config.set_value(category_node.category_name, "source_paths", category_node.get_source_paths())
 	
@@ -59,7 +58,6 @@ func _on_generate_button_pressed() -> void:
 		return
 	
 	var target_categories: PackedStringArray = ProjectSettings.get_setting(PLUGIN_SETTING, [])
-	print(target_categories)
 	for category: String in target_categories:
 		var destination_path: String = config.get_value(category, "destination_path", "")
 		if destination_path == "":
@@ -76,5 +74,4 @@ func _on_generate_button_pressed() -> void:
 					resource_db.entries[file_name.trim_suffix(".tres")] = file
 		
 		var db_name := category + "_db.tres"
-		print(resource_db)
 		ResourceSaver.save(resource_db, destination_path.path_join(db_name))

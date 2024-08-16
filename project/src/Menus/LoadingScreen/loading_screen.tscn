@@ -1,0 +1,52 @@
+[gd_scene load_steps=5 format=3 uid="uid://ht6krg1p8bai"]
+
+[ext_resource type="Theme" uid="uid://d1ihrcds1upna" path="res://resources/default_theme.tres" id="1_5mx25"]
+[ext_resource type="Script" path="res://src/Menus/LoadingScreen/loading_screen.gd" id="2_cqkkw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1142r"]
+draw_center = false
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xbhic"]
+bg_color = Color(1, 1, 1, 1)
+
+[node name="LoadingScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_5mx25")
+script = ExtResource("2_cqkkw")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Loading Game"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(100, 16)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_1142r")
+theme_override_styles/fill = SubResource("StyleBoxFlat_xbhic")
+step = 1.0

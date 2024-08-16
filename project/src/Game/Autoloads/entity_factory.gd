@@ -8,3 +8,5 @@ func get_entity(key: String) -> Entity:
 	if entity:
 		entity = entity.reify()
 	return entity
+
+"indices/10"

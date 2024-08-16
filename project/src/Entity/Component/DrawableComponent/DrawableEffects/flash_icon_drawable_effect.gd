@@ -33,8 +33,9 @@ func _toggle_canvas_item_visibility() -> void:
 
 
 func stop() -> void:
-	RenderingServer.canvas_item_set_visible(_canvas_item, false)
-	RenderingServer.canvas_item_clear(_canvas_item)
+	if _canvas_item != null:
+		RenderingServer.canvas_item_set_visible(_canvas_item, false)
+		RenderingServer.canvas_item_clear(_canvas_item)
 	_canvas_item = RID()
 	_tween.kill()
 

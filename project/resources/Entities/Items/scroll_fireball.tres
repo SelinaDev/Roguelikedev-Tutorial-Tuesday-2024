@@ -76,3 +76,4 @@ name = "Scroll of Fireball"
 is_proper_name = false
 templates = Array[ExtResource("3_nrbt7")]([ExtResource("14_x5vsh")])
 initial_components = Array[ExtResource("1_y56au")]([SubResource("Resource_mfigx"), SubResource("Resource_c5fdn")])
+_components = {}

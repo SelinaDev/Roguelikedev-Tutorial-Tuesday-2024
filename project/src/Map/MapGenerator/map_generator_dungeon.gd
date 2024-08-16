@@ -11,36 +11,36 @@ var _dungeon: Room
 var _rooms: Array[Room]
 
 func _generate_map(map_config: MapConfig, id: int, player_info: Array[PlayerInfo]) -> MapData:
-	var map_data := MapData.new(id, map_config.map_width, map_config.map_height, TILE_DB.entries.get("floor"))
+	var map_data := MapData.new()
+	map_data.setup(id, map_config.map_width, map_config.map_height, TILE_DB.entries.get("floor"))
 	
 	_generate_dungeon(map_config)
 	_dungeon_to_map(map_data, map_config)
 	
 	_place_entities(map_data, map_config)
+	_place_stairs(map_data, map_config)
 	
 	var player_start_pos: Vector2i
 	var first_room: Room = _rooms.front()
 	var first_room_floor := first_room.get_tiles(Room.FLOOR)
 	player_start_pos = first_room.position + first_room_floor[_rng.randi() % first_room_floor.size()]
 	
+	# TODO: Move into a player setup function in the superclass
 	for player: PlayerInfo in player_info:
 		var player_entity: Entity = ENTITY_DB.entries.get("player").reify()
 		var player_component: PlayerComponent = player_entity.get_component(Component.Type.Player)
 		player_component.player_info = player
+		player_component.player_name = player.player_name
+		player_entity.name = player.player_name
+		player_entity.is_proper_name = true
 		player.player_entity = player_entity
 		map_data.enter_entity(player_entity)
 		var start_position := player_start_pos + Vector2i(player.player_index, 0)
 		player_entity.place_at(start_position)
 		var actor_component: PlayerActorComponent = player_entity.get_component(Component.Type.Actor)
 		actor_component.set_device(player.device)
-		var player_camera := PlayerCamera.new(player)
-		player_entity.process_message(
-			Message.new(
-				"set_camera_state", 
-				{"camera_state": player_camera.obtain_state()}
-			)
-		)
-		player_entity.process_message(Message.new("fov_update"))
+		var drawable_component: DrawableComponent = player_entity.get_component(Component.Type.Drawable)
+		drawable_component.color = player.player_color
 		
 	return map_data
 
@@ -273,3 +273,20 @@ func _place_entities_in_room(map_data: MapData, map_config: MapConfig, room: Roo
 		var item: Entity = ENTITY_DB.entries.get(item_type).reify()
 		item.place_at(item_position)
 		map_data.enter_entity(item)
+
+
+func _place_stairs(map_data: MapData, map_config: MapConfig) -> void:
+	if map_config.stairs_up:
+		_place_stairs_in_room(map_data, _rooms.front(), "stairs_up", map_data.id - 1)
+	if map_config.stairs_down:
+		_place_stairs_in_room(map_data, _rooms.back(), "stairs_down", map_data.id + 1)
+
+
+func _place_stairs_in_room(map_data: MapData, room: Room, stairs_key: String, target_map_index: int) -> void:
+	var room_tiles := room.get_tiles_global(Room.FLOOR)
+	var stairs_pos := room_tiles[_rng.randi() % room_tiles.size()]
+	var stairs: Entity = ENTITY_DB.entries.get(stairs_key).reify()
+	stairs.place_at(stairs_pos)
+	var stairs_component: StairsComponent = stairs.get_component(Component.Type.Stairs)
+	stairs_component.target_map_index = target_map_index
+	map_data.enter_entity(stairs)

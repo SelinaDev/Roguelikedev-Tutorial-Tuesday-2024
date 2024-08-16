@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Entity" load_steps=27 format=3 uid="uid://08un78dx64fi"]
+[gd_resource type="Resource" script_class="Entity" load_steps=31 format=3 uid="uid://08un78dx64fi"]
 
 [ext_resource type="Script" path="res://src/Entity/Component/component.gd" id="1_5seo2"]
 [ext_resource type="Script" path="res://src/Entity/entity.gd" id="1_ge48h"]
@@ -15,10 +15,13 @@
 [ext_resource type="Script" path="res://src/Entity/entity_template.gd" id="11_l0emg"]
 [ext_resource type="Script" path="res://src/Entity/Component/faction_component.gd" id="12_b1s0l"]
 [ext_resource type="Script" path="res://src/Entity/Component/StatusEffects/status_effects_component.gd" id="13_lvm21"]
+[ext_resource type="Script" path="res://src/Entity/Component/level_component.gd" id="14_71xcd"]
+[ext_resource type="Script" path="res://src/Entity/Component/resistance_component.gd" id="15_0oxg0"]
 
 [sub_resource type="Resource" id="Resource_yntj7"]
 script = ExtResource("1_paibh")
 player_index = 0
+player_name = ""
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_r61x0"]
 atlas = ExtResource("3_ifa31")
@@ -71,9 +74,21 @@ faction = 1
 script = ExtResource("13_lvm21")
 effects = {}
 
+[sub_resource type="Resource" id="Resource_pi4ht"]
+script = ExtResource("14_71xcd")
+current_level = 1
+current_xp = 0
+level_up_base = 200
+level_up_factor = 150
+
+[sub_resource type="Resource" id="Resource_slbl7"]
+script = ExtResource("15_0oxg0")
+defense = 0
+
 [resource]
 script = ExtResource("1_ge48h")
 name = "Player"
 is_proper_name = true
 templates = Array[ExtResource("11_l0emg")]([ExtResource("3_kx7dw")])
-initial_components = Array[ExtResource("1_5seo2")]([SubResource("Resource_yntj7"), SubResource("Resource_qlvlf"), SubResource("Resource_merbi"), SubResource("Resource_bihn8"), SubResource("Resource_n76u1"), SubResource("Resource_foi8v"), SubResource("Resource_gpmxi"), SubResource("Resource_o14as"), SubResource("Resource_u8cb1")])
+initial_components = Array[ExtResource("1_5seo2")]([SubResource("Resource_yntj7"), SubResource("Resource_qlvlf"), SubResource("Resource_merbi"), SubResource("Resource_bihn8"), SubResource("Resource_n76u1"), SubResource("Resource_foi8v"), SubResource("Resource_gpmxi"), SubResource("Resource_o14as"), SubResource("Resource_u8cb1"), SubResource("Resource_pi4ht"), SubResource("Resource_slbl7")])
+_components = {}

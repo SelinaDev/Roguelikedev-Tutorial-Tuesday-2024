@@ -1,0 +1,67 @@
+[gd_scene load_steps=7 format=3 uid="uid://bm6dgacni48nl"]
+
+[ext_resource type="PackedScene" uid="uid://12y4j8wgjugr" path="res://src/GUI/ButtonList/pseudobutton.tscn" id="1_3ng1t"]
+[ext_resource type="Script" path="res://src/Menus/CharacterCreationScreen/character_creation_panel.gd" id="1_5lxs6"]
+[ext_resource type="Texture2D" uid="uid://cl5u3naxm2fy" path="res://assets/urizen_onebit_tileset__v1d0.png" id="2_qwdl6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xsu3v"]
+atlas = ExtResource("2_qwdl6")
+region = Rect2(1015, 495, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qob2v"]
+atlas = ExtResource("2_qwdl6")
+region = Rect2(1028, 495, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_abppn"]
+atlas = ExtResource("2_qwdl6")
+region = Rect2(1015, 495, 12, 12)
+
+[node name="CharacterCreationPanel" type="PanelContainer"]
+custom_minimum_size = Vector2(200, 0)
+offset_right = 40.0
+offset_bottom = 40.0
+size_flags_vertical = 3
+script = ExtResource("1_5lxs6")
+texture_not_ready = SubResource("AtlasTexture_xsu3v")
+texture_ready = SubResource("AtlasTexture_qob2v")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="PlayerNameLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "PlayerNameLabel"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="RegenerateName" parent="VBoxContainer" instance=ExtResource("1_3ng1t")]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="ColorButton" parent="VBoxContainer/HBoxContainer" instance=ExtResource("1_3ng1t")]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+
+[node name="ReadyLine" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="ReadyTextureRect" type="TextureRect" parent="VBoxContainer/ReadyLine"]
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+texture = SubResource("AtlasTexture_abppn")
+
+[node name="Control" type="Control" parent="VBoxContainer/ReadyLine"]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+
+[node name="ReadyButton" parent="VBoxContainer/ReadyLine" instance=ExtResource("1_3ng1t")]
+layout_mode = 2

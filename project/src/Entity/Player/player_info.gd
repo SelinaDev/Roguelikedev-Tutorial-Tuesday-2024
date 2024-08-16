@@ -9,3 +9,5 @@ var player_index: int
 var device: int
 var player_entity: Entity
 var player_camera: PlayerCamera
+var player_name: String
+var player_color: Color

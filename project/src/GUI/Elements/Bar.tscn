@@ -24,4 +24,5 @@ grow_vertical = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_bhsvl")
 theme_override_styles/fill = SubResource("StyleBoxFlat_bnb53")
 value = 50.0
+allow_greater = true
 show_percentage = false

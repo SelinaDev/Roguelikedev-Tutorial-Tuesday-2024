@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=7 format=3 uid="uid://d1ihrcds1upna"]
+[gd_resource type="Theme" load_steps=11 format=3 uid="uid://d1ihrcds1upna"]
 
 [ext_resource type="Texture2D" uid="uid://c4kkuxc3bxqpw" path="res://assets/kenney_fantasy-ui-borders/PNG/Default/Border/panel-border-005.png" id="1_fn5dc"]
 [ext_resource type="FontFile" uid="uid://bnh85awwk8xuj" path="res://assets/kenney_kenney-fonts/Fonts/Kenney Pixel.ttf" id="2_yvh8i"]
@@ -7,11 +7,12 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_77bbi"]
 draw_center = false
-border_width_left = 1
 border_width_top = 1
-border_width_right = 1
 border_width_bottom = 1
 border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_lk715"]
+color = Color(1, 1, 1, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_akykc"]
 texture = ExtResource("1_fn5dc")
@@ -21,8 +22,24 @@ texture_margin_right = 16.0
 texture_margin_bottom = 16.0
 region_rect = Rect2(0, 0, 48, 48)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f7wec"]
+draw_center = false
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7c57f"]
+bg_color = Color(1, 1, 1, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ocwhg"]
 bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_62684"]
+color = Color(1, 1, 1, 1)
+vertical = true
 
 [resource]
 default_font = ExtResource("2_yvh8i")
@@ -35,11 +52,18 @@ Button/styles/normal = SubResource("StyleBoxEmpty_3lgdo")
 Button/styles/pressed = SubResource("StyleBoxEmpty_3lgdo")
 HBoxContainer/constants/separation = 0
 HSeparator/constants/separation = 6
+HSeparator/styles/separator = SubResource("StyleBoxLine_lk715")
 Label/colors/font_color = Color(1, 1, 1, 1)
 Label/colors/font_outline_color = Color(0, 0, 0, 1)
 Label/constants/outline_size = 1
 PanelContainer/styles/panel = SubResource("StyleBoxTexture_akykc")
+ProgressBar/colors/font_color = Color(1, 1, 1, 1)
+ProgressBar/colors/font_outline_color = Color(0, 0, 0, 1)
+ProgressBar/constants/outline_size = 4
+ProgressBar/styles/background = SubResource("StyleBoxFlat_f7wec")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_7c57f")
 VBoxContainer/constants/separation = 2
 VScrollBar/styles/grabber = SubResource("StyleBoxFlat_ocwhg")
 VScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_ocwhg")
 VScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_ocwhg")
+VSeparator/styles/separator = SubResource("StyleBoxLine_62684")

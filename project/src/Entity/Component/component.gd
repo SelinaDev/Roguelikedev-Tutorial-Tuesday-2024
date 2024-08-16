@@ -13,14 +13,18 @@ enum Type {
 	Fov,
 	Inventory,
 	Item,
+	Level,
 	MovementBlocker,
 	Player,
 	Position,
 	Power,
 	Rememberable,
+	Resistance,
+	Stairs,
 	StatusEffects,
 	Use,
-	VisibilityBlocker
+	VisibilityBlocker,
+	XP
 }
 
 var _parent_entity: Entity:
@@ -30,6 +34,10 @@ var _parent_entity: Entity:
 		return _parent_entity_ref.get_ref() as Entity
 var _parent_entity_ref: WeakRef = weakref(null)
 var type: get = get_component_type
+
+
+func set_parent_entity(entity: Entity) -> void:
+	_parent_entity = entity
 
 
 func get_component_type() -> Type:
@@ -47,6 +55,14 @@ func enter_entity(entity: Entity) -> void:
 
 
 func _enter_entity(_entity: Entity) -> void:
+	pass
+
+
+func reactivate() -> void:
+	pass
+
+
+func deactivate() -> void:
 	pass
 
 
