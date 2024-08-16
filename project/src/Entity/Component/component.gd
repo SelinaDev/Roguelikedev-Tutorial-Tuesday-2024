@@ -13,14 +13,18 @@ enum Type {
 	Fov,
 	Inventory,
 	Item,
+	Level,
 	MovementBlocker,
 	Player,
 	Position,
 	Power,
 	Rememberable,
+	Resistance,
+	Stairs,
 	StatusEffects,
 	Use,
-	VisibilityBlocker
+	VisibilityBlocker,
+	XP
 }
 
 var _parent_entity: Entity:
@@ -55,6 +59,10 @@ func _enter_entity(_entity: Entity) -> void:
 
 
 func reactivate() -> void:
+	pass
+
+
+func deactivate() -> void:
 	pass
 
 

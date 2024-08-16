@@ -15,3 +15,5 @@ enum MapType {
 @export var wall_variation: TileVariation
 @export var map_type: MapType = MapType.DUNGEON
 @export var room_pack: String = "dungeon"
+var stairs_down: bool
+var stairs_up: bool

@@ -9,7 +9,7 @@ extends Resource
 @export_storage var _components: Dictionary
 var map_data: MapData:
 	get:
-		return _map_data_ref.get_ref()
+		return _map_data_ref.get_ref() as MapData
 	set(value):
 		_map_data_ref = weakref(value)
 var _map_data_ref: WeakRef = weakref(null)
@@ -29,11 +29,16 @@ func reify() -> Entity:
 	return reified_entity
 
 
-func reactivate(new_map_data: MapData) -> void:
-	map_data = new_map_data
+func reactivate(_map_data: MapData) -> void:
+	map_data = _map_data
 	for component: Component in _components.values():
 		component.set_parent_entity(self)
 		component.reactivate()
+
+
+func deactivate() -> void:
+	for component: Component in _components.values():
+		component.deactivate()
 
 
 func enter_component(component: Component) -> void:

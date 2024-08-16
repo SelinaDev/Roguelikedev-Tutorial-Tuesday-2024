@@ -19,7 +19,6 @@ func _ready() -> void:
 	_buttons = [slot_1_button, slot_2_button, slot_3_button]
 	for i: int in SaveManager.NUM_SLOTS:
 		var slot_num := i + 1
-		var slot_used := SaveManager.is_slot_used(slot_num)
 		var button: Button = _buttons[i]
 		button.text = _get_slot_text(slot_num)
 		button.pressed.connect(_on_button_pressed.bind(slot_num))

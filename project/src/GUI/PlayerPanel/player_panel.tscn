@@ -14,11 +14,20 @@ layout_mode = 2
 [node name="PlayerLabel" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 
+[node name="Level Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+
 [node name="HpBar" parent="VBoxContainer" instance=ExtResource("1_xxtco")]
 layout_mode = 2
 fill_color = Color(0, 0.501961, 0, 1)
 background_color = Color(0.501961, 0, 0, 1)
 stat_name = "HP"
+
+[node name="XpBar" parent="VBoxContainer" instance=ExtResource("1_xxtco")]
+layout_mode = 2
+fill_color = Color(0, 1, 1, 1)
+background_color = Color(0, 0, 0.501961, 1)
+stat_name = "Xp"
 
 [node name="StatusList" type="RichTextLabel" parent="VBoxContainer"]
 layout_mode = 2

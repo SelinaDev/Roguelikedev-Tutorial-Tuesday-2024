@@ -124,8 +124,8 @@ func enter_entity(entity: Entity) -> void:
 
 func remove_entity(entity: Entity) -> void:
 	entities.erase(entity)
-	entity.map_data = null
 	entity.process_message(Message.new("exit_map"))
+	entity.map_data = null
 
 
 func activate() -> void:
@@ -135,6 +135,13 @@ func activate() -> void:
 		entity.reactivate(self)
 	_render_tiles()
 	_render_entities()
+
+
+func deactivate() -> void:
+	pathfinder = null
+	canvas = RID()
+	for entity: Entity in entities:
+		entity.deactivate()
 
 
 func setup_pathfinder() -> void:

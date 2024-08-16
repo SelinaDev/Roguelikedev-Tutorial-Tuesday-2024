@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Entity" load_steps=13 format=3 uid="uid://b44koamww3qdl"]
+[gd_resource type="Resource" script_class="Entity" load_steps=15 format=3 uid="uid://b44koamww3qdl"]
 
 [ext_resource type="Script" path="res://src/Entity/Component/component.gd" id="1_cyk4p"]
 [ext_resource type="Script" path="res://src/Entity/entity.gd" id="1_emt5n"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://cl5u3naxm2fy" path="res://assets/urizen_onebit_tileset__v1d0.png" id="2_f1yj4"]
 [ext_resource type="Script" path="res://src/Entity/Component/durability_component.gd" id="3_r1iu2"]
 [ext_resource type="Resource" uid="uid://cr15gc6rayc4v" path="res://resources/Entities/Actors/Templates/creature_template.tres" id="4_smwea"]
+[ext_resource type="Script" path="res://src/Entity/Component/xp_component.gd" id="6_nlap5"]
 [ext_resource type="Script" path="res://src/Entity/entity_template.gd" id="7_8aesf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kd78y"]
@@ -37,10 +38,14 @@ death_z_index = 1
 death_removes_movement_blocker = true
 death_removes_visibility_blocker = true
 
+[sub_resource type="Resource" id="Resource_ongov"]
+script = ExtResource("6_nlap5")
+xp = 30
+
 [resource]
 script = ExtResource("1_emt5n")
 name = "Orc"
 is_proper_name = false
 templates = Array[ExtResource("7_8aesf")]([ExtResource("4_smwea")])
-initial_components = Array[ExtResource("1_cyk4p")]([SubResource("Resource_lihad"), SubResource("Resource_kba1c")])
+initial_components = Array[ExtResource("1_cyk4p")]([SubResource("Resource_lihad"), SubResource("Resource_kba1c"), SubResource("Resource_ongov")])
 _components = {}

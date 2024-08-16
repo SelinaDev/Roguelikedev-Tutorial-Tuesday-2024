@@ -27,6 +27,7 @@ func _on_event(event: InputEvent) -> void:
 		menu_list.select_previous()
 	elif event.is_action_pressed("back"):
 		pause_completed.emit()
+		InputManager.pop_handle(_device)
 		close()
 
 

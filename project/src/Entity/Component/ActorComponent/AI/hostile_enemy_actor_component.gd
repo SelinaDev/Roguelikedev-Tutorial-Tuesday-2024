@@ -21,6 +21,13 @@ func reactivate() -> void:
 		SignalBus.player_took_turn.connect(_on_player_took_turn)
 
 
+func deactivate() -> void:
+	if SignalBus.group_took_turn.is_connected(_on_group_took_turn):
+		SignalBus.group_took_turn.disconnect(_on_group_took_turn)
+	if SignalBus.player_took_turn.is_connected(_on_player_took_turn):
+		SignalBus.player_took_turn.disconnect(_on_player_took_turn)
+
+
 func _on_group_took_turn() -> void:
 	if turn_syncher.check_group_turn():
 		_take_turn()
@@ -44,6 +51,8 @@ func process_message_precalculate(message: Message) -> void:
 	match message.type:
 		"get_action":
 			var player_entity: Entity = turn_syncher.get_synched_player()
+			if player_entity and player_entity.map_data.id != _parent_entity.map_data.id:
+				return
 			for ai_component: AiComponent in ai_components:
 				message.get_array("proposed_actions").append_array(ai_component.get_proposed_actions(_parent_entity, player_entity))
 
@@ -61,7 +70,3 @@ func process_message_execute(message: Message) -> void:
 					return tested_action if tested_action.score > action.score else action
 			)
 			_queued_action = proposed_action.action
-		"enter_map":
-			turn_syncher.setup(_parent_entity)
-			SignalBus.group_took_turn.connect(_on_group_took_turn)
-			SignalBus.player_took_turn.connect(_on_player_took_turn)

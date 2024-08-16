@@ -17,6 +17,8 @@ var other_devices: Array[int]
 
 
 func enter(data: Dictionary = {}) -> void:
+	WorldManager.clear()
+	
 	assert(data.has("devices"))
 	main_device = data.devices.front()
 	other_devices = []

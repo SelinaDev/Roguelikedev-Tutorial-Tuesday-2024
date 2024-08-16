@@ -3,6 +3,7 @@ extends InfoContainer
 signal action_selected(action)
 
 const INVENTORY_INFO_CONTAINER = preload("res://src/GUI/InfoPanels/InventoryPanel/inventory_info_container.tscn")
+const CHARACTER_INFO_CONTAINER = preload("res://src/GUI/InfoPanels/CharacterPanel/character_panel_info_container.tscn")
 
 @onready var menu_list: MenuList = $MenuList
 
@@ -10,10 +11,12 @@ const INVENTORY_INFO_CONTAINER = preload("res://src/GUI/InfoPanels/InventoryPane
 const actions = [
 	"attack",
 	"close",
+	"character screen",
 	"inventory",
 	"look",
 	"open",
-	"pickup"
+	"pickup",
+	"use stairs"
 ]
 
 const action_mapping_controller = {
@@ -24,10 +27,12 @@ const action_mapping_controller = {
 const action_mapping_keyboard = {
 	"attack": "A",
 	"close": "C",
+	"character screen": "P",
 	"inventory": "I",
 	"open": "O",
 	"look": "L",
-	"pickup": "P"
+	"pickup": "P",
+	"use stairs": ">"
 }
 
 
@@ -89,6 +94,10 @@ func _on_action_button_pressed(action_name: String) -> void:
 			action = PickupAction.new(_player, Vector2i.ZERO)
 		"inventory":
 			action = await _spawn_inventory()
+		"use stairs":
+			action = StairsAction.new(_player)
+		"character screen":
+			_spawn_character_screen()
 	if action:
 		_submit_action(action)
 
@@ -118,3 +127,8 @@ func _spawn_inventory() -> Action:
 	var inventory_info: InventoryInfoContainer = player_info.info_display.spawn_panel("Inventory", INVENTORY_INFO_CONTAINER, _player).info_container
 	inventory_info.set_mode_list()
 	return await inventory_info.action_selected
+
+
+func _spawn_character_screen() -> void:
+	var player_info: PlayerInfo = PlayerComponent.get_player_info(_player)
+	player_info.info_display.spawn_panel("CharacterScreen", CHARACTER_INFO_CONTAINER, _player)

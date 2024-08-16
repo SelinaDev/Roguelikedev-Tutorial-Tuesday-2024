@@ -1,8 +1,6 @@
 class_name TurnSyncher
 extends Resource
 
-# NOTE: This may have to be refactored to int-based indices later to facilitate saving
-
 const PERSISTENCE_TURNS = 5
 const MAX_RECORDED_PLAYER_TURNS = 10
 const TURN_SHIFT_FRACTION = 1.5
@@ -146,7 +144,9 @@ func _just_turned_visible() -> bool:
 func _is_player_visible(player: Entity) -> bool:
 	var player_index: int = PlayerComponent.get_player_index(player)
 	var map_data: MapData = _parent_entity.map_data
-	return map_data.is_in_fov(PositionComponent.get_entity_position(_parent_entity), player_index)
+	if map_data:
+		return map_data.is_in_fov(PositionComponent.get_entity_position(_parent_entity), player_index)
+	return false
 
 
 func _get_visible_players() -> Array[Entity]:

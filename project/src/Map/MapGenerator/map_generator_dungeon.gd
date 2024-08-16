@@ -18,6 +18,7 @@ func _generate_map(map_config: MapConfig, id: int, player_info: Array[PlayerInfo
 	_dungeon_to_map(map_data, map_config)
 	
 	_place_entities(map_data, map_config)
+	_place_stairs(map_data, map_config)
 	
 	var player_start_pos: Vector2i
 	var first_room: Room = _rooms.front()
@@ -272,3 +273,20 @@ func _place_entities_in_room(map_data: MapData, map_config: MapConfig, room: Roo
 		var item: Entity = ENTITY_DB.entries.get(item_type).reify()
 		item.place_at(item_position)
 		map_data.enter_entity(item)
+
+
+func _place_stairs(map_data: MapData, map_config: MapConfig) -> void:
+	if map_config.stairs_up:
+		_place_stairs_in_room(map_data, _rooms.front(), "stairs_up", map_data.id - 1)
+	if map_config.stairs_down:
+		_place_stairs_in_room(map_data, _rooms.back(), "stairs_down", map_data.id + 1)
+
+
+func _place_stairs_in_room(map_data: MapData, room: Room, stairs_key: String, target_map_index: int) -> void:
+	var room_tiles := room.get_tiles_global(Room.FLOOR)
+	var stairs_pos := room_tiles[_rng.randi() % room_tiles.size()]
+	var stairs: Entity = ENTITY_DB.entries.get(stairs_key).reify()
+	stairs.place_at(stairs_pos)
+	var stairs_component: StairsComponent = stairs.get_component(Component.Type.Stairs)
+	stairs_component.target_map_index = target_map_index
+	map_data.enter_entity(stairs)

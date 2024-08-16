@@ -19,30 +19,30 @@ func _setup(data: Dictionary) -> void:
 	_player_info = data.get("player_info")
 	for i: int in player_ui.size():
 		_fill_player_info(_player_info[i], i)
-	var _active_map: MapData = WorldManager.get_map(0)
 	
 	for info: PlayerInfo in _player_info:
-		var map: MapData = info.player_entity.map_data
-		RenderingServer.viewport_attach_canvas(info.sub_viewport.get_viewport_rid(), map.canvas)
-		info.player_panel.setup(info.player_entity)
-		var player: Entity = info.player_entity
-		var player_camera = PlayerCamera.new(info)
-		var player_actor_component: PlayerActorComponent = player.get_component(Component.Type.Actor)
-		player_actor_component.set_device(info.device)
-		player.process_message(
-			Message.new(
-				"set_camera_state",
-				{"camera_state": player_camera.obtain_state()}
-			)
-		)
-		player.process_message(Message.new("fov_update"))
-		info.player_entity.process_message(Message.new("render", {"canvas": player.map_data.canvas}))
+		_setup_player(info)
 	scheduler.start(_player_info)
 	
 	if data.get("new", false):
 		Log.send_log.bindv(["Welcome, adventurer%s!" % "s" if _player_info.size() > 1 else "", Log.COLOR_POSITIVE]).call_deferred()
 	else:
 		Log.send_log.bindv(["Welcome back, adventurer%s!" % "s" if _player_info.size() > 1 else "", Log.COLOR_POSITIVE]).call_deferred()
+
+
+func _setup_player(player: PlayerInfo) -> void:
+	var map_index: int = WorldManager.get_world().player_locations[player.player_index]
+	var map: MapData = WorldManager.get_map(map_index)
+	player.player_panel.setup(player.player_entity)
+	RenderingServer.viewport_attach_canvas(player.sub_viewport.get_viewport_rid(), map.canvas)
+	var player_camera = PlayerCamera.new(player)
+	var player_actor_component: PlayerActorComponent = player.player_entity.get_component(Component.Type.Actor)
+	player_actor_component.set_device(player.device)
+	player.player_entity.process_message(Message.new(
+		"set_camera_state",
+		{"camera_state": player_camera.obtain_state()}
+	))
+	player.player_entity.process_message(Message.new("render", {"canvas": map.canvas}))
 
 
 func _fill_player_info(info: PlayerInfo, player_index: int) -> void:

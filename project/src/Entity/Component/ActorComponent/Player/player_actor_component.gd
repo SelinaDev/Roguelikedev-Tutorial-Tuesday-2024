@@ -4,6 +4,7 @@ extends ActorComponent
 const ACTIONS_INFO_CONTAINER = preload("res://src/GUI/InfoPanels/ActionsPanel/actions_info_container.tscn")
 const INVENTORY_INFO_CONTAINER = preload("res://src/GUI/InfoPanels/InventoryPanel/inventory_info_container.tscn")
 const PAUSE_INFO_CONTAINER = preload("res://src/GUI/InfoPanels/PausePanel/pause_info_container.tscn")
+const CHARACTER_INFO_CONTAINER = preload("res://src/GUI/InfoPanels/CharacterPanel/character_panel_info_container.tscn")
 
 var device: int
 
@@ -34,6 +35,8 @@ func _on_event(event: InputEvent) -> void:
 		_queued_action = WaitAction.new(_parent_entity)
 	elif event.is_action_pressed("look"):
 		_spawn_reticle()
+	elif event.is_action_pressed("stairs"):
+		_queued_action = StairsAction.new(_parent_entity)
 	
 	elif event.is_action_pressed("attack"):
 		_queued_action = await DirectionGetter.new(
@@ -73,6 +76,9 @@ func _on_event(event: InputEvent) -> void:
 		if item:
 			_queued_action = DropAction.new(_parent_entity, item)
 	
+	elif event.is_action_pressed("character"):
+		_spawn_character_screen()
+	
 	elif event.is_action_pressed("pause"):
 		_spawn_pause_menu()
 
@@ -111,4 +117,8 @@ func _spawn_pause_menu() -> void:
 	var player_info: PlayerInfo = PlayerComponent.get_player_info(_parent_entity)
 	var info_panel: InfoPanel = player_info.info_display.spawn_panel("Pause", PAUSE_INFO_CONTAINER, _parent_entity)
 	await info_panel.info_container.pause_completed
-	
+
+
+func _spawn_character_screen() -> void:
+	var player_info: PlayerInfo = PlayerComponent.get_player_info(_parent_entity)
+	var info_panel: InfoPanel = player_info.info_display.spawn_panel("Character Screen", CHARACTER_INFO_CONTAINER, _parent_entity)

@@ -1,7 +1,6 @@
 class_name Scheduler
 extends Node
 
-# var actors: Array[ActorComponent] = []
 var _num_players: int = 0
 var _num_player_turns: int = 0
 

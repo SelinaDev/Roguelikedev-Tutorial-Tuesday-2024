@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://brryb6yysrm21"]
+
+[ext_resource type="Script" path="res://src/GUI/InfoPanels/LevelUpPanel/level_up_info_container.gd" id="1_a4frl"]
+[ext_resource type="PackedScene" uid="uid://cl8inmqgr3urt" path="res://src/GUI/ButtonList/menu_list.tscn" id="2_aa0d7"]
+
+[node name="LevelUpInfoContainer" type="MarginContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_a4frl")
+
+[node name="MenuList" parent="." instance=ExtResource("2_aa0d7")]
+layout_mode = 2
