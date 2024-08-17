@@ -15,15 +15,18 @@ enum Mode {
 
 var mode: Mode = Mode.SELECT
 
-
 func _setup() -> void:
 	InputManager.obtain_input_handle(_device).received_input.connect(_on_event)
 	var inventory: InventoryComponent = _player.get_component(Component.Type.Inventory)
 	if inventory.items.is_empty():
 		_setup_empty_label()
 		return
+	var equipment: EquipmentComponent = _player.get_component(Component.Type.Equipment)
 	for item: Entity in inventory.items:
-		menu_list.add_button(item.name, item)
+		var item_name := item.name
+		if equipment.is_equipped(item):
+			item_name += " (equipped)"
+		menu_list.add_button(item_name, item)
 	menu_list.finish_menu()
 
 
@@ -52,7 +55,7 @@ func _on_event(event: InputEvent) -> void:
 				_submit_item(null)
 			Mode.LIST:
 				_submit_action(null)
-	elif event.is_action_pressed("move_up"):
+	if event.is_action_pressed("move_up"):
 		menu_list.select_previous()
 	elif event.is_action_pressed("move_down"):
 		menu_list.select_next()

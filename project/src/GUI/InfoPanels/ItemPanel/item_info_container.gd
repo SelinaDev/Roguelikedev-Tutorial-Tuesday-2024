@@ -22,6 +22,14 @@ func setup_item(item: Entity) -> void:
 			_on_use_button_pressed.bind(use_component.targeting)
 		)
 	
+	var equippable_component: EquippableComponent = item.get_component(Component.Type.Equippable)
+	var equipment_component: EquipmentComponent = _player.get_component(Component.Type.Equipment)
+	if equippable_component and equipment_component:
+		menu_list.add_button(
+			"Unequip" if equipment_component.is_equipped(item) else "Equip",
+			_submit_action.bind(EquipAction.new(_player, item))
+		)
+	
 	menu_list.add_button(
 		"Drop", 
 		_on_drop_button_pressed

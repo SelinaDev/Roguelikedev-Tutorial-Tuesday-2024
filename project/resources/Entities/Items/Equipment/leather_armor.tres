@@ -1,0 +1,46 @@
+[gd_resource type="Resource" script_class="Entity" load_steps=15 format=3 uid="uid://dus05sfffnhov"]
+
+[ext_resource type="Script" path="res://src/Entity/Component/component.gd" id="1_qejgw"]
+[ext_resource type="Script" path="res://src/Entity/entity.gd" id="2_frkhb"]
+[ext_resource type="Script" path="res://src/Entity/Component/DrawableComponent/DrawableEffects/drawable_effect.gd" id="2_ocs2m"]
+[ext_resource type="Script" path="res://src/Entity/entity_template.gd" id="3_dhvfh"]
+[ext_resource type="Script" path="res://src/Entity/Component/DrawableComponent/drawable_component.gd" id="3_wg6ci"]
+[ext_resource type="Texture2D" uid="uid://cl5u3naxm2fy" path="res://assets/urizen_onebit_tileset__v1d0.png" id="4_0rkbb"]
+[ext_resource type="Script" path="res://src/Entity/Component/Equppable/EquippableEffects/equippable_effect.gd" id="5_r3nni"]
+[ext_resource type="Script" path="res://src/Entity/Component/Equppable/EquippableEffects/defense_equippable_effect.gd" id="6_wr8jd"]
+[ext_resource type="Script" path="res://src/Entity/Component/Equppable/equippable_component.gd" id="7_yh5ye"]
+[ext_resource type="Resource" uid="uid://oqj7r5bb5j5d" path="res://resources/Entities/Items/Templates/item_template.tres" id="10_ka4tu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k8h4t"]
+atlas = ExtResource("4_0rkbb")
+region = Rect2(378, 391, 12, 12)
+
+[sub_resource type="Resource" id="Resource_6f0xl"]
+script = ExtResource("3_wg6ci")
+texture = SubResource("AtlasTexture_k8h4t")
+render_order = 2
+color = Color(1, 1, 1, 1)
+modulate = Color(1, 1, 1, 1)
+visible = true
+position = Vector2i(0, 0)
+drawable_effects = Array[ExtResource("2_ocs2m")]([])
+_active_drawable_effects = {}
+
+[sub_resource type="Resource" id="Resource_rkjdn"]
+script = ExtResource("6_wr8jd")
+defense_bonus = 1
+
+[sub_resource type="Resource" id="Resource_uqm5x"]
+script = ExtResource("7_yh5ye")
+effects = Array[ExtResource("5_r3nni")]([SubResource("Resource_rkjdn")])
+preferred_slot = 2
+required_slots = Array[int]([])
+possible_slots = Array[int]([2])
+
+[resource]
+script = ExtResource("2_frkhb")
+name = "Leather Armor"
+is_proper_name = false
+templates = Array[ExtResource("3_dhvfh")]([ExtResource("10_ka4tu")])
+initial_components = Array[ExtResource("1_qejgw")]([SubResource("Resource_6f0xl"), SubResource("Resource_uqm5x")])
+_components = {}

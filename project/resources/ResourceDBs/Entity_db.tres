@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ResourceDB" load_steps=13 format=3 uid="uid://c786ivrv1akyg"]
+[gd_resource type="Resource" script_class="ResourceDB" load_steps=17 format=3 uid="uid://c786ivrv1akyg"]
 
 [ext_resource type="Resource" uid="uid://bdaryf1h2fgfo" path="res://resources/Entities/Actors/goblin.tres" id="1_xbgdx"]
 [ext_resource type="Script" path="res://addons/resource_dbs/resource_db.gd" id="2_1cunx"]
@@ -12,12 +12,19 @@
 [ext_resource type="Resource" uid="uid://mk0fsop75a3g" path="res://resources/Entities/Environment/stairs_up.tres" id="6_txyad"]
 [ext_resource type="Resource" uid="uid://nbv1upmnd3i8" path="res://resources/Entities/Items/scroll_confusion.tres" id="6_xwhso"]
 [ext_resource type="Resource" uid="uid://dbtvrl1v78std" path="res://resources/Entities/Items/scroll_magic_missile.tres" id="7_llvtj"]
+[ext_resource type="Resource" uid="uid://7gynx150oksv" path="res://resources/Entities/Items/Equipment/chain_mail.tres" id="12_k3nqt"]
+[ext_resource type="Resource" uid="uid://cjy3swxhw7sne" path="res://resources/Entities/Items/Equipment/dagger.tres" id="13_g7des"]
+[ext_resource type="Resource" uid="uid://dus05sfffnhov" path="res://resources/Entities/Items/Equipment/leather_armor.tres" id="14_yp4u1"]
+[ext_resource type="Resource" uid="uid://cl1aag7suwndu" path="res://resources/Entities/Items/Equipment/sword.tres" id="15_ma8qq"]
 
 [resource]
 script = ExtResource("2_1cunx")
 entries = {
+"chain_mail": ExtResource("12_k3nqt"),
+"dagger": ExtResource("13_g7des"),
 "door": ExtResource("4_myg1p"),
 "goblin": ExtResource("1_xbgdx"),
+"leather_armor": ExtResource("14_yp4u1"),
 "orc": ExtResource("2_pdipy"),
 "player": ExtResource("3_s1q16"),
 "potion_health": ExtResource("5_ky6cc"),
@@ -26,5 +33,6 @@ entries = {
 "scroll_lightning": ExtResource("6_j5310"),
 "scroll_magic_missile": ExtResource("7_llvtj"),
 "stairs_down": ExtResource("5_jdpyr"),
-"stairs_up": ExtResource("6_txyad")
+"stairs_up": ExtResource("6_txyad"),
+"sword": ExtResource("15_ma8qq")
 }
