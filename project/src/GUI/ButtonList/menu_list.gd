@@ -32,12 +32,16 @@ func finish_menu() -> void:
 
 
 func select_next() -> void:
-	_selected_button = _selected_button.next_button
+	if _selected_button:
+		_selected_button = _selected_button.next_button
 
 
 func select_previous() -> void:
-	_selected_button = _selected_button.previous_button
+	if _selected_button:
+		_selected_button = _selected_button.previous_button
 
 
 func accept():
-	return _selected_button.binding
+	if _selected_button:
+		return _selected_button.binding
+	return null

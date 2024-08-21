@@ -1,11 +1,22 @@
-[gd_resource type="Resource" script_class="WorldConfig" load_steps=6 format=3 uid="uid://crh05juyhbrvy"]
+[gd_resource type="Resource" script_class="WorldConfig" load_steps=23 format=3 uid="uid://crh05juyhbrvy"]
 
 [ext_resource type="Script" path="res://src/Map/map_config.gd" id="1_nsr08"]
+[ext_resource type="Script" path="res://src/Map/MapGenerator/entity_weight.gd" id="2_dxp15"]
 [ext_resource type="Resource" uid="uid://c3pn25g7s1xse" path="res://resources/Tiles/Variations/dungeon_floor_variation.tres" id="2_klk6a"]
 [ext_resource type="Script" path="res://src/Map/World/WorldGenerator/world_config.gd" id="2_toqqe"]
 [ext_resource type="Resource" uid="uid://bueuip5l015ph" path="res://resources/Tiles/Variations/dungeon_wall_variation.tres" id="3_h53sn"]
 
-[sub_resource type="Resource" id="Resource_2jf63"]
+[sub_resource type="Resource" id="Resource_chfe4"]
+script = ExtResource("2_dxp15")
+entity_key = "goblin"
+weight = 1
+
+[sub_resource type="Resource" id="Resource_83wc1"]
+script = ExtResource("2_dxp15")
+entity_key = "potion_health"
+weight = 0
+
+[sub_resource type="Resource" id="Resource_wjgud"]
 script = ExtResource("1_nsr08")
 map_width = 100
 map_height = 100
@@ -17,7 +28,99 @@ floor_variation = ExtResource("2_klk6a")
 wall_variation = ExtResource("3_h53sn")
 map_type = 0
 room_pack = "dungeon"
+enemies = Array[ExtResource("2_dxp15")]([SubResource("Resource_chfe4")])
+items = Array[ExtResource("2_dxp15")]([SubResource("Resource_83wc1")])
+
+[sub_resource type="Resource" id="Resource_q324f"]
+script = ExtResource("2_dxp15")
+entity_key = "goblin"
+weight = 2
+
+[sub_resource type="Resource" id="Resource_hxd4m"]
+script = ExtResource("2_dxp15")
+entity_key = "orc"
+weight = 1
+
+[sub_resource type="Resource" id="Resource_iseu8"]
+script = ExtResource("2_dxp15")
+entity_key = "potion_health"
+weight = 3
+
+[sub_resource type="Resource" id="Resource_414k5"]
+script = ExtResource("2_dxp15")
+entity_key = "scroll_magic_missile"
+weight = 2
+
+[sub_resource type="Resource" id="Resource_x1xny"]
+script = ExtResource("2_dxp15")
+entity_key = "scroll_lightning"
+weight = 1
+
+[sub_resource type="Resource" id="Resource_51huw"]
+script = ExtResource("1_nsr08")
+map_width = 100
+map_height = 100
+max_rooms = 20
+max_tries = 1000
+max_enemies_per_room = 2
+max_items_per_room = 1
+floor_variation = ExtResource("2_klk6a")
+wall_variation = ExtResource("3_h53sn")
+map_type = 0
+room_pack = "dungeon"
+enemies = Array[ExtResource("2_dxp15")]([SubResource("Resource_q324f"), SubResource("Resource_hxd4m")])
+items = Array[ExtResource("2_dxp15")]([SubResource("Resource_iseu8"), SubResource("Resource_414k5"), SubResource("Resource_x1xny")])
+
+[sub_resource type="Resource" id="Resource_v3lom"]
+script = ExtResource("2_dxp15")
+entity_key = "goblin"
+weight = 1
+
+[sub_resource type="Resource" id="Resource_73sps"]
+script = ExtResource("2_dxp15")
+entity_key = "orc"
+weight = 1
+
+[sub_resource type="Resource" id="Resource_uirw0"]
+script = ExtResource("2_dxp15")
+entity_key = "potion_health"
+weight = 4
+
+[sub_resource type="Resource" id="Resource_qpwkf"]
+script = ExtResource("2_dxp15")
+entity_key = "scroll_confusion"
+weight = 1
+
+[sub_resource type="Resource" id="Resource_bp14e"]
+script = ExtResource("2_dxp15")
+entity_key = "scroll_fireball"
+weight = 1
+
+[sub_resource type="Resource" id="Resource_ppu4f"]
+script = ExtResource("2_dxp15")
+entity_key = "scroll_lightning"
+weight = 1
+
+[sub_resource type="Resource" id="Resource_mgvlm"]
+script = ExtResource("2_dxp15")
+entity_key = "scroll_magic_missile"
+weight = 1
+
+[sub_resource type="Resource" id="Resource_w850x"]
+script = ExtResource("1_nsr08")
+map_width = 100
+map_height = 100
+max_rooms = 20
+max_tries = 1000
+max_enemies_per_room = 2
+max_items_per_room = 1
+floor_variation = ExtResource("2_klk6a")
+wall_variation = ExtResource("3_h53sn")
+map_type = 0
+room_pack = "dungeon"
+enemies = Array[ExtResource("2_dxp15")]([SubResource("Resource_v3lom"), SubResource("Resource_73sps")])
+items = Array[ExtResource("2_dxp15")]([SubResource("Resource_uirw0"), SubResource("Resource_qpwkf"), SubResource("Resource_bp14e"), SubResource("Resource_ppu4f"), SubResource("Resource_mgvlm")])
 
 [resource]
 script = ExtResource("2_toqqe")
-map_configs = Array[ExtResource("1_nsr08")]([SubResource("Resource_2jf63"), SubResource("Resource_2jf63"), SubResource("Resource_2jf63")])
+map_configs = Array[ExtResource("1_nsr08")]([SubResource("Resource_wjgud"), SubResource("Resource_51huw"), SubResource("Resource_w850x")])

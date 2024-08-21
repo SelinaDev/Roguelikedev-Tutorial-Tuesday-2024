@@ -9,6 +9,8 @@ enum Type {
 	Door,
 	Drawable,
 	Durability,
+	Equipment,
+	Equippable,
 	Faction,
 	Fov,
 	Inventory,
